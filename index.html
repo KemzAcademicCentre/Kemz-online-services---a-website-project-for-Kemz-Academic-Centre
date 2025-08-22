@@ -445,6 +445,47 @@
             margin-bottom: 30px;
         }
         
+        /* Resource download styles */
+        .resource-download {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background: #f0f8ff;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        
+        .resource-info {
+            flex: 1;
+        }
+        
+        .download-btn {
+            background: #1a5276;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+        
+        .download-btn:hover {
+            background: #2874a6;
+        }
+        
+        /* Video player styles */
+        .video-container {
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .video-player {
+            width: 100%;
+            max-width: 600px;
+            height: auto;
+            border-radius: 8px;
+        }
+        
         /* Responsive styles */
         @media (max-width: 768px) {
             .vertical-nav {
@@ -690,7 +731,7 @@
                     
                     <p><strong>Lusaka Campus - School Manager's Office:</strong></p>
                     <ul class="service-list">
-                        <li><i class="fas fa-phone"></i> Phone: +260 977819249</li>
+                        <li><i class="fas fa-phone"></i> Phone: +260 977819229</li>
                     </ul>
                     
                     <p><strong>Mumbwa Campus - School Manager's Office:</strong></p>
@@ -978,9 +1019,15 @@
                     <div style="height: 160px; background: #e9f7fe; border-radius: 8px; margin-bottom: 15px; display: flex; align-items: center; justify-content: center;">
                         <i class="fas fa-users" style="font-size: 3rem; color: #2874a6;"></i>
                     </div>
-                    <h3>Parent-Teacher Meeting</h3>
-                    <p><small><strong>Upcoming</strong></small></p>
-                    <p>You will be notified in due course when the next PTA meeting will be held.</p>
+                    <h3>Past Events Highlights</h3>
+                    <p><small><strong>Recreation Tour: August 6, 2025</strong></small></p>
+                    <p>Learners enjoying a toy car ride during the the past recreation tour held at Cheryl's Play Park on 6th August, 2025</p>
+                    <div class="video-container">
+                        <video class="video-player" controls>
+                            <source src="Car_ride.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
                 </div>
                 
                 <div class="card">
@@ -1006,7 +1053,7 @@
         <!-- Online Registration Page -->
         <div id="registration" class="page-content" style="display:none;">
             <h1 class="section-title">Online Registration</h1>
-            <p>Register as a new larner for the  current or upcoming academic year through our online portal:</p>
+            <p>This service is currently not available. You will be notified in due course once the portal is ready:</p>
             
             <div class="content-grid">
                 <div class="card" style="grid-column: 1 / -1;">
@@ -1095,7 +1142,7 @@
         <!-- Online Results Page -->
         <div id="results" class="page-content" style="display:none;">
             <h1 class="section-title">Online Results Portal</h1>
-            <p>Take note that this service is currently unavailable:</p>
+            <p>Kindly take note that this service is currently unavailable. You will be notified soon once the portal is open:</p>
             
             <div class="content-grid">
                 <div class="card">
@@ -1168,12 +1215,58 @@
                 <div class="card">
                     <h3><i class="fas fa-book"></i> Learning Materials</h3>
                     <p>Access subject-specific learning materials and resources.</p>
-                    <ul class="service-list">
-                        <li><i class="fas fa-download"></i> <a href="#" style="text-decoration: none; color: #333;">Download Notes - Mathematics Grade 5</a></li>
-                        <li><i class="fas fa-download"></i> <a href="#" style="text-decoration: none; color: #333;">Download Notes - English Grade 6</a></li>
-                        <li><i class="fas fa-file-pdf"></i> <a href="#" style="text-decoration: none; color: #333;">Worksheets - Science Form 1</a></li>
-                        <li><i class="fas fa-book-open"></i> <a href="#" style="text-decoration: none; color: #333;">Reading Materials - Literature</a></li>
-                    </ul>
+                    
+                    <div class="resource-download">
+                        <div class="resource-info">
+                            <strong>Commerce Test</strong>
+                            <p>Word document for Grade 10 Commerce</p>
+                        </div>
+                        <a href="Commerce_test.docx" download class="download-btn">
+                            <i class="fas fa-download"></i> Download
+                        </a>
+                    </div>
+                    
+                    <div class="resource-download">
+                        <div class="resource-info">
+                            <strong>Computer Course</strong>
+                            <p>PDF document for Computer Studies</p>
+                        </div>
+                        <a href="Computer_course.pdf" download class="download-btn">
+                            <i class="fas fa-download"></i> Download
+                        </a>
+                    </div>
+                    
+                    <div class="resource-download">
+                        <div class="resource-info">
+                            <strong>Mathematics Video Lesson</strong>
+                            <p>Video tutorial for Grade 8 Mathematics</p>
+                        </div>
+                        <div class="video-container">
+                            <video class="video-player" controls>
+                                <source src="Math.mp4" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>
+                        <a href="Math.mp4" download class="download-btn" style="margin-top: 10px;">
+                            <i class="fas fa-download"></i> Download Video
+                        </a>
+                    </div>
+                    
+                    <div class="resource-download">
+                        <div class="resource-info">
+                            <strong>Pencil Tail Art Lesson</strong>
+                            <p>Video tutorial for Art class</p>
+                        </div>
+                        <div class="video-container">
+                            <video class="video-player" controls>
+                                <source src="Pencil_tail.mp4" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>
+                        <a href="Pencil_tail.mp4" download class="download-btn" style="margin-top: 10px;">
+                            <i class="fas fa-download"></i> Download Video
+                        </a>
+                    </div>
                 </div>
                 
                 <div class="card">
@@ -1263,6 +1356,182 @@
                                 <div class="quiz-option">
                                     <input type="radio" id="q2d" name="q2" value="d">
                                     <label for="q2d">20</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="quiz-question">
+                            <p>3. Which of these is a prime number?</p>
+                            <div class="quiz-options">
+                                <div class="quiz-option">
+                                    <input type="radio" id="q3a" name="q3" value="a">
+                                    <label for="q3a">15</label>
+                                </div>
+                                <div class="quiz-option">
+                                    <input type="radio" id="q3b" name="q3" value="b">
+                                    <label for="q3b">21</label>
+                                </div>
+                                <div class="quiz-option">
+                                    <input type="radio" id="q3c" name="q3" value="c">
+                                    <label for="q3c">29</label>
+                                </div>
+                                <div class="quiz-option">
+                                    <input type="radio" id="q3d" name="q3" value="d">
+                                    <label for="q3d">33</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="quiz-question">
+                            <p>4. What is the value of π (pi) to two decimal places?</p>
+                            <div class="quiz-options">
+                                <div class="quiz-option">
+                                    <input type="radio" id="q4a" name="q4" value="a">
+                                    <label for="q4a">3.12</label>
+                                </div>
+                                <div class="quiz-option">
+                                    <input type="radio" id="q4b" name="q4" value="b">
+                                    <label for="q4b">3.14</label>
+                                </div>
+                                <div class="quiz-option">
+                                    <input type="radio" id="q4c" name="q4" value="c">
+                                    <label for="q4c">3.16</label>
+                                </div>
+                                <div class="quiz-option">
+                                    <input type="radio" id="q4d" name="q4" value="d">
+                                    <label for="q4d">3.18</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="quiz-question">
+                            <p>5. Solve for x: 2x + 5 = 15</p>
+                            <div class="quiz-options">
+                                <div class="quiz-option">
+                                    <input type="radio" id="q5a" name="q5" value="a">
+                                    <label for="q5a">5</label>
+                                </div>
+                                <div class="quiz-option">
+                                    <input type="radio" id="q5b" name="q5" value="b">
+                                    <label for="q5b">6</label>
+                                </div>
+                                <div class="quiz-option">
+                                    <input type="radio" id="q5c" name="q5" value="c">
+                                    <label for="q5c">7</label>
+                                </div>
+                                <div class="quiz-option">
+                                    <input type="radio" id="q5d" name="q5" value="d">
+                                    <label for="q5d">8</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="quiz-question">
+                            <p>6. What is the area of a rectangle with length 8cm and width 5cm?</p>
+                            <div class="quiz-options">
+                                <div class="quiz-option">
+                                    <input type="radio" id="q6a" name="q6" value="a">
+                                    <label for="q6a">13 cm²</label>
+                                </div>
+                                <div class="quiz-option">
+                                    <input type="radio" id="q6b" name="q6" value="b">
+                                    <label for="q6b">26 cm²</label>
+                                </div>
+                                <div class="quiz-option">
+                                    <input type="radio" id="q6c" name="q6" value="c">
+                                    <label for="q6c">40 cm²</label>
+                                </div>
+                                <div class="quiz-option">
+                                    <input type="radio" id="q6d" name="q6" value="d">
+                                    <label for="q6d">45 cm²</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="quiz-question">
+                            <p>7. Which fraction is equivalent to 0.75?</p>
+                            <div class="quiz-options">
+                                <div class="quiz-option">
+                                    <input type="radio" id="q7a" name="q7" value="a">
+                                    <label for="q7a">1/4</label>
+                                </div>
+                                <div class="quiz-option">
+                                    <input type="radio" id="q7b" name="q7" value="b">
+                                    <label for="q7b">2/3</label>
+                                </div>
+                                <div class="quiz-option">
+                                    <input type="radio" id="q7c" name="q7" value="c">
+                                    <label for="q7c">3/4</label>
+                                </div>
+                                <div class="quiz-option">
+                                    <input type="radio" id="q7d" name="q7" value="d">
+                                    <label for="q7d">4/5</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="quiz-question">
+                            <p>8. What is the next number in the sequence: 2, 4, 8, 16, ___?</p>
+                            <div class="quiz-options">
+                                <div class="quiz-option">
+                                    <input type="radio" id="q8a" name="q8" value="a">
+                                    <label for="q8a">24</label>
+                                </div>
+                                <div class="quiz-option">
+                                    <input type="radio" id="q8b" name="q8" value="b">
+                                    <label for="q8b">28</label>
+                                </div>
+                                <div class="quiz-option">
+                                    <input type="radio" id="q8c" name="q8" value="c">
+                                    <label for="q8c">32</label>
+                                </div>
+                                <div class="quiz-option">
+                                    <input type="radio" id="q8d" name="q8" value="d">
+                                    <label for="q8d">36</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="quiz-question">
+                            <p>9. If a train travels at 60 km/h, how far will it travel in 2.5 hours?</p>
+                            <div class="quiz-options">
+                                <div class="quiz-option">
+                                    <input type="radio" id="q9a" name="q9" value="a">
+                                    <label for="q9a">120 km</label>
+                                </div>
+                                <div class="quiz-option">
+                                    <input type="radio" id="q9b" name="q9" value="b">
+                                    <label for="q9b">125 km</label>
+                                </div>
+                                <div class="quiz-option">
+                                    <input type="radio" id="q9c" name="q9" value="c">
+                                    <label for="q9c">150 km</label>
+                                </div>
+                                <div class="quiz-option">
+                                    <input type="radio" id="q9d" name="q9" value="d">
+                                    <label for="q9d">180 km</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="quiz-question">
+                            <p>10. What is the square root of 144?</p>
+                            <div class="quiz-options">
+                                <div class="quiz-option">
+                                    <input type="radio" id="q10a" name="q10" value="a">
+                                    <label for="q10a">12</label>
+                                </div>
+                                <div class="quiz-option">
+                                    <input type="radio" id="q10b" name="q10" value="b">
+                                    <label for="q10b">14</label>
+                                </div>
+                                <div class="quiz-option">
+                                    <input type="radio" id="q10c" name="q10" value="c">
+                                    <label for="q10c">16</label>
+                                </div>
+                                <div class="quiz-option">
+                                    <input type="radio" id="q10d" name="q10" value="d">
+                                    <label for="q10d">18</label>
                                 </div>
                             </div>
                         </div>
