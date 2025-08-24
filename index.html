@@ -486,6 +486,17 @@
             border-radius: 8px;
         }
         
+        /* Google Form Container */
+        .google-form-container {
+            width: 100%;
+            height: 1500px; /* Adjust based on your form length */
+            overflow: hidden;
+            border: none;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
         /* Responsive styles */
         @media (max-width: 768px) {
             .vertical-nav {
@@ -534,6 +545,10 @@
             .footer-nav-btn {
                 font-size: 0.9rem;
                 padding: 6px 12px;
+            }
+            
+            .google-form-container {
+                height: 2000px; /* Longer for mobile */
             }
         }
         
@@ -1053,79 +1068,21 @@
         <!-- Online Registration Page -->
         <div id="registration" class="page-content" style="display:none;">
             <h1 class="section-title">Online Registration</h1>
-            <p>This service is currently not available. You will be notified in due course once the portal is ready.</p>
+            <p>Register as a new learner for the current or upcoming academic year through our online portal:</p>
             
             <div class="content-grid">
                 <div class="card" style="grid-column: 1 / -1;">
-                    <form id="registration-form">
-                        <div class="form-group">
-                            <label for="student-name">Student Full Name</label>
-                            <input type="text" id="student-name" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="dob">Date of Birth</label>
-                            <input type="date" id="dob" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="sex">Sex</label>
-                            <select id="sex" required>
-                                <option value="">Select Sex</option>
-                                <option value="Male">Male</option>
-                                <option value="Female">Female</option>
-                            </select>
-                        </div>             
-                        
-                        <div class="form-group">
-                            <label for="grade">Grade/Class Applying For</label>
-                            <select id="grade" required>
-                                <option value="">Select Grade/Class</option>
-                                <option value="baby">Baby Class</option>
-                                <option value="middle">Middle Class</option>
-                                <option value="reception">Reception Class</option>
-                                <option value="grade1">Grade 1</option>
-                                <option value="grade2">Grade 2</option>
-                                <option value="grade3">Grade 3</option>
-                                <option value="grade4">Grade 4</option>
-                                <option value="grade5">Grade 5</option>
-                                <option value="grade6">Grade 6</option> 
-                                <option value="grade7">Grade 7 (phasing out soon)</option>
-                                <option value="form1">Form 1</option>
-                                <option value="form2">Form 2</option>
-                                <option value="form3">Form 3</option>
-                                <option value="form4">Form 4</option>
-                                <option value="ComputerShortCourse">Computer Short Course</option>
-                            </select>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="previous-school">Previous School (if any)</label>
-                            <input type="text" id="previous-school">
-                        </div>
-     
-                        <div class="form-group">
-                            <label for="parent-name">Parent/Guardian Name</label>
-                            <input type="text" id="parent-name" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="parent-phone">Parent/Guardian Phone</label>
-                            <input type="tel" id="parent-phone" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="address">Residential Address</label>
-                            <textarea id="address" rows="3" required></textarea>
-                        </div>
-   
-                        <div class="form-group">
-                            <label for="parent-email">Parent/Guardian Email</label>
-                            <input type="email" id="parent-email">
-                        </div>
-                        
-                        <button type="submit" class="btn-submit">Submit Registration</button>
-                    </form>
+                    <h3><i class="fas fa-file-signature"></i> Student Registration Form</h3>
+                    <p>Please fill out the form below to register. All fields marked with an asterisk (*) are required.</p>
+                    
+                    <!-- Google Form Embed -->
+                    <div class="google-form-container">
+                 <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSf9R1nJvPvlM5h7tqy7sFafo3feVYW18vEzCsAB2ysqo6srug/viewform?embedded=true" width="700" height="520" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+                    </div>
+                    
+                    <p style="margin-top: 20px; text-align: center;">
+                        Having trouble with the form? <a href="mailto:kemzacademiccentre@gmail.com">Contact us directly</a>.
+                    </p>
                 </div>
             </div>
             
@@ -1141,7 +1098,8 @@
         
         <!-- Online Results Page -->
         <div id="results" class="page-content" style="display:none;">
-            <h1 class="section-title">Online Results Portal</h1><p>This service is currently unavailable. You will be notified in due course once the portal is opened.</p>
+            <h1 class="section-title">Online Results Portal</h1>
+            <p>Kindly take note that this service is currently unavailable. You will be notified in due course once the portal has been opene.</p>
             
             <div class="content-grid">
                 <div class="card">
@@ -1293,7 +1251,7 @@
                     <p>Participate in academic discussions with peers and teachers.</p>
                     <ul class="service-list">
                         <li><i class="fas fa-comment-dots"></i> <a href="#" style="text-decoration: none; color: #333;">Ask Questions</a></li>
-                        <li><i class="fas fa-users"></i> <a href="#" style="text-decoration: none; color: #333;">Group Discussions</a></li>
+                        <li><i class="fas fa-users"></i> <a href="#" style="text-decoration: none; color: #333;">Group Discussions</b</a></li>
                         <li><i class="fas fa-question-circle"></i> <a href="#" style="text-decoration: none; color: #333;">Q&A Forum</a></li>
                     </ul>
                 </div>
@@ -1581,54 +1539,21 @@
             <div class="content-grid">
                 <div class="card">
                     <h3><i class="fas fa-question-circle"></i> Submit a Query</h3>
-                    <p>Have a question? Send us your query and we'll get back to you as soon as possible.</p>
+                    <p>Have a question? Use the form below to send us your query and we'll get back to you as soon as possible.</p>
                     
-                    <div class="help-form">
-                        <div class="form-group">
-                            <label for="query-name">Your Name</label>
-                            <input type="text" id="query-name" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="query-email">Your Email</label>
-                            <input type="email" id="query-email" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="query-phone">Your Phone Number</label>
-                            <input type="tel" id="query-phone">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="query-subject">Subject</label>
-                            <input type="text" id="query-subject" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="query-message">Your Message</label>
-                            <textarea id="query-message" rows="5" required></textarea>
-                        </div>
-                        
-                        <button type="submit" class="btn-submit">Submit Query</button>
+                    <!-- Google Form Embed for Queries -->
+                    <div class="google-form-container">
+                        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdq7fu5E_yyTbh23ZcOK-r_oOfG604LNoCsJdx8OrgZBD0beg/viewform?embedded=true" width="640" height="959" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
                     </div>
                 </div>
                 
                 <div class="card">
                     <h3><i class="fas fa-lightbulb"></i> Suggestions Box</h3>
-                    <p>We welcome your suggestions to help us improve our services:</p>
+                    <p>We welcome your suggestions to help us improve our services. Please use the form below:</p>
                     
-                    <div class="help-form">
-                        <div class="form-group">
-                            <label for="suggestion-name">Your Name (Optional)</label>
-                            <input type="text" id="suggestion-name">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="suggestion-message">Your Suggestion</label>
-                            <textarea id="suggestion-message" rows="5" required></textarea>
-                        </div>
-                        
-                        <button type="submit" class="btn-submit">Submit Suggestion</button>
+                    <!-- Google Form Embed for Suggestions -->
+                    <div class="google-form-container">
+                        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdFhEZlIVhKNBKn8h2erZZm_DuMA6TgilgpxhYH1VnrSVx9ow/viewform?embedded=true" width="640" height="554" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
                     </div>
                 </div>
                 
@@ -1769,36 +1694,6 @@
             
             // Initialize buttons for home page
             updateNavButtons('home');
-            
-            // Form submission
-            const registrationForm = document.getElementById('registration-form');
-            if(registrationForm) {
-                registrationForm.addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    alert('Registration submitted successfully! We will contact you soon.');
-                    this.reset();
-                });
-            }
-            
-            // Help form submission
-            const helpForm = document.querySelector('.help-form');
-            if(helpForm) {
-                helpForm.addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    alert('Your query has been submitted. We will get back to you soon.');
-                    this.reset();
-                });
-            }
-            
-            // Suggestion form submission
-            const suggestionForm = document.querySelectorAll('.help-form')[1];
-            if(suggestionForm) {
-                suggestionForm.addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    alert('Thank you for your suggestion!');
-                    this.reset();
-                });
-            }
         });
     </script>
 </body>
