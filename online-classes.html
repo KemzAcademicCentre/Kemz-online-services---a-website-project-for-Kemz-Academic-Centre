@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Classes - KEMZ ACADEMIC CENTRE</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Additional styles specific to online classes */
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: #2874a6;
+            box-shadow: 0 0 0 3px rgba(40, 116, 166, 0.2);
+        }
+        
+        .btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #1a5276, #2874a6);
+            color: white;
+            padding: 14px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            box-shadow: 0 4px 15px rgba(26, 82, 118, 0.3);
+            text-align: center;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(26, 82, 118, 0.4);
+        }
+        
+        .btn i {
+            margin-right: 8px;
+        }
+        
+        .instructions {
+            background: #e9f7fe;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 25px 0;
+            border-left: 5px solid #2874a6;
+        }
+        
+        .instructions h3 {
+            color: #1a5276;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .instructions ol {
+            margin-left: 20px;
+        }
+        
+        .instructions li {
+            margin-bottom: 12px;
+            line-height: 1.6;
+        }
+        
+        .class-schedule {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        .class-schedule th, .class-schedule td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .class-schedule th {
+            background-color: #1a5276;
+            color: white;
+        }
+        
+        .class-schedule tr:hover {
+            background-color: #f5f5f5;
+        }
+        
+        .zoom-integration {
+            background: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .meeting-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .teacher-login {
+            background: linear-gradient(135deg, #1a5276, #2874a6);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 25px 0;
+        }
+        
+        .teacher-login h3 {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .highlight {
+            background: linear-gradient(120deg, #f6d365 0%, #fda085 100%);
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+        
+        @media (max-width: 768px) {
+            .class-schedule {
+                font-size: 0.9rem;
+            }
+            
+            .class-schedule th, 
+            .class-schedule td {
+                padding: 8px 10px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .class-schedule {
+                font-size: 0.8rem;
+            }
+            
+            .btn {
+                padding: 12px 20px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Fixed Top Navigation Bar -->
+    <div class="top-nav">
+        <div class="menu-toggle" id="menuToggle">
+            <i class="fas fa-bars"></i>
+        </div>
+        <div class="nav-marquee">
+            <marquee behavior="scroll" direction="left"><h1>KEMZ ONLINE SERVICES</h1></marquee>
+        </div>
+        <div class="nav-logo">
+            <img src="Kemz_logo.png" alt="Kemz Logo">
+        </div>
+    </div>
+    
+    <!-- Sliding Navigation Panel -->
+    <div class="nav-panel" id="navPanel">
+        <a href="index.html" class="nav-link">
+            <i class="fas fa-home"></i> Home
+        </a>
+        <a href="about.html" class="nav-link">
+            <i class="fas fa-info-circle"></i> About Us
+        </a>
+        <a href="location.html" class="nav-link">
+            <i class="fas fa-map-marker-alt"></i> Location & Contacts
+        </a>
+        <a href="services.html" class="nav-link">
+            <i class="fas fa-concierge-bell"></i> Services Offered
+        </a>
+        <a href="staff.html" class="nav-link">
+            <i class="fas fa-users"></i> Staff Members
+        </a>
+        <a href="updates.html" class="nav-link">
+            <i class="fas fa-bullhorn"></i> Latest Updates
+        </a>
+        <a href="registration.html" class="nav-link">
+            <i class="fas fa-file-signature"></i> Online Registration
+        </a>
+        <a href="results-portal.html">
+            <i class="fas fa-poll"></i> Online Results
+        </a>
+        <a href="elearning.html" class="nav-link">
+            <i class="fas fa-laptop-code"></i> E-Learning Materials
+        </a>
+        <a href="online-classes.html">
+            <i class="fas fa-video"></i> Online Classes
+        </a>
+        <a href="help.html" class="nav-link">
+            <i class="fas fa-question-circle"></i> Help
+        </a>
+    </div>
+    
+    <!-- Header Section with Logo -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo-container">
+                    <img src="Kemz_logo.png" alt="KEMZ Academic Centre Logo" class="logo-img"> 
+                </div>
+                <div class="tagline">
+                    <h1>KEMZ ACADEMIC CENTRE</h1>
+                </div>
+                <div class="tagline">Hard Work Brings Success!</div>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Main Content Container -->
+    <div class="container">
+        <div class="page-content">
+            <h1 class="section-title">ONLINE CLASSES</h1>
+            <p>Welcome to our online classes portal. Here you can join live classes, access schedules, and connect with teachers.</p>
+         
+            <div class="instructions">
+                <h3><i class="fas fa-info-circle"></i> How Online Classes Work</h3>
+                <p>Our online classes are powered by Zoom, a reliable video conferencing platform. Here's how it works:</p>
+                <ol>
+                    <li>Teachers schedule classes and receive unique meeting links</li>
+                    <li>Students join using the meeting ID or direct extreme-link</li>
+                    <li>No special software needed - works in web browsers</li>
+                    <li>Interactive features: screen sharing, virtual whiteboard, chat</li>
+                    <li>Recordings available for students who miss live sessions</li>
+                </ol>
+            </div>
+            
+            <h2 class="section-title">Join a Live Class</h2>
+            
+            <div class="zoom-integration">
+                <div class extreme-="meeting-container">
+                    <div class="form-group">
+                        <label for="meeting-id">Meeting ID</label>
+                        <input type="text" id="meeting-id" placeholder="Enter meeting ID provided by your teacher">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="student-name">Your Name</label>
+                        <input type="text" id="student-name" placeholder="Enter your full name">
+                    </div>
+                    
+                    <button class="btn" id="join-meeting">
+                        <i class="fas fa-video"></i> Join Class
+                    </button>
+                </div>
+            </div>
+            
+            <h2 class="section-title">Class Schedule</h2>
+            
+            <table class="class-schedule">
+                <thead>
+                    <tr>
+                        <th>Subject</th>
+                        <th>Teacher</th>
+                        <th>Date & Time</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Mathematics (Form 1)</td>
+                        <td>Mr. Nkonta</td>
+                        <td>Mon, Wed - 15:00 PM</td>
+                        <td><a href="#" class="btn" style="padding: 8px 15px; font-size: 0.9rem;">Join</a></td>
+                    </tr>
+                    <tr>
+                        <td>English (Form 1)</td>
+                        <td extreme->Mr. Tembo</td>
+                        <td>Tue, Thu - 15:00 PM</td>
+                        <td><a href="#" class="btn" style="padding: 8px 15px; font-size: 0.9rem;">Join</a></td>
+                    </tr>
+                    <tr>
+                        <td>Civics / Biology (Form 1)</td>
+                        <td>Mr. Sikazwe</td>
+                        <td>Mon, Wed - 16:00 AM</td>
+                        <td><a href="#" class="btn" style="padding: 8px 15px; extreme-font-size: 0.9rem;">Join</a></td>
+                    extreme-</tr>
+                    <tr>
+                        <td>ICT (Form 1)</td>
+                        <td>Mr Siabwizu</td>
+                        <td>Tue - 16:00 PM</td>
+                        <td><a href="#" class="btn" style="padding: 8px 15px; font-size: 0.9rem;">Join</a></td>
+                    </tr>
+                    <tr>               
+                        <td>Chemistry / Commerce (Form 1)</td>
+                        <td>Mr Mayungo</td>
+                        <td>Thu - 16:00 PM / Fri - 15:00 PM</td>
+                        <td><a href="https://zoom.us/j/2966301965" class="btn" style="padding: 8px 15px; font-size: 0.9rem;">Join</a></td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="instructions">
+                <h3><i class="fas fa-lightbulb"></i> Tips for Successful Online Classes</h3>
+                <ol>
+                    <li>Test your audio and video before joining</li>
+                    <li>Use a stable internet connection</li>
+                    <li>Join from a quiet, well-lit environment</li>
+                    <li>Mute your microphone when not speaking</li>
+                    <li>Use headphones for better audio quality</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Fixed Footer -->
+    <div class="fixed-footer">
+        <div class="footer-copyright">
+            © 2025 KEMZ ACADEMIC CENTRE | Powered By Kemz Online Services
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Join meeting functionality
+            const joinButton = document.getElementById('join-meeting');
+            
+            joinButton.addEventListener('click', function() {
+                const meetingId = document.getElementById('meeting-id').value;
+                const studentName = document.getElementById('student-name').value;
+                
+                if (!meetingId) {
+                    alert('Please enter a meeting ID');
+                    return;
+                }
+                
+                if (!studentName) {
+                    alert('Please enter your name');
+                    return;
+                }
+                
+                // Redirect to Zoom meeting
+                window.location.href = `https://zoom.us/j/${meetingId}`;
+            });
+            
+            // Schedule table buttons
+            const scheduleButtons = document.querySelectorAll('.class-schedule .btn');
+            
+            scheduleButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const subject = this.parentElement.parentElement.querySelector('td:first-child').textContent;
+                    
+                    // For Mr. Mayungo's class, use the specific link
+                    if (subject.includes('Chemistry / Commerce')) {
+                        window.location.href = 'https://zoom.us/j/2966301965';
+                    } else {
+                        alert(`Please get the Zoom link for ${subject} from your teacher`);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
