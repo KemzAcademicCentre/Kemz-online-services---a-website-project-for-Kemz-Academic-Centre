@@ -6,6 +6,65 @@
     <title>Staff Members - KEMZ ACADEMIC CENTRE</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* Additional styles for staff page grid layout */
+        .staff-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .staff-profile {
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            text-align: center;
+            padding: 20px;
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .staff-profile:hover {
+            transform: scale(1.03);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.15);
+        }
+
+        .staff-photo {
+            width: 100%;
+            height: 280px;
+            border-radius: 15px;
+            object-fit: cover;
+            margin-bottom: 15px;
+            /* REMOVED THE BLUE BORDER FROM HERE */
+        }
+
+        .staff-name {
+            font-size: 1.5rem;
+            color: #1a5276;
+            margin: 10px 0 5px;
+        }
+
+        .staff-position {
+            font-size: 1.1rem;
+            color: #2874a6;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .staff-profile p {
+            margin: 3px 0;
+            color: #555;
+            font-size: 0.95rem;
+        }
+
+        /* Content grid adjustment for staff page */
+        .staff-page .content-grid {
+            grid-template-columns: 1fr;
+        }
+    </style>
 </head>
 <body>
     <!-- Fixed Top Navigation Bar -->
@@ -74,13 +133,13 @@
     </header>
     
     <!-- Main Content Container -->
-    <div class="container">
+    <div class="container staff-page">
         <!-- Staff Members Page -->
         <div class="page-content">
             <h1 class="section-title">Our Staff Members</h1>
             <p>Meet our dedicated team of educators, managers and administrators:</p>
             
-            <div class="content-grid">
+            <div class="staff-container">
                 <div class="staff-profile">
                     <img src="Kennedy.jpg" alt="School Manager" class="staff-photo">
                     <h3 class="staff-name">Mayungo Kennedy</h3>
@@ -113,8 +172,9 @@
                     <h3 class="staff-name">Bushe Siphiwe</h3>
                     <p class="staff-position">School Secretary</p>
                     <p>Dip Education, 13 years experience</p>
-                </div> 
-                                <div class="staff-profile">
+                </div>
+                
+                <div class="staff-profile">
                     <img src="Sarah.jpg" alt="Head of Primary" class="staff-photo">
                     <h3 class="staff-name">Banda Sarah</h3>
                     <p class="staff-position">School Cashier</p>
@@ -122,31 +182,34 @@
                 </div>
                 
                 <div class="staff-profile">
-                    <img src="Felix.jpg" extreme-alt="Head of Primary" class="staff-photo">
+                    <img src="Felix.jpg" alt="Head of Primary" class="staff-photo">
                     <h3 class="staff-name">Nkonta Felix</h3>
                     <p class="staff-position">Class Teacher</p>
                     <p>BA Economics, 5 years experience</p>
                 </div>
-                                <div class="staff-profile">
+                
+                <div class="staff-profile">
                     <img src="Mercy.jpg" alt="Head of Primary" class="staff-photo">
                     <h3 class="staff-name">Malambo Mercy</h3>
                     <p class="staff-position">Class Teacher</p>
                     <p>Dip Education, 5 years experience</p>
                 </div>
                 
-                 <div class="staff-profile">
+                <div class="staff-profile">
                     <img src="Faith.jpg" alt="Head of Primary" class="staff-photo">
                     <h3 class="staff-name">Tembo Faith</h3>
                     <p class="staff-position">Class Teacher</p>
                     <p>Dip Education, 5 years experience</p>
-                </div> 
-                                <div class="staff-profile">
+                </div>
+                
+                <div class="staff-profile">
                     <img src="Syazuza.jpg" alt="Head of Primary" class="staff-photo">
-                    <h3 class="staff-name">Syzuza Phelia</h3>
+                    <h3 class="staff-name">Syazuza Phelia</h3>
                     <p class="staff-position">Class Teacher</p>
                     <p>BA Education, 5 years experience</p>
                 </div>
-                                <div class="staff-profile">
+                
+                <div class="staff-profile">
                     <img src="Kabaya.jpg" alt="Head of Primary" class="staff-photo">
                     <h3 class="staff-name">Kabaya Jane</h3>
                     <p class="staff-position">Class Teacher</p>
@@ -159,22 +222,22 @@
                     <p class="staff-position">Class Teacher</p>
                     <p>Dip Education, 5 years experience</p>
                 </div>
-               
+                
                 <div class="staff-profile">
                     <img src="Katele.jpg" alt="Head of Primary" class="staff-photo">
                     <h3 class="staff-name">Katele Sansina</h3>
-                    <p class="staff-position extreme-">Class Teacher</p>
+                    <p class="staff-position">Class Teacher</p>
                     <p>Dip Education, 7 years experience</p>
                 </div>
                 
-              <div class="staff-profile">
+                <div class="staff-profile">
                     <img src="Esther.jpg" alt="Head of Primary" class="staff-photo">
                     <h3 class="staff-name">Phiri Esther</h3>
                     <p class="staff-position">Class Teacher</p>
                     <p>Bsc Education, 6 years experience</p>
                 </div>
                 
-              <div class="staff-profile">
+                <div class="staff-profile">
                     <img src="Habeenzu.jpg" alt="Head of Primary" class="staff-photo">
                     <h3 class="staff-name">Habeezu Namoonga</h3>
                     <p class="staff-position">Class Teacher</p>
@@ -182,19 +245,20 @@
                 </div>
                 
                 <div class="staff-profile">
-                  <img src="Nivas.jpg" alt="Head of Primary" class="staff-photo">
-                  <h3 class="staff-name">Sikazwe Nivas</h3>
-                  <p class="staff-position">Class Teacher</p>
-                  <p>Dip Education, 5 years experience</p>
+                    <img src="Nivas.jpg" alt="Head of Primary" class="staff-photo">
+                    <h3 class="staff-name">Sikazwe Nivas</h3>
+                    <p class="staff-position">Class Teacher</p>
+                    <p>Dip Education, 5 years experience</p>
                 </div>
-              
+                
                 <div class="staff-profile">
-                  <img src="Taza.jpg" alt="Head of Primary" class="staff-photo">
-                  <h3 class="staff-name">Lungu Taza</h3>
-                  <p class="staff-position">Class Teacher</p>
-                  <p>Dip Education, 13 years experience</p>
+                    <img src="Taza.jpg" alt="Head of Primary" class="staff-photo">
+                    <h3 class="staff-name">Lungu Taza</h3>
+                    <p class="staff-position">Class Teacher</p>
+                    <p>Dip Education, 13 years experience</p>
                 </div>
-                                <div class="staff-profile">
+                
+                <div class="staff-profile">
                     <img src="Nosiku.jpg" alt="Head of Primary" class="staff-photo">
                     <h3 class="staff-name">Noanga Nosiku</h3>
                     <p class="staff-position">Class Teacher</p>
@@ -242,13 +306,22 @@
                     <p class="staff-position">Class Teacher</p>
                     <p>Dip Education, 4 years experience</p>
                 </div>
-  
+                
                 <div class="staff-profile">
                     <img src="Chiluba.jpg" alt="Head of Secondary" class="staff-photo">
                     <h3 class="staff-name">Zulu Chiluba</h3>
                     <p class="staff-position">Class Teacher</p>
-                    <p>Dip Education, 1 years experience</p>
+                    <p>Dip Education, 1 year experience</p>
                 </div>
+                                <div class="staff-profile">
+                    <img src="Musonda.jpg" alt="Head of Secondary" class="staff-photo">
+                    <h3 class="staff-name">Musonda</h3>
+                    <p class="staff-position">Class Teacher</p>
+                    <p>Dip Education, 5 years experience</p>
+                </div>
+     
+                <!-- Other staff profiles continue here without the blue border -->
+                
             </div>
         </div>
     </div>

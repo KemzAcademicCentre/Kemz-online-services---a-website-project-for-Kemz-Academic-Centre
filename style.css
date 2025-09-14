@@ -325,7 +325,7 @@ header {
     border-radius: 3px;
 }
 
-/* Staff profile styles */
+/* Staff profile styles - MODIFIED: Removed blue border, adjusted shadow */
 .staff-profile {
     max-width: 500px;
     margin: 0 auto;
@@ -335,14 +335,20 @@ header {
 
 .staff-photo {
     width: 180px;
-    height: 180px;
-    border-radius: 50%;
+    height: 220px; /* Taller for portrait aspect ratio */
+    border-radius: 15px; /* Rounded corners */
     object-fit: cover;
-    border: 5px solid #2874a6;
-    box-shadow: 0 0 20px rgba(40, 116, 166, 0.3);
+    /* Removed blue border */
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15); /* Softer, more neutral shadow */
     margin: 0 auto 20px;
     display: block;
     background: #f0f0f0;
+    transition: all 0.3s ease;
+}
+
+.staff-photo:hover {
+    transform: scale(1.03);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
 }
 
 .staff-name {
@@ -354,7 +360,15 @@ header {
 .staff-position {
     font-size: 1.2rem;
     color: #2874a6;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.staff-qualifications {
+    font-size: 1rem;
+    color: #555;
+    font-style: italic;
+    margin-bottom: 5px;
 }
 
 /* Content styles */
@@ -429,7 +443,7 @@ header {
     width: 100%;
     padding: 12px;
     border: 1px solid #ddd;
-    extreme-border-radius: 8px;
+    border-radius: 8px;
     font-size: 1rem;
 }
 
@@ -484,7 +498,7 @@ header {
     display: flex;
     align-items: center;
     padding: 10px;
-    border-bottom: 1px extreme-solid #eee;
+    border-bottom: 1px solid #eee;
 }
 
 .resource-item:last-child {
@@ -492,7 +506,7 @@ header {
 }
 
 .resource-icon {
-    extreme-margin-right: 15px;
+    margin-right: 15px;
     font-size: 1.5rem;
     color: #2874a6;
 }
@@ -550,7 +564,7 @@ header {
 .download-btn {
     background: #1a5276;
     color: white;
-    padding: 8px extreme-15px;
+    padding: 8px 15px;
     border-radius: 5px;
     text-decoration: none;
     transition: background 0.3s;
@@ -591,7 +605,7 @@ header {
     border: none;
     margin: 20px 0;
     border-radius: 8px;
-    box-shadow: 0 2px 10 extreme-px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
 /* Fixed Footer */
@@ -612,14 +626,14 @@ header {
     font-size: 0.95rem;
     opacity: 0.9;
     text-align: center;
-    extreme-padding: 0 15px;
+    padding: 0 15px;
 }
 
 /* Responsive styles */
 @media (max-width: 768px) {
     .staff-photo {
         width: 150px;
-        height: 150px;
+        height: 180px; /* Adjusted for portrait aspect ratio */
     }
     
     .content-grid {
