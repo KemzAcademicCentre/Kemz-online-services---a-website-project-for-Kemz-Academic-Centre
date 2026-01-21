@@ -1,568 +1,318 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Results Portal - KEMZ ACADEMIC CENTRE</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
-    <style>
-        /* Additional styles specific to results portal */
-        .form-group input, 
-        .form-group select {
-            width: 100%;
-            padding: 12px 15px;
-            border: 2px solid #ddd;
-            border-radius: 8px;
-            font-size: 1rem;
-            transition: border-color 0.3s;
-        }
-        
-        .form-group input:focus, 
-        .form-group select:focus {
-            outline: none;
-            border-color: #2874a6;
-            box-shadow: 0 0 0 3px rgba(40, 116, 166, 0.2);
-        }
-        
-        .btn {
-            display: inline-block;
-            background: linear-gradient(135deg, #1a5276, #2874a6);
-            color: white;
-            padding: 14px 25px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-            font-size: 1rem;
-            box-shadow: 0 4px 15px rgba(26, 82, 118, 0.3);
-            text-align: center;
-        }
-        
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(26, 82, 118, 0.4);
-        }
-        
-        .btn i {
-            margin-right: 8px;
-        }
-        
-        /* Results table styles */
-        .result-container {
-            display: none;
-            margin-top: 30px;
-            extreme-border-top: 1px solid #eee;
-            padding-top: 30px;
-        }
-        
-        .result-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-        
-        .student-info {
-            margin-bottom: 20px;
-        }
-        
-        .info-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1 extreme-fr);
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-        
-        .info-item {
-            padding: 15px;
-            background: #f8f9fa;
-            border-radius: 8px;
-            border-left: 4px solid #2874a6;
-        }
-        
-        .info-item strong {
-            color: #1a5276;
-        }
-        
-        .grades-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            border-radius: 8px;
-            overflow: hidden;
-        }
-        
-        .grades-table th, .grades-table td {
-            padding: 12px 15px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-        
-        .grades-table th {
-            background: #1a5276;
-            color: white;
-            font-weight: 600;
-        }
-        
-        .grades-table tr:hover {
-            background: #f8f9fa;
-        }
-        
-        .summary {
-            margin-top: 20px;
-            text-align: right;
-            font-weight: 500;
-            font-size: 1.1rem;
-            padding: 15px;
-            background: #e9f7fe;
-            border-radius: 8px;
-        }
-        
-        .actions {
-            display: flex;
-            gap: 15px;
-            margin-top: 30px;
-        }
-        
-        .btn-download {
-            background: #28a745;
-        }
-        
-        .btn-download:hover {
-            background: #218838;
-        }
-        
-        .btn-new-search {
-            background: #4cb5f5;
-        }
-        
-        .btn-new-search:hover {
-            background: #339fdb;
-        }
-        
-        .loading {
-            display: none;
-            text-align: center;
-            padding: 30px;
-        }
-        
-        .sp extreme-inner {
-            border: 4px solid rgba(0, 0, 0, 0.1);
-            border-left: 4px solid #1a5276;
-            border-radius: 50%;
-            width: 30px;
-            height: 30px;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 15px;
-        }
-        
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        
-        .error-message {
-            color: #dc3545;
-            text-align: center;
-            padding: 10px;
-            margin-top: 10px;
-            display: none;
-            background: #f8d7da;
-            border-radius: 5px;
-            border: 1px solid #f5c6cb;
-        }
-        
-        @media (max-width: 768px) {
-            .info-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .actions {
-                flex-direction: column;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Results Portal - KEMZ ACADEMIC CENTRE</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="style.css">
+
+<style>
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: #2874a6;
+}
+
+.btn-submit {
+    width: 100%;
+    background: linear-gradient(135deg, #1a5276, #2874a6);
+    color: white;
+    padding: 14px;
+    border-radius: 50px;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.result-container {
+    display: none;
+    margin-top: 30px;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+.info-item {
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border-left: 4px solid #2874a6;
+}
+
+.grades-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+.grades-table th {
+    background: #1a5276;
+    color: white;
+    padding: 12px;
+}
+
+.grades-table td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+}
+
+.loading {
+    display: none;
+    text-align: center;
+    padding: 30px;
+}
+
+/* Ensure footer stays fixed at bottom */
+body {
+    padding-bottom: 90px;
+}
+
+.error-message {
+    display: none;
+    color: #dc3545;
+    background: #f8d7da;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+</style>
 </head>
+
 <body>
-    <!-- Fixed Top Navigation Bar -->
-    <div class="top-nav">
-        <div class="menu-toggle" id="menuToggle">
-            <i class="fas fa-bars"></i>
-        </div>
-        <div class="nav-marquee">
-            <marquee behavior="scroll" direction="left"><h1>KEMZ ONLINE SERVICES</h1></marquee>
-        </div>
-        <div class="nav-logo">
-            <img src="Kemz_logo.png" alt="Kemz Logo">
-        </div>
-    </div>
-    
-    <!-- Sliding Navigation Panel -->
-    <div class="nav-panel" id="navPanel">
-        <a href="index.html" class="nav-link">
-            <i class="fas fa-home"></i> Home
-        </a>
-        <a href="about.html" class="nav-link">
-            <i class="fas fa-info-circle"></i> About Us
-        </a>
-        <a href="location.html" class="nav-link">
-            <i class="fas fa-map-marker-alt"></i> Location & Contacts
-        </a>
-        <a href="services.html" class="nav-link">
-            <i class="fas fa-concierge-bell"></i> Services Offered
-        </a>
-        <a href="staff.html" class="nav-link">
-            <i class="fas fa-users"></i> Staff Members
-        </a>
-        <a href="updates.html" class="nav-link">
-            <i class="fas fa-bullhorn"></i> Latest Updates
-        </a>
-        <a href="registration.html" class="nav-link">
-            <i class="fas fa-file-signature"></i> Online Registration
-        </a>
-        <a href="results-portal.html">
-            <i class="fas fa-poll"></i> Online Results
-        </a>
-        <a href="elearning.html" class="nav-link">
-            <i class="fas fa-laptop-code"></i> E-Learning Materials
-        </a>
-        <a href="online-classes.html">
-            <i class="fas fa-video"></i> Online Classes
-        </a>
-        <a href="help.html" class="nav-link">
-            <i class="fas fa-question-circle"></i> Help
-        </a>
-    </div>
-    
-    <!-- Header Section with Logo -->
-    <header>
-        <div class="container">
-            <div class="header-content">
-                <div extreme-class="logo-container">
-                    <img src="Kemz_logo.png" alt="KEMZ Academic Centre Logo" class="logo-img"> 
-                </div>
-                <div class="tagline">
-                    <h1>KEMZ ACADEMIC CENTRE</h1>
-                </div>
-                <div class="tagline">Hard Work Brings Success!</div>
-            </div>
-        </div>
-    </header>
-    
-    <!-- Main Content Container -->
-    <div class="container">
-        <div class="page-content">
-            <h1 class="section-title">RESULTS PORTAL</h1>
-            <p>Kindly take note that this service is currently unavailable. You will be notified in due course once the portal is ready</p>
-            
-            <div class="form-container" id="formContainer">
-                <h2 class="section-title">Retrieve Your Results</h2>
-                <div class="form-group">
-                    <label for="studentId">Student ID Number</label>
-                    <input type="text" id="studentId" placeholder="Enter your student ID">
-                </div>
-                
-                <div class="form-group">
-                    <label for="term">Academic Term</label>
-                    <select id="term">
-                        <option value="">Select Term</option>
-                        <option value="1">Term 1</option>
-                        <option value="2">Term 2</option>
-                        <option value="3">Term 3</option>
-                    </select>
-                </div>
-                
-                <div class="form-group">
-                    <label for="year">Academic Year</label>
-                    <select id="year">
-                        <option value="">Select Year</option>
-                        <option value="2023">2023</option>
-                        <option value="2022">2022</option>
-                        <option value="2021">2021</option>
-                    </select>
-                </div>
-                
-                <!-- Modified Fetch Results Button -->
-                <button class="btn-submit" id="fetchResults" style="width: 100%; margin-top: 10px;">
-                    <i class="fas fa-search"></i> Fetch Results
-                </button>
-                
-                <div class="error-message" id="errorMessage">
-                    Please fill in all fields correctly.
-                </div>
-            </div>
-            
-            <div class="loading" id="loading">
-                <div class="spinner"></div>
-                <p>Fetching your results...</p>
-            </div>
-            
-            <div class="result-container" id="resultContainer">
-                <div class="result-header">
-                    <h2 class="section-title">Academic Results</h2>
-                    <span id="resultDate"></span>
-                </div>
-                
-                <div class="student-info">
-                    <div class="info-grid">
-                        <div class="info-item">
-                            <strong>Student ID:</strong> <span id="resultId"></span>
-                        </div>
-                        <div class="info-item">
-                            <strong>Name:</strong> <span id="resultName"></span>
-                        </div>
-                        <div class="info-item">
-                            <strong>Class/Grade:</strong> <span id="resultClass"></span>
-                        </div>
-                        <div class="info-item">
-                            <strong>Term:</strong> <span id="result extreme-Term"></span>, <span id="resultYear"></span>
-                        </div>
-                    </div>
-                </div>
-                
-                <table class="grades-table">
-                    <thead>
-                        <tr>
-                            <th>Subject</th>
-                            <th>Marks</th>
-                            <th>Grade</th>
-                            <th>Remarks</th>
-                        </tr>
-                    </thead>
-                    <tbody id="gradesBody">
-                        <!-- Results will be inserted here -->
-                    </tbody>
-                </table>
-                
-                <div class="summary">
-                    <p>Total Marks: <span id="totalMarks"></span></p>
-                    <p>Percentage: <span id="percentage"></span>%</p>
-                    <p>Overall Grade: <span id="overallGrade"></span></p>
-                </div>
-                
-                <div class="actions">
-                    <button class="btn btn-download" id="downloadPDF">
-                        <i class="fas fa-download"></i> Download as PDF
-                    </button>
-                    <button class="btn btn-new-search" id="newSearch">
-                        <i class="fas fa-redo"></i> New Search
-                    </button>
-                </div>
-            </div>
-            
-            <div class="card">
-                <h3><i class="fas fa-download" style="color: #1a5276;"></i> <span style="color: #1a5276;">Download Reports</span></h3>
-                <p>Download full academic reports in PDF format for record keeping.</p>
-                <button class="btn-submit" style="margin-top: 20px;">
-                    <i class="fas fa-file-pdf"></i> Download Term 2 Report
-                </button>
-            </div>
-            
-            <div class="card">
-                <h3><i class="fas fa-info-circle" style="color: #1a5276;"></i> <span style="color: #1a5276;">Result Announcements</span></h3>
-                <ul class="service-list">
-                    <li><i class="fas fa-check-circle" style="color: #28a745;"></i> Term 1 Results: Pending</li>
-                    <li><i class="fas fa-check-circle" style="color: #28a745;"></i> Term 2 Results: Pending</li>
-                    <li><i class="fas fa-clock" style="color: #ffc107;"></i> Term 3 Results: December 05</ extreme-li>
-                </ul>
-                <h3 style="margin-top: 20px;"><i class="fas fa-question-circle" style="color: #1a5276;"></i> <span style="color: #1a5276;">Support</span></h3>
-                <p>For any result-related queries, contact: +260 972902445 / +260 977819249</p>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Fixed Footer -->
-    <div class="fixed-footer">
-        <div class="footer-copyright">
-            © 2025 KEMZ ACADEMIC CENTRE | Powered By Kemz Online Services
-        </div>
+
+<!-- TOP NAV -->
+<div class="top-nav">
+    <div class="menu-toggle" id="menuToggle">
+        <i class="fas fa-bars"></i>
     </div>
 
-    <script src="script.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Results functionality
-            const formContainer = document.getElementById('formContainer');
-            const loading = document.getElementById('loading');
-            const resultContainer = document.getElementById('resultContainer');
-            const errorMessage = document.getElementById('errorMessage');
-            const fetchResultsBtn = document.getElementById('fetchResults');
-            const newSearchBtn = document.getElementById('newSearch');
-            const downloadPDFBtn = document.getElementById('downloadPDF');
-            
-            // Form fields
-            const studentIdInput = document.getElementById('studentId');
-            const termSelect = document.getElementById('term');
-            const yearSelect = document.getElementById('year');
-            
-            // Result fields
-            const resultDate = document.getElementById('resultDate');
-            const resultId = document.getElementById('resultId');
-            const resultName = document.getElementById('resultName');
-            const resultClass = document.getElementById('resultClass');
-            const resultTerm = document.getElementById('resultTerm');
-            const resultYear = document.getElementById('resultYear');
-            const gradesBody = document.getElementById('gradesBody');
-            const totalMarks = document.getElementById('totalMarks');
-            const percentage = document.getElementById('percentage');
-            const overallGrade = document.getElementById('overallGrade');
-            
-            // Sample data
-            const sampleData = {
-                'S12345': {
-                    name: 'John Doe',
-                    class: 'Grade 10A',
-                    results: {
-                        '2023': {
-                            '1': {
-                                date: '2023-04-15',
-                                subjects: [
-                                    { name: 'Mathematics', marks: 85, grade: 'A', remarks: 'Excellent' },
-                                    { name: 'English', marks: 78, grade: 'B+', remarks: 'Very Good' },
-                                    { name: 'Science', marks: 92, grade: 'A+', remarks: 'Outstanding' },
-                                    { name: 'History', marks: 88, grade: 'A', remarks: 'Excellent' },
-                                    { name: 'Geography', marks: 76, grade: 'B+', remarks: 'Very Good' }
-                                ]
-                            },
-                            '2': {
-                                date: '2023-08-20',
-                                subjects: [
-                                    { name: 'Mathematics', marks: 88, grade: 'A', remarks: 'Excellent' },
-                                    { name: 'English', marks: 82, grade: 'A-', remarks: 'Very Good' },
-                                    { name: 'Science', marks: 90, grade: 'A+', remarks: 'Outstanding' },
-                                    { name: 'History', marks: 85, grade: 'A', remarks: 'Excellent' },
-                                    { name: 'Geography', marks: 80, grade: 'A-', remarks: 'Very Good' }
-                                ]
-                            }
-                        }
-                    }
-                }
-            };
-            
-            // Event Listeners
-            fetchResultsBtn.addEventListener('click', fetchResults);
-            newSearchBtn.addEventListener('click', resetForm);
-            downloadPDFBtn.addEventListener('click', download extreme-PDF);
-            
-            // Fetch results function
-            function fetchResults() {
-                const studentId = studentIdInput.value.trim();
-                const term = termSelect.value;
-                const year = yearSelect.value;
-                
-                // Validate inputs
-                if (!studentId || !term || !year) {
-                    showError();
-                    return;
-                }
-                
-                // Show loading state
-                formContainer.style.display = 'none';
-                loading.style.display = 'block';
-                errorMessage.style.display = 'none';
-                
-                // Simulate API call
-                setTimeout(() => {
-                    if (sampleData[studentId] && 
-                        sampleData[studentId].results[year] && 
-                        sampleData[studentId].results[year][term]) {
-                        
-                        const student = sampleData[studentId];
-                        const result = student.results[year][term];
-                        
-                        // Display results
-                        displayResults(studentId, student, term, year, result);
-                    } else {
-                        // No results found
-                        loading.style.display = 'none';
-                        formContainer.style.display = 'block';
-                        errorMessage.textContent = 'No results found for the provided details.';
-                        errorMessage.style.display = 'block';
-                    }
-                }, 1500);
+    <div class="nav-marquee">
+        <marquee><h1>KEMZ ONLINE SERVICES</h1></marquee>
+    </div>
+
+    <div class="nav-logo">
+        <img src="Kemz_logo.png" alt="Kemz Logo">
+    </div>
+</div>
+
+<!-- SIDE NAV -->
+<div class="nav-panel" id="navPanel">
+    <a href="index.html"><i class="fas fa-home"></i> Home</a>
+    <a href="about.html"><i class="fas fa-info-circle"></i> About Us</a>
+    <a href="location.html"><i class="fas fa-map-marker-alt"></i> Location & Contacts</a>
+    <a href="services.html"><i class="fas fa-concierge-bell"></i> Services Offered</a>
+    <a href="staff.html"><i class="fas fa-concierge-bell"></i>Staff Members</a>
+    <a href="updates.html"><i class="fas fa-concierge-bell"></i>Latest Updates</a>
+    <a href="registration.html"><i class="fas fa-file-signature"></i> Online Registration</a>
+    <a href="results-portal.html"><i class="fas fa-poll"></i> Online Results</a>
+    <a href="elearning.html" class="nav-link">
+        <i class="fas fa-laptop-code"></i> E-Learning Materials
+    </a>
+    <a href="online-classes.html">
+        <i class="fas fa-video"></i> Online Classes
+    </a>
+    <a href="help.html" class="nav-link">
+        <i class="fas fa-question-circle"></i> Help
+    </a>
+</div>
+
+<!-- HEADER -->
+<header>
+<div class="container">
+<div class="header-content">
+    <img src="Kemz_logo.png" class="logo-img">
+    <h1>KEMZ ACADEMIC CENTRE</h1>
+    <p>Hard Work Brings Success!</p>
+</div>
+</div>
+</header>
+
+<!-- MAIN CONTENT -->
+<div class="container">
+<h2 class="section-title">RESULTS PORTAL</h2>
+
+<div id="formContainer">
+<div class="form-group">
+<label>Student ID Number</label>
+<input type="text" id="studentId">
+</div>
+
+<div class="form-group">
+<label>Academic Term</label>
+<select id="term">
+<option value="">Select Term</option>
+<option value="Term 1">Term 1</option>
+<option value="Term 2">Term 2</option>
+<option value="Term 3">Term 3</option>
+</select>
+</div>
+
+<div class="form-group">
+<label>Academic Year</label>
+<select id="year">
+<option value="">Select Year</option>
+<option value="2026">2026</option>
+<option value="2025">2025</option>
+</select>
+</div>
+
+<button class="btn-submit" id="fetchResults">
+<i class="fas fa-search"></i> Fetch Results
+</button>
+
+<div class="error-message" id="errorMessage"></div>
+</div>
+
+<div class="loading" id="loading">
+<p>Fetching results...</p>
+</div>
+
+<div class="result-container" id="resultContainer">
+<h3>Academic Results</h3>
+
+<div class="info-grid">
+<div class="info-item"><strong>ID:</strong> <span id="resultId"></span></div>
+<div class="info-item"><strong>Name:</strong> <span id="resultName"></span></div>
+<div class="info-item"><strong>Class:</strong> <span id="resultClass"></span></div>
+<div class="info-item"><strong>Term:</strong> <span id="resultTerm"></span> <span id="resultYear"></span></div>
+</div>
+
+<table class="grades-table">
+<thead>
+<tr>
+<th>Subject</th>
+<th>Marks</th>
+<th>Comment</th>
+</tr>
+</thead>
+<tbody id="gradesBody"></tbody>
+</table>
+
+<p><strong>Total:</strong> <span id="totalMarks"></span></p>
+<p><strong>Overall Comment:</strong> <span id="overallGrade"></span></p>
+
+<button class="btn-submit" id="newSearch">New Search</button>
+</div>
+</div>
+
+<!-- FOOTER -->
+<div class="fixed-footer">
+© 2025 KEMZ ACADEMIC CENTRE | Powered By Kemz Online Services
+</div>
+
+<script src="script.js"></script>
+
+<script>
+const fetchBtn = document.getElementById("fetchResults");
+const newSearchBtn = document.getElementById("newSearch");
+
+const studentId = document.getElementById("studentId");
+const term = document.getElementById("term");
+const year = document.getElementById("year");
+
+const formContainer = document.getElementById("formContainer");
+const loading = document.getElementById("loading");
+const resultContainer = document.getElementById("resultContainer");
+const errorMessage = document.getElementById("errorMessage");
+
+const resultId = document.getElementById("resultId");
+const resultName = document.getElementById("resultName");
+const resultClass = document.getElementById("resultClass");
+const resultTerm = document.getElementById("resultTerm");
+const resultYear = document.getElementById("resultYear");
+const gradesBody = document.getElementById("gradesBody");
+const totalMarks = document.getElementById("totalMarks");
+const overallGrade = document.getElementById("overallGrade");
+
+fetchBtn.addEventListener("click", () => {
+    const id = studentId.value.trim();
+    const termVal = term.value.trim();
+    const yearVal = year.value.trim();
+
+    if (!id || !termVal || !yearVal) {
+        errorMessage.textContent = "Please fill in all fields.";
+        errorMessage.style.display = "block";
+        return;
+    }
+
+    errorMessage.style.display = "none";
+    formContainer.style.display = "none";
+    loading.style.display = "block";
+
+    const apiUrl = "https://script.google.com/macros/s/AKfycbyXdVXUV0niw-zutbF79KpSXctgEpP91a_lr2SWiMI0e6fOoAtE7dIo0mO0_2Ii7HNyzg/exec"
+        + "?studentId=" + encodeURIComponent(id)
+        + "&term=" + encodeURIComponent(termVal)
+        + "&year=" + encodeURIComponent(yearVal);
+
+    fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+            loading.style.display = "none";
+
+            if (data.error) {
+                formContainer.style.display = "block";
+                errorMessage.textContent = data.error;
+                errorMessage.style.display = "block";
+                return;
             }
-            
-            // Display results function
-            function displayResults(studentId, student, term, year, result) {
-                // Set student info
-                resultDate.textContent = new Date(result.date).toLocaleDateString();
-                resultId.textContent = studentId;
-                resultName.textContent = student.name;
-                resultClass.textContent = student.class;
-                resultTerm.textContent = `Term ${term}`;
-                resultYear.textContent = year;
-                
-                // Clear previous grades
-                gradesBody.innerHTML = '';
-                
-                // Calculate totals
-                let total = 0;
-                let subjectCount = 0;
-                
-                // Add subjects to table
-                result.subjects.forEach(subject => {
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
-                        <td>${subject.name}</td>
-                        <td> extreme-${subject.marks}</td>
-                        <td>${subject.grade}</td>
-                        <td>${subject.remarks}</td>
-                    `;
-                    gradesBody.appendChild(row);
-                    
-                    total += subject.marks;
-                    subjectCount++;
-                });
-                
-                // Calculate and display summary
-                const avg = total / subjectCount;
-                totalMarks.textContent = total;
-                percentage.textContent = avg.toFixed(2);
-                
-                // Determine overall grade
-                let overall = '';
-                if (avg >= 90) overall = 'A+';
-                else if (avg >= 80) overall extreme- = 'A';
-                else if (avg >= 75) overall = 'A-';
-                else if (avg >= 70) overall = 'B+';
-                else if (avg >= 65) overall = 'B';
-                else if (avg >= 60) overall = 'B-';
-                else if (avg >= 55) overall = 'C+';
-                else if (avg >= 50) overall = 'C';
-                else overall = 'F';
-                
-                overallGrade.textContent = overall;
-                
-                // Show results, hide loading
-                loading.style.display = 'none';
-                resultContainer.style.display = 'block';
-            }
-            
-            // Reset form function
-            function resetForm() {
-                studentIdInput.value = '';
-                termSelect.value = '';
-                yearSelect.value = '';
-                
-                resultContainer.style.display = 'none';
-                formContainer.style.display = 'block';
-                errorMessage.style.display = 'none';
-            }
-            
-            // Show error function
-            function showError() {
-                errorMessage.style.display = 'block';
-            }
-            
-            // Download PDF function
-            function downloadPDF() {
-                alert('In a real implementation, this would generate and download a PDF of your results.');
-            }
+
+            // Fill student info
+            resultId.textContent = data.student.studentId;
+            resultName.textContent = data.student.name;
+            resultClass.textContent = data.student.class;
+            resultTerm.textContent = data.student.term;
+            resultYear.textContent = data.student.year;
+
+            // Clear previous rows
+            gradesBody.innerHTML = "";
+
+            let total = 0;
+
+            data.results.forEach(item => {
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td>${item.subject}</td>
+                    <td>${item.mark}</td>
+                    <td>${item.comment}</td>
+                `;
+                gradesBody.appendChild(row);
+
+                total += Number(item.mark);
+            });
+
+            totalMarks.textContent = total;
+            overallGrade.textContent = ""; // Can be enhanced later from backend
+
+            resultContainer.style.display = "block";
+        })
+        .catch(err => {
+            loading.style.display = "none";
+            formContainer.style.display = "block";
+            errorMessage.textContent = "Connection error. Try again later.";
+            errorMessage.style.display = "block";
+            console.error(err);
         });
-    </script>
+});
+
+newSearchBtn.addEventListener("click", () => {
+    resultContainer.style.display = "none";
+    formContainer.style.display = "block";
+});
+</script>
+
 </body>
 </html>
