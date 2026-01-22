@@ -115,22 +115,13 @@ body {
     <a href="about.html"><i class="fas fa-info-circle"></i> About Us</a>
     <a href="location.html"><i class="fas fa-map-marker-alt"></i> Location & Contacts</a>
     <a href="services.html"><i class="fas fa-concierge-bell"></i> Services Offered</a>
-    
-    <a href="staff.html"><i class="fas fa-concierge-bell"></i>Staff Members</a>
-    
-    <a href="updates.html"><i class="fas fa-concierge-bell"></i>Latest Updates</a>
-    
+    <a href="staff.html"><i class="fas fa-users"></i> Staff Members</a>
+    <a href="updates.html"><i class="fas fa-bullhorn"></i> Latest Updates</a>
     <a href="registration.html"><i class="fas fa-file-signature"></i> Online Registration</a>
     <a href="results-portal.html"><i class="fas fa-poll"></i> Online Results</a>
-    <a href="elearning.html" class="nav-link">
-        <i class="fas fa-laptop-code"></i> E-Learning Materials
-    </a>
-    <a href="online-classes.html">
-        <i class="fas fa-video"></i> Online Classes
-    </a>
-    <a href="help.html" class="nav-link">
-        <i class="fas fa-question-circle"></i> Help
-    </a>
+    <a href="elearning.html"><i class="fas fa-laptop-code"></i> E-Learning Materials</a>
+    <a href="online-classes.html"><i class="fas fa-video"></i> Online Classes</a>
+    <a href="help.html"><i class="fas fa-question-circle"></i> Help</a>
 </div>
 
 <!-- HEADER -->
@@ -198,15 +189,16 @@ body {
 <thead>
 <tr>
 <th>Subject</th>
-<th>Marks</th>
-<th>Comment</th>
+<th>Score</th>
+<th>Max Mark</th>
 </tr>
 </thead>
 <tbody id="gradesBody"></tbody>
 </table>
 
-<p><strong>Total:</strong> <span id="totalMarks"></span></p>
-<p><strong>Overall Comment:</strong> <span id="overallGrade"></span></p>
+<p><strong>Total Score:</strong> <span id="totalMarks"></span></p>
+<p><strong>Position:</strong> <span id="position"></span></p>
+<p><strong>Overall Comment:</strong> <span id="overallComment"></span></p>
 
 <button class="btn-submit" id="newSearch">New Search</button>
 </div>
@@ -223,14 +215,17 @@ body {
 const fetchBtn = document.getElementById("fetchResults");
 const newSearchBtn = document.getElementById("newSearch");
 
-const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyXdVXUV0niw-zutbF79KpSXctgEpP91a_lr2SWiMI0e6fOoAtE7dIo0mO0_2Ii7HNyzg/exec";
+const formContainer = document.getElementById("formContainer");
+const loading = document.getElementById("loading");
+const resultContainer = document.getElementById("resultContainer");
+const errorMessage = document.getElementById("errorMessage");
 
 fetchBtn.addEventListener("click", () => {
-    const id = studentId.value.trim();
-    const termVal = term.value;
-    const yearVal = year.value;
+    const studentId = document.getElementById("studentId").value.trim();
+    const term = document.getElementById("term").value;
+    const year = document.getElementById("year").value;
 
-    if (!id || !termVal || !yearVal) {
+    if (!studentId || !term || !year) {
         errorMessage.textContent = "Please fill in all fields.";
         errorMessage.style.display = "block";
         return;
@@ -240,51 +235,56 @@ fetchBtn.addEventListener("click", () => {
     formContainer.style.display = "none";
     loading.style.display = "block";
 
-    const url = `${WEB_APP_URL}?studentId=${encodeURIComponent(id)}&term=${encodeURIComponent(termVal)}&year=${encodeURIComponent(yearVal)}`;
+    const url = "https://script.google.com/macros/s/AKfycbyXdVXUV0niw-zutbF79KpSXctgEpP91a_lr2SWiMI0e6fOoAtE7dIo0mO0_2Ii7HNyzg/exec"
+              + "?studentId=" + encodeURIComponent(studentId)
+              + "&term=" + encodeURIComponent(term)
+              + "&year=" + encodeURIComponent(year);
 
     fetch(url)
-        .then(response => response.json())
-        .then(data => {
-            loading.style.display = "none";
+      .then(res => res.json())
+      .then(data => {
+          loading.style.display = "none";
 
-            if (!data.success) {
-                errorMessage.textContent = data.message || "Result not found.";
-                errorMessage.style.display = "block";
-                formContainer.style.display = "block";
-                return;
-            }
+          if (data.error) {
+              formContainer.style.display = "block";
+              errorMessage.textContent = data.error;
+              errorMessage.style.display = "block";
+              return;
+          }
 
-            // Fill basic info
-            resultId.textContent = data.studentId;
-            resultName.textContent = data.fullName;
-            resultClass.textContent = data.className;
-            resultTerm.textContent = data.term;
-            resultYear.textContent = data.year;
+          // Fill student info
+          document.getElementById("resultId").textContent = data.student.studentId;
+          document.getElementById("resultName").textContent = data.student.name;
+          document.getElementById("resultClass").textContent = data.student.class;
+          document.getElementById("resultTerm").textContent = data.student.term;
+          document.getElementById("resultYear").textContent = data.student.year;
 
-            // Fill subjects
-            gradesBody.innerHTML = "";
-            data.subjects.forEach(sub => {
-                const tr = document.createElement("tr");
-                tr.innerHTML = `
-                    <td>${sub.subject}</td>
-                    <td>${sub.marks}</td>
-                    <td>${sub.comment}</td>
-                `;
-                gradesBody.appendChild(tr);
-            });
+          document.getElementById("totalMarks").textContent = data.student.total;
+          document.getElementById("position").textContent = data.student.position;
+          document.getElementById("overallComment").textContent = data.student.comment;
 
-            totalMarks.textContent = data.total;
-            overallGrade.textContent = data.overallComment;
+          // Fill subjects table
+          const gradesBody = document.getElementById("gradesBody");
+          gradesBody.innerHTML = "";
 
-            resultContainer.style.display = "block";
-        })
-        .catch(err => {
-            console.error(err);
-            loading.style.display = "none";
-            errorMessage.textContent = "Connection error. Try again later.";
-            errorMessage.style.display = "block";
-            formContainer.style.display = "block";
-        });
+          data.results.forEach(row => {
+              const tr = document.createElement("tr");
+              tr.innerHTML = `
+                  <td>${row.subject}</td>
+                  <td>${row.score}</td>
+                  <td>${row.maxMark}</td>
+              `;
+              gradesBody.appendChild(tr);
+          });
+
+          resultContainer.style.display = "block";
+      })
+      .catch(err => {
+          loading.style.display = "none";
+          formContainer.style.display = "block";
+          errorMessage.textContent = "Connection error. Try again later.";
+          errorMessage.style.display = "block";
+      });
 });
 
 newSearchBtn.addEventListener("click", () => {
