@@ -115,8 +115,11 @@ body {
     <a href="about.html"><i class="fas fa-info-circle"></i> About Us</a>
     <a href="location.html"><i class="fas fa-map-marker-alt"></i> Location & Contacts</a>
     <a href="services.html"><i class="fas fa-concierge-bell"></i> Services Offered</a>
+    
     <a href="staff.html"><i class="fas fa-concierge-bell"></i>Staff Members</a>
+    
     <a href="updates.html"><i class="fas fa-concierge-bell"></i>Latest Updates</a>
+    
     <a href="registration.html"><i class="fas fa-file-signature"></i> Online Registration</a>
     <a href="results-portal.html"><i class="fas fa-poll"></i> Online Results</a>
     <a href="elearning.html" class="nav-link">
@@ -220,28 +223,12 @@ body {
 const fetchBtn = document.getElementById("fetchResults");
 const newSearchBtn = document.getElementById("newSearch");
 
-const studentId = document.getElementById("studentId");
-const term = document.getElementById("term");
-const year = document.getElementById("year");
-
-const formContainer = document.getElementById("formContainer");
-const loading = document.getElementById("loading");
-const resultContainer = document.getElementById("resultContainer");
-const errorMessage = document.getElementById("errorMessage");
-
-const resultId = document.getElementById("resultId");
-const resultName = document.getElementById("resultName");
-const resultClass = document.getElementById("resultClass");
-const resultTerm = document.getElementById("resultTerm");
-const resultYear = document.getElementById("resultYear");
-const gradesBody = document.getElementById("gradesBody");
-const totalMarks = document.getElementById("totalMarks");
-const overallGrade = document.getElementById("overallGrade");
+const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyXdVXUV0niw-zutbF79KpSXctgEpP91a_lr2SWiMI0e6fOoAtE7dIo0mO0_2Ii7HNyzg/exec";
 
 fetchBtn.addEventListener("click", () => {
     const id = studentId.value.trim();
-    const termVal = term.value.trim();
-    const yearVal = year.value.trim();
+    const termVal = term.value;
+    const yearVal = year.value;
 
     if (!id || !termVal || !yearVal) {
         errorMessage.textContent = "Please fill in all fields.";
@@ -253,58 +240,50 @@ fetchBtn.addEventListener("click", () => {
     formContainer.style.display = "none";
     loading.style.display = "block";
 
-    const apiUrl = "https://script.google.com/macros/s/AKfycbyXdVXUV0niw-zutbF79KpSXctgEpP91a_lr2SWiMI0e6fOoAtE7dIo0mO0_2Ii7HNyzg/exec"
-        + "?studentId=" + encodeURIComponent(id)
-        + "&term=" + encodeURIComponent(termVal)
-        + "&year=" + encodeURIComponent(yearVal);
+    const url = `${WEB_APP_URL}?studentId=${encodeURIComponent(id)}&term=${encodeURIComponent(termVal)}&year=${encodeURIComponent(yearVal)}`;
 
-    fetch(apiUrl)
+    fetch(url)
         .then(response => response.json())
         .then(data => {
             loading.style.display = "none";
 
-            if (data.error) {
-                formContainer.style.display = "block";
-                errorMessage.textContent = data.error;
+            if (!data.success) {
+                errorMessage.textContent = data.message || "Result not found.";
                 errorMessage.style.display = "block";
+                formContainer.style.display = "block";
                 return;
             }
 
-            // Fill student info
-            resultId.textContent = data.student.studentId;
-            resultName.textContent = data.student.name;
-            resultClass.textContent = data.student.class;
-            resultTerm.textContent = data.student.term;
-            resultYear.textContent = data.student.year;
+            // Fill basic info
+            resultId.textContent = data.studentId;
+            resultName.textContent = data.fullName;
+            resultClass.textContent = data.className;
+            resultTerm.textContent = data.term;
+            resultYear.textContent = data.year;
 
-            // Clear previous rows
+            // Fill subjects
             gradesBody.innerHTML = "";
-
-            let total = 0;
-
-            data.results.forEach(item => {
-                const row = document.createElement("tr");
-                row.innerHTML = `
-                    <td>${item.subject}</td>
-                    <td>${item.mark}</td>
-                    <td>${item.comment}</td>
+            data.subjects.forEach(sub => {
+                const tr = document.createElement("tr");
+                tr.innerHTML = `
+                    <td>${sub.subject}</td>
+                    <td>${sub.marks}</td>
+                    <td>${sub.comment}</td>
                 `;
-                gradesBody.appendChild(row);
-
-                total += Number(item.mark);
+                gradesBody.appendChild(tr);
             });
 
-            totalMarks.textContent = total;
-            overallGrade.textContent = ""; // Can be enhanced later from backend
+            totalMarks.textContent = data.total;
+            overallGrade.textContent = data.overallComment;
 
             resultContainer.style.display = "block";
         })
         .catch(err => {
+            console.error(err);
             loading.style.display = "none";
-            formContainer.style.display = "block";
             errorMessage.textContent = "Connection error. Try again later.";
             errorMessage.style.display = "block";
-            console.error(err);
+            formContainer.style.display = "block";
         });
 });
 
