@@ -682,7 +682,7 @@ header p {
 <div class="form-container" id="formContainer">
     <div class="form-group">
         <label><i class="fas fa-id-card"></i> Student ID Number</label>
-        <input type="text" id="studentId" placeholder="e.g., KEMZ-2026-0001">
+        <input type="text" id="studentId" placeholder="e.g., KEMZ-26-00001">
     </div>
 
     <div class="form-group">
@@ -1000,7 +1000,7 @@ downloadPDFBtn.addEventListener("click", () => {
     }, 2000);
 });
 
-// Client-side PDF Generation Function
+// Client-side PDF Generation Function - FIXED VERSION (includes overall row)
 function generateClientPDF() {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF('p', 'mm', 'a4');
@@ -1054,10 +1054,11 @@ function generateClientPDF() {
         }
     });
 
-    // Subjects Table
+    // Subjects Table - INCLUDING OVERALL ROW
     const tableColumn = ["Subject", "Total Marks", "Marks Obtained", "Comment"];
     const tableRows = [];
     
+    // Get subject rows from the table body
     document.querySelectorAll("#gradesBody tr").forEach(row => {
         const rowData = [];
         row.querySelectorAll("td").forEach(cell => {
@@ -1067,9 +1068,14 @@ function generateClientPDF() {
             tableRows.push(rowData);
         }
     });
-
-    // Add overall row
-    tableRows.push(["OVERALL", overallTotal, overallObtained, overallComment]);
+    
+    // CRITICAL FIX: ADD OVERALL ROW MANUALLY (ensures it's always included)
+    tableRows.push([
+        "OVERALL",
+        overallTotal,
+        overallObtained,
+        overallComment
+    ]);
 
     doc.autoTable({
         startY: doc.lastAutoTable.finalY + 10,
@@ -1084,13 +1090,13 @@ function generateClientPDF() {
         bodyStyles: { fontSize: 9 },
         alternateRowStyles: { fillColor: [248, 250, 252] },
         margin: { left: 20, right: 20 },
-        didDrawCell: (data) => {
-            // Highlight overall row
+        willDrawCell: (data) => {
+            // Highlight overall row (the last row)
             if (data.row.index === tableRows.length - 1) {
-                doc.setFillColor(240, 247, 255);
-                doc.rect(data.cell.x, data.cell.y, data.cell.width, data.cell.height, 'F');
-                doc.setTextColor(26, 82, 118);
-                doc.setFont(undefined, 'bold');
+                // Set background for the entire row
+                data.cell.styles.fillColor = [240, 247, 255];
+                data.cell.styles.fontStyle = 'bold';
+                data.cell.styles.textColor = [26, 82, 118];
             }
         }
     });
