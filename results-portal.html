@@ -1000,7 +1000,7 @@ downloadPDFBtn.addEventListener("click", () => {
     }, 2000);
 });
 
-// Client-side PDF Generation Function - WITH LOGOS SIDE BY SIDE
+// Client-side PDF Generation Function - LOGOS ON "OFFICIAL RESULT SLIP" LINE ONLY
 function generateClientPDF() {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF('p', 'mm', 'a4');
@@ -1020,54 +1020,52 @@ function generateClientPDF() {
     const logoUrl = "https://www.kemzonline.com/Kemz_logo.png";
     
     // Logo dimensions (adjust as needed)
-    const logoWidth = 20; // Smaller width for side-by-side layout
-    const logoHeight = 20; // Height in mm (keeping square aspect)
-    const logoTopMargin = 15; // Distance from top in mm
-    const logoSideMargin = 15; // Distance from sides in mm
+    const logoWidth = 30; // Smaller width
+    const logoHeight = 25; // Height in mm
+    const logoSideMargin = 20; // Distance from sides in mm
     // ========================================
     
     // Calculate positions
     const pageWidth = doc.internal.pageSize.width;
     const centerX = pageWidth / 2;
     
-    // Left logo position
+    // Line positions
+    const line1Y = 20; // "KEMZ ACADEMIC CENTRE"
+    const line2Y = 30; // "OFFICIAL RESULT SLIP" (with logos)
+    const line3Y = 38; // "Hard Work Brings Success!"
+    
+    // Logo positions (for line 2 only)
     const leftLogoX = logoSideMargin;
-    const leftLogoY = logoTopMargin;
-    
-    // Right logo position
     const rightLogoX = pageWidth - logoWidth - logoSideMargin;
-    const rightLogoY = logoTopMargin;
+    const logoY = line2Y - (logoHeight / 2) + 1; // Vertically center with text
     
-    // Text positions (centered between logos)
-    const textStartY = logoTopMargin + (logoHeight / 2); // Vertically center with logos
+    // School name - top line (NO logos)
+    doc.setFontSize(20);
+    doc.setTextColor(26, 82, 118); // #1a5276
+    doc.text("KEMZ ACADEMIC CENTRE", centerX, line1Y, { align: 'center' });
     
-    // Add logos to both sides
+    // Add logos ONLY on "OFFICIAL RESULT SLIP" line
     try {
         // Left logo
-        doc.addImage(logoUrl, 'PNG', leftLogoX, leftLogoY, logoWidth, logoHeight);
+        doc.addImage(logoUrl, 'PNG', leftLogoX, logoY, logoWidth, logoHeight);
         
         // Right logo
-        doc.addImage(logoUrl, 'PNG', rightLogoX, rightLogoY, logoWidth, logoHeight);
+        doc.addImage(logoUrl, 'PNG', rightLogoX, logoY, logoWidth, logoHeight);
     } catch (e) {
         console.log("Logo loading issue (PDF will continue without logos):", e);
     }
     
-    // School name - centered between logos (same line as logos)
-    doc.setFontSize(20);
-    doc.setTextColor(26, 82, 118); // #1a5276
-    doc.text("KEMZ ACADEMIC CENTRE", centerX, textStartY + 4, { align: 'center' });
-    
-    // Subtitle - next line
+    // "OFFICIAL RESULT SLIP" - middle line (WITH logos on both sides)
     doc.setFontSize(16);
-    doc.text("OFFICIAL RESULT SLIP", centerX, textStartY + 12, { align: 'center' });
+    doc.text("OFFICIAL RESULT SLIP", centerX, line2Y, { align: 'center' });
     
-    // Motto - third line
+    // Motto - bottom line (NO logos)
     doc.setFontSize(12);
     doc.setTextColor(40, 116, 166); // #2874a6
-    doc.text("Hard Work Brings Success!", centerX, textStartY + 20, { align: 'center' });
+    doc.text("Hard Work Brings Success!", centerX, line3Y, { align: 'center' });
     
     // Student Info - start after the header section
-    const infoStartY = textStartY + 35; // More space after header
+    const infoStartY = line3Y + 15;
     doc.setFontSize(10);
     doc.setTextColor(0, 0, 0);
     
