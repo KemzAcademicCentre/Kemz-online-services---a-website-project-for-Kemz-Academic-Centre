@@ -1000,7 +1000,7 @@ downloadPDFBtn.addEventListener("click", () => {
     }, 2000);
 });
 
-// Client-side PDF Generation Function - WITH LOGOS (UPDATED)
+// Client-side PDF Generation Function - WITH LOGOS SIDE BY SIDE
 function generateClientPDF() {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF('p', 'mm', 'a4');
@@ -1014,52 +1014,60 @@ function generateClientPDF() {
     const overallTotal = document.getElementById("overallTotal").textContent;
     const overallObtained = document.getElementById("overallObtained").textContent;
     const overallComment = document.getElementById("overallComment").textContent;
-
+    
     // ============ LOGO SETTINGS ============
     // Using your school logo from kemzonline.com
     const logoUrl = "https://www.kemzonline.com/Kemz_logo.png";
     
     // Logo dimensions (adjust as needed)
-    const logoWidth = 25; // Width in mm
-    const logoHeight = 25; // Height in mm (keeping square aspect)
-    const logoTopMargin = 15; // Distance from top in mm
+    const logoWidth = 20; // Smaller width for side-by-side layout
+    const logoHeight = 20; // Height in mm (keeping square aspect)
+    const logoTopMargin = 20; // Distance from top in mm
     const logoSideMargin = 15; // Distance from sides in mm
     // ========================================
-
-    // Header with logos
-    doc.setFontSize(20);
-    doc.setTextColor(26, 82, 118); // #1a5276
     
-    // Add logos to both corners
+    // Calculate positions
+    const pageWidth = doc.internal.pageSize.width;
+    const centerX = pageWidth / 2;
+    
+    // Left logo position
+    const leftLogoX = logoSideMargin;
+    const leftLogoY = logoTopMargin;
+    
+    // Right logo position
+    const rightLogoX = pageWidth - logoWidth - logoSideMargin;
+    const rightLogoY = logoTopMargin;
+    
+    // Text positions (centered between logos)
+    const textStartY = logoTopMargin + (logoHeight / 2); // Vertically center with logos
+    
+    // Add logos to both sides
     try {
         // Left logo
-        doc.addImage(logoUrl, 'PNG', logoSideMargin, logoTopMargin, logoWidth, logoHeight);
+        doc.addImage(logoUrl, 'PNG', leftLogoX, leftLogoY, logoWidth, logoHeight);
         
         // Right logo
-        const rightX = doc.internal.pageSize.width - logoWidth - logoSideMargin;
-        doc.addImage(logoUrl, 'PNG', rightX, logoTopMargin, logoWidth, logoHeight);
+        doc.addImage(logoUrl, 'PNG', rightLogoX, rightLogoY, logoWidth, logoHeight);
     } catch (e) {
         console.log("Logo loading issue (PDF will continue without logos):", e);
     }
     
-    // Calculate center position for text
-    const centerX = doc.internal.pageSize.width / 2;
-    const textStartY = logoTopMargin + logoHeight + 5; // Start text below logos
+    // School name - centered between logos (same line as logos)
+    doc.setFontSize(20);
+    doc.setTextColor(26, 82, 118); // #1a5276
+    doc.text("KEMZ ACADEMIC CENTRE", centerX, textStartY + 4, { align: 'center' });
     
-    // School name - centered between logos
-    doc.text("KEMZ ACADEMIC CENTRE", centerX, textStartY, { align: 'center' });
-    
-    // Subtitle
+    // Subtitle - next line
     doc.setFontSize(16);
-    doc.text("OFFICIAL RESULT SLIP", centerX, textStartY + 8, { align: 'center' });
+    doc.text("OFFICIAL RESULT SLIP", centerX, textStartY + 12, { align: 'center' });
     
-    // Motto
+    // Motto - third line
     doc.setFontSize(12);
     doc.setTextColor(40, 116, 166); // #2874a6
-    doc.text("Hard Work Brings Success!", centerX, textStartY + 16, { align: 'center' });
+    doc.text("Hard Work Brings Success!", centerX, textStartY + 20, { align: 'center' });
     
-    // Student Info - adjusted for logos
-    const infoStartY = textStartY + 25;
+    // Student Info - start after the header section
+    const infoStartY = textStartY + 35; // More space after header
     doc.setFontSize(10);
     doc.setTextColor(0, 0, 0);
     
@@ -1085,7 +1093,7 @@ function generateClientPDF() {
             3: { cellWidth: 45 }
         }
     });
-
+    
     // Subjects Table - INCLUDING OVERALL ROW
     const tableColumn = ["Subject", "Total Marks", "Marks Obtained", "Comment"];
     const tableRows = [];
@@ -1108,13 +1116,13 @@ function generateClientPDF() {
         overallObtained,
         overallComment
     ]);
-
+    
     doc.autoTable({
         startY: doc.lastAutoTable.finalY + 10,
         head: [tableColumn],
         body: tableRows,
         theme: 'grid',
-        headStyles: { 
+        headStyles: {
             fillColor: [26, 82, 118], // #1a5276
             textColor: [255, 255, 255],
             fontSize: 10
@@ -1132,7 +1140,7 @@ function generateClientPDF() {
             }
         }
     });
-
+    
     // Footer
     const finalY = doc.lastAutoTable.finalY + 20;
     
