@@ -559,7 +559,7 @@ header p {
     }
     
     .nav-marquee marquee h1 {
-        font-size: 1rem;
+        font-size: 1.8rem;
     }
     
     .nav-logo img {
@@ -638,7 +638,7 @@ header p {
     </div>
 
     <div class="nav-marquee">
-        <marquee><h1>KEMZ ONLINE SERVICES - RESULTS PORTAL</h1></marquee>
+        <marquee><h1>KEMZ ONLINE SERVICES</h1></marquee>
     </div>
 
     <div class="nav-logo">
@@ -874,7 +874,7 @@ fetchBtn.addEventListener("click", () => {
 
     // Validate Student ID format
     if (!studentId.match(/^KEMZ-\d{4}-\d{4}$/i)) {
-        showError("Please enter a valid Student ID format (e.g., KEMZ-2026-0001)");
+        showError("Please enter a valid Student ID format (e.g., KEMZ-26-00001)");
         return;
     }
 
@@ -1000,7 +1000,7 @@ downloadPDFBtn.addEventListener("click", () => {
     }, 2000);
 });
 
-// Client-side PDF Generation Function - FIXED VERSION (includes overall row)
+// Client-side PDF Generation Function - WITH LOGOS (UPDATED)
 function generateClientPDF() {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF('p', 'mm', 'a4');
@@ -1015,19 +1015,51 @@ function generateClientPDF() {
     const overallObtained = document.getElementById("overallObtained").textContent;
     const overallComment = document.getElementById("overallComment").textContent;
 
-    // Header
+    // ============ LOGO SETTINGS ============
+    // Using your school logo from kemzonline.com
+    const logoUrl = "https://www.kemzonline.com/Kemz_logo.png";
+    
+    // Logo dimensions (adjust as needed)
+    const logoWidth = 25; // Width in mm
+    const logoHeight = 25; // Height in mm (keeping square aspect)
+    const logoTopMargin = 15; // Distance from top in mm
+    const logoSideMargin = 15; // Distance from sides in mm
+    // ========================================
+
+    // Header with logos
     doc.setFontSize(20);
     doc.setTextColor(26, 82, 118); // #1a5276
-    doc.text("KEMZ ACADEMIC CENTRE", 105, 20, { align: 'center' });
     
+    // Add logos to both corners
+    try {
+        // Left logo
+        doc.addImage(logoUrl, 'PNG', logoSideMargin, logoTopMargin, logoWidth, logoHeight);
+        
+        // Right logo
+        const rightX = doc.internal.pageSize.width - logoWidth - logoSideMargin;
+        doc.addImage(logoUrl, 'PNG', rightX, logoTopMargin, logoWidth, logoHeight);
+    } catch (e) {
+        console.log("Logo loading issue (PDF will continue without logos):", e);
+    }
+    
+    // Calculate center position for text
+    const centerX = doc.internal.pageSize.width / 2;
+    const textStartY = logoTopMargin + logoHeight + 5; // Start text below logos
+    
+    // School name - centered between logos
+    doc.text("KEMZ ACADEMIC CENTRE", centerX, textStartY, { align: 'center' });
+    
+    // Subtitle
     doc.setFontSize(16);
-    doc.text("OFFICIAL RESULT SLIP", 105, 30, { align: 'center' });
+    doc.text("OFFICIAL RESULT SLIP", centerX, textStartY + 8, { align: 'center' });
     
+    // Motto
     doc.setFontSize(12);
     doc.setTextColor(40, 116, 166); // #2874a6
-    doc.text("Hard Work Brings Success!", 105, 38, { align: 'center' });
+    doc.text("Hard Work Brings Success!", centerX, textStartY + 16, { align: 'center' });
     
-    // Student Info
+    // Student Info - adjusted for logos
+    const infoStartY = textStartY + 25;
     doc.setFontSize(10);
     doc.setTextColor(0, 0, 0);
     
@@ -1041,7 +1073,7 @@ function generateClientPDF() {
     ];
     
     doc.autoTable({
-        startY: 45,
+        startY: infoStartY,
         head: [],
         body: studentInfo,
         theme: 'plain',
@@ -1069,7 +1101,7 @@ function generateClientPDF() {
         }
     });
     
-    // CRITICAL FIX: ADD OVERALL ROW MANUALLY (ensures it's always included)
+    // ADD OVERALL ROW MANUALLY (ensures it's always included)
     tableRows.push([
         "OVERALL",
         overallTotal,
@@ -1106,9 +1138,9 @@ function generateClientPDF() {
     
     doc.setFontSize(8);
     doc.setTextColor(100, 100, 100);
-    doc.text("Downloaded from: www.kemzonline.com", 105, finalY, { align: 'center' });
-    doc.text(`Date: ${new Date().toLocaleDateString()} | Time: ${new Date().toLocaleTimeString()}`, 105, finalY + 6, { align: 'center' });
-    doc.text("This is a computer-generated document. No signature required.", 105, finalY + 12, { align: 'center' });
+    doc.text("Downloaded from: www.kemzonline.com", centerX, finalY, { align: 'center' });
+    doc.text(`Date: ${new Date().toLocaleDateString()} | Time: ${new Date().toLocaleTimeString()}`, centerX, finalY + 6, { align: 'center' });
+    doc.text("This is a computer-generated document. No signature required.", centerX, finalY + 12, { align: 'center' });
     
     // Save PDF
     doc.save(`Result_${studentId}_${term}_${year}.pdf`);
@@ -1140,7 +1172,7 @@ window.addEventListener("load", () => {
 // Instructions modal
 function showInstructions() {
     alert("HOW TO USE THE RESULTS PORTAL:\n\n" +
-          "1. Enter your Student ID (e.g., KEMZ-2026-0001)\n" +
+          "1. Enter your Student ID (e.g., KEMZ-26-00001)\n" +
           "2. Select the academic term\n" +
           "3. Select the academic year\n" +
           "4. Click 'Fetch Results'\n" +
