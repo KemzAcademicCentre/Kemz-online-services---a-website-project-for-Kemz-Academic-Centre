@@ -1079,18 +1079,19 @@ function generateClientPDF() {
     ];
     
     doc.autoTable({
-        startY: infoStartY,
-        head: [],
-        body: studentInfo,
-        theme: 'plain',
-        styles: { fontSize: 9 },
-        columnStyles: {
-            0: { fontStyle: 'bold', cellWidth: 30 },
-            1: { cellWidth: 45 },
-            2: { fontStyle: 'bold', cellWidth: 30 },
-            3: { cellWidth: 45 }
-        }
-    });
+    startY: infoStartY,
+    head: [],
+    body: studentInfo,
+    theme: 'plain',
+    styles: { fontSize: 9 },
+    margin: { left: 20, right: 20 }, // <-- SAME AS SUBJECTS TABLE
+    columnStyles: {
+        0: { fontStyle: 'bold', cellWidth: 30 },
+        1: { cellWidth: 45 },
+        2: { fontStyle: 'bold', cellWidth: 30 },
+        3: { cellWidth: 45 }
+    }
+});
     
     // Subjects Table - INCLUDING OVERALL ROW
     const tableColumn = ["Subject", "Total Marks", "Marks Obtained", "Comment"];
