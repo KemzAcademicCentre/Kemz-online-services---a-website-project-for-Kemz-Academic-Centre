@@ -872,11 +872,11 @@ fetchBtn.addEventListener("click", () => {
         return;
     }
 
-    // Validate Student ID format
-    if (!studentId.match(/^KEMZ-\d{4}-\d{4}$/i)) {
-        showError("Please enter a valid Student ID format (e.g., KEMZ-26-00001)");
-        return;
-    }
+    // Validate Student ID format (KEMZ-YY-NNNNN)
+if (!studentId.match(/^KEMZ-\d{2}-\d{5}$/i)) {
+    showError("Please enter a valid Student ID format (e.g., KEMZ-26-00001)");
+    return;
+}
 
     hideError();
     formContainer.style.display = "none";
@@ -1020,7 +1020,7 @@ function generateClientPDF() {
     const logoUrl = "https://www.kemzonline.com/Kemz_logo.png";
     
     // Logo dimensions (adjust as needed)
-    const logoWidth = 30; // Smaller width
+    const logoWidth = 32; // Smaller width
     const logoHeight = 25; // Height in mm
     const logoSideMargin = 20; // Distance from sides in mm
     // ========================================
