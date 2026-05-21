@@ -1,136 +1,608 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us - KEMZ ACADEMIC CENTRE</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>About Us | KEMZ ACADEMIC CENTRE</title>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: #f4f7fb;
+            color: #222;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        /* =========================
+           NAVBAR (exactly as home page)
+        ========================== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 15px 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(10, 35, 66, 0.85);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-title img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            transition: 0.3s;
+        }
+
+        .logo-title img:hover {
+            transform: scale(1.08);
+        }
+
+        .logo-title h2 {
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            color: white;
+            font-size: 0.95rem;
+            position: relative;
+            transition: 0.3s;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0%;
+            height: 2px;
+            background: #4da3ff;
+            left: 0;
+            bottom: -5px;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .menu-btn {
+            display: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* =========================
+           HERO SECTION (unique for about page)
+        ========================== */
+        .about-hero {
+            min-height: 60vh;
+            background: linear-gradient(135deg, #0a2b44 0%, #1a4a7a 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 140px 8% 80px;
+            margin-top: 0;
+        }
+
+        .about-hero-content {
+            max-width: 800px;
+            animation: fadeIn 1.2s ease;
+        }
+
+        .about-hero h1 {
+            font-size: 3.5rem;
+            color: white;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .about-hero p {
+            font-size: 1.2rem;
+            color: #e0e8ff;
+            line-height: 1.6;
+        }
+
+        /* =========================
+           GENERAL SECTIONS
+        ========================== */
+        .section {
+            padding: 80px 8%;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: #0a2342;
+            margin-bottom: 15px;
+        }
+
+        .section-title p {
+            color: #666;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Intro + photo styling */
+        .intro-photo {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .intro-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #333;
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .intro-img {
+            width: 100%;
+            max-width: 800px;
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            transition: 0.3s;
+        }
+
+        .intro-img:hover {
+            transform: scale(1.01);
+        }
+
+        /* Cards grid (motto, aim, mission, vision, values) */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 30px;
+            margin: 50px 0;
+        }
+
+        .info-card {
+            background: #071a30;
+            padding: 35px 25px;
+            border-radius: 20px;
+            text-align: center;
+            transition: 0.4s;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+            color: white;
+        }
+
+        .info-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .info-card i {
+            font-size: 2.5rem;
+            color: white;
+            margin-bottom: 20px;
+        }
+
+        .info-card h3 {
+            font-size: 1.6rem;
+            margin-bottom: 15px;
+            color: white;
+        }
+
+        .info-card p, .info-card ul {
+            color: #e0e0e0;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .info-card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .info-card li {
+            margin: 8px 0;
+        }
+
+        /* History section */
+        .history-box {
+            background: white;
+            border-radius: 30px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            margin-top: 40px;
+        }
+
+        .history-box h3 {
+            font-size: 1.8rem;
+            color: #0a2342;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .history-box p {
+            text-align: center;
+            max-width: 850px;
+            margin: 15px auto;
+            line-height: 1.7;
+            color: #444;
+        }
+
+        /* Location & Contacts (two-column layout) */
+        .location-contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 30px;
+        }
+
+        .contact-card {
+            background: white;
+            border-radius: 24px;
+            padding: 30px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            transition: 0.3s;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .contact-card h3 {
+            font-size: 1.6rem;
+            color: #0a2342;
+            margin-bottom: 20px;
+            border-left: 5px solid #1a73e8;
+            padding-left: 15px;
+        }
+
+        .contact-card p, .contact-card li {
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .contact-card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .contact-card li {
+            margin: 12px 0;
+        }
+
+        .contact-card i {
+            width: 30px;
+            color: #1a73e8;
+        }
+
+        /* Map placeholder */
+        .map-placeholder {
+            height: 180px;
+            background: #e9f7fe;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        /* =========================
+           FOOTER (same as home)
+        ========================== */
+        footer {
+            background: #071a30;
+            color: white;
+            padding: 40px 8%;
+            text-align: center;
+        }
+
+        footer p {
+            margin: 10px 0;
+            color: #cfcfcf;
+        }
+
+        .social-icons {
+            margin-top: 25px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .social-icons a {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            background: #1a73e8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 1.2rem;
+            transition: 0.4s;
+        }
+
+        .social-icons a:hover {
+            transform: translateY(-5px);
+            background: #0a2342;
+        }
+
+        hr {
+            margin: 20px 0;
+            border-color: #2a4a7a;
+        }
+
+        /* =========================
+           ANIMATIONS
+        ========================== */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* =========================
+           RESPONSIVE
+        ========================== */
+        @media (max-width: 900px) {
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                right: -100%;
+                width: 280px;
+                height: 100vh;
+                background: #0a2342;
+                flex-direction: column;
+                padding: 40px 30px;
+                transition: 0.4s;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .menu-btn {
+                display: block;
+            }
+
+            .about-hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .section-title h2 {
+                font-size: 2rem;
+            }
+
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
+
 <body>
-    <!-- Fixed Top Navigation Bar -->
-    <div class="top-nav">
-        <div class="menu-toggle" id="menuToggle">
+
+    <!-- NAVBAR (identical to home page) -->
+    <nav class="navbar">
+        <div class="logo-title">
+            <img src="Kemz_logo.png" alt="KEMZ Logo">
+            <h2>KEMZ ONLINE SERVICES</h2>
+        </div>
+
+        <div class="nav-links" id="navLinks">
+            <a href="index.html"><i class="fas fa-home"></i> Home</a>
+            <a href="about.html"><i class="fas fa-info-circle"></i> About</a>
+            <a href="inqu.html"><i class="fas fa-question-circle"></i> Inquiries</a>
+            <a href="services.html"><i class="fas fa-concierge-bell"></i> Services</a>
+            <a href="staff.html"><i class="fas fa-users"></i> Staff</a>
+            <a href="updates.html"><i class="fas fa-bullhorn"></i> Updates</a>
+            <a href="registration.html"><i class="fas fa-file-signature"></i> Registration</a>
+            <a href="results-portal.html"><i class="fas fa-poll"></i> Results</a>
+            <a href="elearning.html"><i class="fas fa-laptop-code"></i> E-Learning</a>
+            <a href="online-classes.html"><i class="fas fa-video"></i> Classes</a>
+        </div>
+
+        <div class="menu-btn" id="menuBtn">
             <i class="fas fa-bars"></i>
         </div>
-        <div class="nav-marquee">
-            <marquee behavior="scroll" direction="left"><h1>KEMZ ONLINE SERVICES</h1></marquee>
+    </nav>
+
+    <!-- UNIQUE HERO SECTION (no buttons, no announcements) -->
+    <section class="about-hero">
+        <div class="about-hero-content">
+            <h1>About KEMZ Academic Centre</h1>
+            <p>Excellence in education since 2005 – nurturing future leaders with integrity and innovation.</p>
         </div>
-        <div class="nav-logo">
-            <img src="Kemz_logo.png" alt="Kemz Logo">
-        </div>
-    </div>
-    
-    <!-- Sliding Navigation Panel -->
-    <div class="nav-panel" id="navPanel">
-        <a href="index.html" class="nav-link">
-            <i class="fas fa-home"></i> Home
-        </a>
-        <a href="about.html" class="nav-link">
-            <i class="fas fa-info-circle"></i> About Us
-        </a>
-        <a href="location.html" class="nav-link">
-            <i class="fas fa-map-marker-alt"></i> Location & Contacts
-        </a>
-            <a href="services.html" class="nav-link">
-            <i class="fas fa-concierge-bell"></i> Services Offered
-        </a>
-        <a href="staff.html" class="nav-link">
-            <i class="fas fa-users"></i> Staff Members
-        </a>
-        <a extreme-href="updates.html" class="nav-link">
-            <i class="fas fa-bullhorn"></i> Latest Updates
-        </a>
-        <a href="registration.html" class="nav-link">
-            <i class="fas fa-file-signature"></i> Online Registration
-        </a>
-        <a href="results-portal.html">
-            <i class="fas fa-poll"></i> Online Results
-        </a>
-        <a href="elearning.html" class="nav-link">
-            <i class="fas fa-laptop-code"></i> E-Learning Materials
-        </a>
-        <a href="online-classes.html">
-            <i class="fas fa-video"></i> Online Classes
-        </a>
-        <a href="help.html" class="nav-link">
-            <i class="fas fa-question-circle"></i> Help
-        </a>
-    </div>
-    
-    <!-- Header Section with Logo -->
-    <header>
-        <div class="container">
-            <div class extreme-.header-content">
-                <div class="logo-container">
-                    <img src="Kemz_logo.png" alt="KEMZ Academic Centre Logo" class="logo-img"> 
-                </div>
-                <div class="tagline">
-                    <h1>KEMZ ACADEMIC CENTRE</h1>
-                </div>
-                <div class="tagline">Hard Work Brings Success!</div>
+    </section>
+
+    <!-- INTRODUCTION + PHOTO (Nude.jpg) -->
+    <div class="section">
+        <div class="intro-photo">
+            <div class="intro-text" id="aboutIntroText">
+               <img src="Nude.jpg" alt="KEMZ Campus" class="intro-img" id="aboutMainPhoto">
+                  <br><br>
+                <p>KEMZ Academic Centre is a premier educational institution dedicated to providing quality education to learners from Pre‑School through secondary levels. Founded in 2005, we have grown to become one of the leading academic institutions in Zambia.</p>
             </div>
-        </div>
-    </header>
-    
-    <!-- Main Content Container -->
-    <div class="container">
-        <!-- About Us Page -->
-        <div class="page-content">
-            <h1 class="section-title">About KEMZ Academic Centre</h1>
-            <p>KEMZ Academic Centre is a premier educational institution dedicated to providing quality education to learners from Pre School through secondary levels. Founded in 2005, we have grown to become one of the leading academic institutions in Zambia.</p>
-            
-            <div class="content-grid">
-                <div class="card">
-                    <h3><i class="fas fa-bullseye"></i> Our Motto</h3>
-                    <p>Hard Work Brings Success!</p>
-                </div>
-                
-                <div class="card">
-                    <h3><i class="fas fa-bullse extreme-ye"></i> Our Aim</h3>
-                    <p>To provide quality education for all.</p>
-                </div>
-                
-                <div class="card">
-                    <h3><i class="fas fa-bullseye"></i> Our Mission</h3>
-                    <p>To provide a holistic education that develops learners intellectually, socially, and emotionally, preparing them for success in higher education and beyond.</p>
-                </div>
-                
-                <div class="card">
-                    <h3><i class="fas fa-eye"></i> Our Vision</h3>
-                    <p>To be a leading educational institution in giving an equal opportunity to everyone to acquire quality education, for education is key sustainance to development as it is an equalizer for all.</p>
-                </div>
-                
-                <div class="card">
-                    <h3><i class="fas fa-star"></i> Our Values</h3>
-                    <ul class="service-list">
-                        <li>Excellence in Academics</li>
-                        <li>Integrity and Ethics</li>
-                        <li>Respect for Diversity</li>
-                        <li>Innovation and Creativity</li>
-                        <li>Community Engagement</li>
-                    </ul>
-                </div>
+         </div>
+    </div>
+
+    <!-- MOTTO, AIM, MISSION, VISION, VALUES (styled like home service cards) -->
+    <div class="section" style="padding-top: 0;">
+        <div class="cards-grid" id="coreValuesGrid">
+            <!-- Motto -->
+            <div class="info-card" id="mottoCard">
+                <i class="fas fa-bullseye"></i>
+                <h3>Our Motto</h3>
+                <p id="mottoText">Hard Work Brings Success!</p>
             </div>
-            
-            <h3 style="margin-top: 30px; color: #1a5276; text-align: center;">History of Our Institution</h3>
-            <p style="text-align: center;">Kemz Academic Centre is a Private School whose founder is Mr Mayungo Kennedy, a teacher by profession who holds a bachelor's degree from the University of Africa.</p>
-            
-            <p style="text-align: center;">The school was established in the year 2005. The school started as a Pre-School and Lower Primary School with just 15 learners, KEMZ Academic Centre has grown exponentially over the years with an expansion that now includes Upper Primary Level and Secondary Ordinary Level at Lusaka's main campus. Today, we serve over 1000 learners across all educational levels at the main campus.</p>
-           
-            <p style="text-align: center;">A few years ago, another campus was established in Mumbwa. The campus runs from Pre-School to Grade 7 and has over 300 learners.</p>
-                
-            <p style="text-align: center;">Our growth is attributed to our commitment to academic excellence and our dedicated staff.</p>
+            <!-- Aim -->
+            <div class="info-card" id="aimCard">
+                <i class="fas fa-bullseye"></i>
+                <h3>Our Aim</h3>
+                <p id="aimText">To provide quality education for all.</p>
+            </div>
+            <!-- Mission -->
+            <div class="info-card" id="missionCard">
+                <i class="fas fa-bullseye"></i>
+                <h3>Our Mission</h3>
+                <p id="missionText">To provide a holistic education that develops learners intellectually, socially, and emotionally, preparing them for success in higher education and beyond.</p>
+            </div>
+            <!-- Vision -->
+            <div class="info-card" id="visionCard">
+                <i class="fas fa-eye"></i>
+                <h3>Our Vision</h3>
+                <p id="visionText">To be a leading educational institution in giving an equal opportunity to everyone to acquire quality education, for education is key sustenance to development as it is an equalizer for all.</p>
+            </div>
+            <!-- Values -->
+            <div class="info-card" id="valuesCard">
+                <i class="fas fa-star"></i>
+                <h3>Our Values</h3>
+                <ul id="valuesList">
+                    <li>Excellence in Academics</li>
+                    <li>Integrity and Ethics</li>
+                    <li>Respect for Diversity</li>
+                    <li>Innovation and Creativity</li>
+                    <li>Community Engagement</li>
+                </ul>
+            </div>
         </div>
     </div>
 
-    <!-- Fixed Footer -->
-    <div class="fixed-footer">
-        <div class="footer-copyright">
-            © 2025 KEMZ ACADEMIC CENTRE | Powered By Kemz Online Services
+    <!-- HISTORY SECTION -->
+    <div class="section" style="background: #eef4ff;">
+        <div class="history-box" id="historySection">
+            <h3>History of Our Institution</h3>
+            <p id="historyText1">Kemz Academic Centre is a Private School whose founder is Mr Mayungo Kennedy, a teacher by profession who holds a bachelor's degree from the University of Africa.</p>
+            <p id="historyText2">The school was established in the year 2005. The school started as a Pre-School and Lower Primary School with just 15 learners. KEMZ Academic Centre has grown exponentially over the years with an expansion that now includes Upper Primary Level and Secondary Ordinary Level at Lusaka's main campus. Today, we serve over 1000 learners across all educational levels at the main campus.</p>
+            <p id="historyText3">A few years ago, another campus was established in Mumbwa. The campus runs from Pre-School to Grade 7 and has over 300 learners.</p>
+            <p id="historyText4">Our growth is attributed to our commitment to academic excellence and our dedicated staff.</p>
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <!-- LOCATION & CONTACTS SECTION (styled in two cards) -->
+    <div class="section">
+        <div class="section-title">
+            <h2>Location & Contact Information</h2>
+            <p>Find us or reach out — we're here to help.</p>
+        </div>
+
+        <div class="location-contact-grid" id="locationContactGrid">
+            <!-- Location Card -->
+            <div class="contact-card" id="locationCard">
+                <h3><i class="fas fa-map-marker-alt"></i> Our Location</h3>
+                <p>KEMZ Academic Centre is conveniently located in Lusaka and Mumbwa:</p>
+                <br>
+                <p><strong>Lusaka Main Campus</strong><br>
+                Plot No 88/37 - Along Magwava Road, Makeni Villa, Lusaka District, Zambia.</p>
+                <br>
+                <p><strong>Mumbwa Campus</strong><br>
+                Plot No ... - Along Old Mumbwa Road, Mumbwa District, Zambia.</p>
+                <div class="map-placeholder">
+                    <i class="fas fa-map" style="font-size: 3rem; color: #2874a6;"></i>
+                </div>
+            </div>
+
+            <!-- Contact Card -->
+            <div class="contact-card" id="contactCard">
+                <h3><i class="fas fa-phone-alt"></i> Contact Information</h3>
+                <p>We're available to answer any questions you may have:</p>
+                <ul>
+                    <li><strong>Director's Office:</strong> <i class="fas fa-phone"></i> <span id="directorPhone">+260 977916081</span></li>
+                    <li><strong>Lusaka Campus (Manager):</strong> <i class="fas fa-phone"></i> <span id="lusakaPhone">+260 977819249</span></li>
+                    <li><strong>Mumbwa Campus (Manager):</strong> <i class="fas fa-mobile-alt"></i> <span id="mumbwaPhone">+260 977505012</span></li>
+                    <li><strong>Accounts Office:</strong> <i class="fas fa-mobile-alt"></i> <span id="accountsPhone">+260 977432490</span></li>
+                    <li><strong>Email:</strong> <i class="fas fa-envelope"></i> <span id="contactEmail">kemzacademiccentre@gmail.com</span></li>
+                </ul>
+                <h3 style="margin-top: 20px;"><i class="fas fa-clock"></i> Office Hours</h3>
+                <ul id="officeHours">
+                    <li>Monday-Friday: 7:30 AM - 5:00 PM</li>
+                    <li>Saturday: 8:00 AM - 12:00 PM</li>
+                    <li>Sunday: Closed</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER (identical to home page) -->
+    <footer id="footerSection">
+        <h3>KEMZ ACADEMIC CENTRE</h3>
+        <p>Hard Work Brings Success!</p>
+        <br>
+        <h2>Contact Us</h2>
+        <div id="footerContactInfo">
+            <p>📞 +260977916081 | +260977432490</p>
+            <p>📧 kemzacademiccentre@gmail.com</p>
+            <p>🌐 www.kemzonline.com</p>
+            <p><i class="fas fa-map-marker-alt"></i> Plot No 88/37, Makeni Villa, Lusaka - Zambia</p>
+        </div>
+        <br>
+        <h2>Follow Us</h2>
+        <div class="social-icons" id="footerSocialLinks">
+            <a href="https://www.facebook.com/share/1AzFdvL5Yq/"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-whatsapp"></i></a>
+            <a href="mailto:kemzacademiccentre@gmail.com"><i class="fas fa-envelope"></i></a>
+        </div>
+        <br>
+        <hr>
+        <p>© 2025 - 2026 KEMZ ACADEMIC CENTRE | All rights reserved</p>
+    </footer>
+
+    <!-- JAVASCRIPT (mobile menu toggle + tap outside) -->
+    <script>
+        const menuBtn = document.getElementById("menuBtn");
+        const navLinks = document.getElementById("navLinks");
+
+        menuBtn.onclick = (e) => {
+            e.stopPropagation();
+            navLinks.classList.toggle("active");
+        };
+
+        document.addEventListener("click", function(event) {
+            const isClickInsideNav = navLinks.contains(event.target);
+            const isClickOnMenuBtn = menuBtn.contains(event.target);
+            if (!isClickInsideNav && !isClickOnMenuBtn && navLinks.classList.contains("active")) {
+                navLinks.classList.remove("active");
+            }
+        });
+    </script>
 </body>
 </html>

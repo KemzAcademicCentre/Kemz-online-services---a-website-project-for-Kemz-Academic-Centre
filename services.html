@@ -1,144 +1,468 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Services Offered - KEMZ ACADEMIC CENTRE</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Services Offered | KEMZ ACADEMIC CENTRE</title>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: #f4f7fb;
+            color: #222;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        /* =========================
+           NAVBAR (same as home)
+        ========================== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 15px 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(10, 35, 66, 0.85);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-title img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            transition: 0.3s;
+        }
+
+        .logo-title img:hover {
+            transform: scale(1.08);
+        }
+
+        .logo-title h2 {
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            color: white;
+            font-size: 0.95rem;
+            position: relative;
+            transition: 0.3s;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0%;
+            height: 2px;
+            background: #4da3ff;
+            left: 0;
+            bottom: -5px;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .menu-btn {
+            display: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* =========================
+           HERO (unique for services)
+        ========================== */
+        .services-hero {
+            min-height: 50vh;
+            background: linear-gradient(135deg, #0a2b44 0%, #1e5a8a 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 140px 8% 80px;
+        }
+
+        .services-hero-content {
+            max-width: 750px;
+            animation: fadeIn 1.2s ease;
+        }
+
+        .services-hero h1 {
+            font-size: 3.2rem;
+            color: white;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .services-hero p {
+            font-size: 1.1rem;
+            color: #e0e8ff;
+            line-height: 1.6;
+        }
+
+        /* =========================
+           SECTIONS
+        ========================== */
+        .section {
+            padding: 70px 8%;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: #0a2342;
+            margin-bottom: 15px;
+        }
+
+        .section-title p {
+            color: #666;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Service cards grid (same as home page) */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 35px;
+            margin-top: 20px;
+        }
+
+        .service-card {
+            background: #071a30;   /* footer background color */
+            padding: 30px 20px;
+            border-radius: 20px;
+            text-align: center;
+            transition: 0.4s;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+            color: white;
+        }
+
+        .service-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .service-card i {
+            font-size: 2.2rem;
+            color: white;
+            margin-bottom: 15px;
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: white;
+        }
+
+        .service-card ul {
+            list-style: none;
+            padding-left: 0;
+            margin: 15px 0 0;
+        }
+
+        .service-card li {
+            color: #e0e0e0;
+            font-size: 0.95rem;
+            margin: 8px 0;
+            line-height: 1.5;
+        }
+
+        /* Category image below each card */
+        .category-img {
+            margin-top: 20px;
+            width: 100%;
+            border-radius: 16px;
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1);
+            transition: 0.3s;
+        }
+
+        .category-img:hover {
+            transform: scale(1.02);
+        }
+
+        /* =========================
+           FOOTER (same as home)
+        ========================== */
+        footer {
+            background: #071a30;
+            color: white;
+            padding: 40px 8%;
+            text-align: center;
+        }
+
+        footer p {
+            margin: 10px 0;
+            color: #cfcfcf;
+        }
+
+        .social-icons {
+            margin-top: 25px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .social-icons a {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            background: #1a73e8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 1.2rem;
+            transition: 0.4s;
+        }
+
+        .social-icons a:hover {
+            transform: translateY(-5px);
+            background: #0a2342;
+        }
+
+        hr {
+            margin: 20px 0;
+            border-color: #2a4a7a;
+        }
+
+        /* =========================
+           ANIMATIONS
+        ========================== */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* =========================
+           RESPONSIVE
+        ========================== */
+        @media (max-width: 900px) {
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                right: -100%;
+                width: 280px;
+                height: 100vh;
+                background: #0a2342;
+                flex-direction: column;
+                padding: 40px 30px;
+                transition: 0.4s;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .menu-btn {
+                display: block;
+            }
+
+            .services-hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .section-title h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
 </head>
 <body>
-    <!-- Fixed Top Navigation Bar -->
-    <div class="top-nav">
-        <div class="menu-toggle" id="menuToggle">
+
+    <!-- NAVBAR (identical to home page) -->
+    <nav class="navbar">
+        <div class="logo-title">
+            <img src="Kemz_logo.png" alt="KEMZ Logo">
+            <h2>KEMZ ONLINE SERVICES</h2>
+        </div>
+
+        <div class="nav-links" id="navLinks">
+            <a href="index.html"><i class="fas fa-home"></i> Home</a>
+            <a href="about.html"><i class="fas fa-info-circle"></i> About</a>
+            <a href="inqu.html"><i class="fas fa-question-circle"></i> Inquiries</a>
+            <a href="services.html"><i class="fas fa-concierge-bell"></i> Services</a>
+            <a href="staff.html"><i class="fas fa-users"></i> Staff</a>
+            <a href="updates.html"><i class="fas fa-bullhorn"></i> Updates</a>
+            <a href="registration.html"><i class="fas fa-file-signature"></i> Registration</a>
+            <a href="results-portal.html"><i class="fas fa-poll"></i> Results</a>
+            <a href="elearning.html"><i class="fas fa-laptop-code"></i> E-Learning</a>
+            <a href="online-classes.html"><i class="fas fa-video"></i> Classes</a>
+        </div>
+
+        <div class="menu-btn" id="menuBtn">
             <i class="fas fa-bars"></i>
         </div>
-        <div class="nav-marquee">
-            <marquee behavior="scroll" direction="left"><h1>KEMZ ONLINE SERVICES</h1></marquee>
+    </nav>
+
+    <!-- UNIQUE HERO SECTION (no buttons/announcements) -->
+    <section class="services-hero">
+        <div class="services-hero-content">
+            <h1>Our Academic Services</h1>
+            <p>Comprehensive education from Early Childhood to Secondary level, plus specialised courses.</p>
         </div>
-        <div class="nav-logo">
-            <img src="Kemz_logo.png" alt="Kemz Logo">
+    </section>
+
+    <!-- SERVICES GRID WITH IMAGES BELOW EACH CARD -->
+    <div class="section">
+        <div class="section-title">
+            <h2>Educational Programmes</h2>
+            <p>Structured learning pathways designed to nurture excellence at every stage.</p>
         </div>
-    </div>
-    
-    <!-- Sliding Navigation Panel -->
-    <div class="nav-panel" id="navPanel">
-        <a href="index.html" class="nav-link">
-            <i class="fas fa-home"></i> Home
-        </a>
-        <a href="about.html" class="nav-link">
-            <i class="fas fa-info-circle"></i extreme-> About Us
-        </a>
-        <a href="location.html" class="nav-link">
-            <i class="fas fa-map-marker-alt"></i> Location & Contacts
-        </a>
-        <a href="services.html" class="nav-link">
-            <i class="fas fa-concierge-bell"></i> Services Offered
-        </a>
-        <a href="staff.html" class="nav-link">
-            <i class="fas fa-users"></i> Staff Members
-        </a>
-        <a href="updates.html" class="nav-link">
-            <i class="fas fa-bullhorn"></i> Latest Updates
-        </a>
-        <a href="registration.html" class="nav-link">
-            <i class="fas fa-file-signature"></i> Online Registration
-        </a>
-        <a href="results-portal.html">
-            <i class="fas fa-poll"></i> Online Results
-        </a>
-        <a href="elearning.html" class="nav-link">
-            <i class="fas fa-laptop-code"></i> E-Learning Materials
-        </a>
-        <a href="online-classes.html">
-            <i class="fas fa-video"></i> Online Classes
-        </a>
-        <a href="help.html" class="nav-link">
-            <i class="fas fa-question-circle"></i> Help
-        </a>
-    </div>
-    
-    <!-- Header Section with Logo -->
-    <header>
-        <div class="container">
-            <div class="header-content">
-                <div class="logo-container">
-                    <img src="Kemz_logo.png" alt="KEMZ Academic Centre Logo" class="logo-img"> 
-                </div>
-                <div class="tagline">
-                    <h1>KEMZ ACADEMIC CENTRE</h1>
-                </div>
-                <div class="tagline">Hard Work Brings Success!</div>
+
+        <div class="services-grid" id="servicesGrid">
+            <!-- ECE (Early Childhood Education) -->
+            <div class="service-card" id="eceCard">
+                <i class="fas fa-baby-carriage"></i>
+                <h3>Early Childhood Education (ECE)</h3>
+                <ul>
+                    <li>Baby Class</li>
+                    <li>Middle Class</li>
+                    <li>Reception Class</li>
+                </ul>
+                <img src="ece.jpg" alt="ECE Classroom" class="category-img" id="eceImg">
+            </div>
+
+            <!-- Lower Primary -->
+            <div class="service-card" id="lowerPrimaryCard">
+                <i class="fas fa-book-open"></i>
+                <h3>Lower Primary</h3>
+                <ul>
+                    <li>Grade 1</li>
+                    <li>Grade 2</li>
+                    <li>Grade 3</li>
+                </ul>
+                <img src="lp.jpg" alt="Lower Primary" class="category-img" id="lpImg">
+            </div>
+
+            <!-- Upper Primary -->
+            <div class="service-card" id="upperPrimaryCard">
+                <i class="fas fa-chalkboard"></i>
+                <h3>Upper Primary</h3>
+                <ul>
+                    <li>Grade 4</li>
+                    <li>Grade 5</li>
+                    <li>Grade 6</li>
+                    <li>Grade 7 (phasing out soon)</li>
+                </ul>
+                <img src="up.jpg" alt="Upper Primary" class="category-img" id="upImg">
+            </div>
+
+            <!-- Secondary Ordinary Level -->
+            <div class="service-card" id="secondaryCard">
+                <i class="fas fa-user-graduate"></i>
+                <h3>Secondary (O' Level)</h3>
+                <ul>
+                    <li>Form 1</li>
+                    <li>Form 2</li>
+                    <li>Form 3</li>
+                    <li>Form 4</li>
+                    <br>
+                    <p>Pathways:</p>
+                    <p>Natural Science</p>
+                    <p>Business and Finance</p>
+                </ul>
+                <img src="Form2A.jpg" alt="Secondary Class" class="category-img" id="secondaryImg">
+            </div>
+
+            <!-- Additional Services (only two items) -->
+            <div class="service-card" id="additionalCard">
+                <i class="fas fa-laptop-code"></i>
+                <h3>Additional Services</h3>
+                <ul>
+                    <li>📚 Tuitions in all grades</li>
+                    <li>💻 Computer Short Courses</li>
+                </ul>
+                <img src="web.jpg" alt="Additional Services" class="category-img" id="additionalImg">
             </div>
         </div>
-    </header>
-    
-    <!-- Main Content Container -->
-    <div class="container">
-        <!-- Services Offered Page -->
-        <div class="page-content">
-            <h1 class="section-title">Services Offered</h1>
-            <p>Our school offers comprehensive educational services across multiple levels:</p>
+    </div>
             
-            <div class="content-grid">
-                <div class=" extreme-card">
-                    <h3><i class="fas fa-school"></i> Pre-School</h3>
-                    <ul class="service-list">
-                        <li><i class="fas fa-baby"></i> Baby Class</li>
-                        <li><i class="fas fa-child"></i> Middle Class</li>
-                        <li><i class="fas fa-graduation-cap"></i> Reception Class</li>
-                    </ul>
-                </div>
-                
-                <div class="card">
-                    <h3><i class="fas fa-book-open"></i> Lower Primary</h3>
-                    <ul class="service-list">
-                        <li>Grade 1</li>
-                        <li>Grade 2</li>
-                        <li>Grade 3</li>
-                    </ul>
-                </div>
-                
-                <div class="card">
-                    <h3><i class="fas fa-book"></i> Upper Primary</h3>
-                    <ul class="service-list">
-                        <li>Grade 4</li>
-                        <li>Grade 5</li>
-                        <li>Grade 6</li>
-                        <li>Grade 7 (phasing out soon)</li>
-                    </ul>
-                </div>
-                
-                <div class="card">
-                    <h3 extreme-><i class="fas fa-user-graduate"></i> Secondary Ordinary Level</h3>
-                    <ul class="service-list">
-                        <li>Form 1</li>
-                        <li>Form 2</li>
-                        <li>Form 3</li>
-                        <li>Form 4</li>
-                    </ul>
-                </div>
-                
-                <div class="card">
-                    <h3><i class="fas fa-chalkboard-teacher"></i> Additional Services</h3>
-                    <ul class="service-list">
-                        <li><i class="fas fa-book-reader"></i> Tuitions in all grades</li>
-                        <li><i class="fas fa-laptop-code"></i> Computer Short Courses</li>
-                        <li><i class="fas fa-music"></i> Music & Arts Programs</li>
-                        <li><i class="fas fa-futbol"></i> Sports Development</li>
-                    </ul>
-                </div>
-            </div>
+    <!-- FOOTER (identical to home page) -->
+    <footer id="footerSection">
+        <h3>KEMZ ACADEMIC CENTRE</h3>
+        <p>Hard Work Brings Success!</p>
+        <br>
+        <h2>Contact Us</h2>
+        <div id="footerContactInfo">
+            <p>📞 +260977916081 | +260977432490</p>
+            <p>📧 kemzacademiccentre@gmail.com</p>
+            <p>🌐 www.kemzonline.com</p>
+            <p><i class="fas fa-map-marker-alt"></i> Plot No 88/37, Makeni Villa, Lusaka - Zambia</p>
         </div>
-    </div>
-
-    <!-- Fixed Footer -->
-    <div class="fixed-footer">
-        <div class="footer-copyright">
-            © 2025 KEMZ ACADEMIC CENTRE | Powered By Kemz Online Services
+        <br>
+        <h2>Follow Us</h2>
+        <div class="social-icons" id="footerSocialLinks">
+            <a href="https://www.facebook.com/share/1AzFdvL5Yq/"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-whatsapp"></i></a>
+            <a href="mailto:kemzacademiccentre@gmail.com"><i class="fas fa-envelope"></i></a>
         </div>
-    </div>
+        <br>
+        <hr>
+        <p>© 2025 - 2026 KEMZ ACADEMIC CENTRE | All rights reserved</p>
+    </footer>
 
-    <script src="script.js"></script>
+    <!-- JAVASCRIPT for mobile menu -->
+    <script>
+        const menuBtn = document.getElementById("menuBtn");
+        const navLinks = document.getElementById("navLinks");
+
+        menuBtn.onclick = (e) => {
+            e.stopPropagation();
+            navLinks.classList.toggle("active");
+        };
+
+        document.addEventListener("click", function(event) {
+            const isClickInsideNav = navLinks.contains(event.target);
+            const isClickOnMenuBtn = menuBtn.contains(event.target);
+            if (!isClickInsideNav && !isClickOnMenuBtn && navLinks.classList.contains("active")) {
+                navLinks.classList.remove("active");
+            }
+        });
+    </script>
 </body>
 </html>

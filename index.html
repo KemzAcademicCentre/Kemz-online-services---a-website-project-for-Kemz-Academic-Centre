@@ -1,152 +1,803 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KEMZ ONLINE SERVICES - KEMZ ACADEMIC CENTRE</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>KEMZ ONLINE SERVICES | KEMZ ACADEMIC CENTRE</title>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: #f4f7fb;
+            color: #222;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        /* =========================
+           NAVBAR
+        ========================== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 15px 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(10, 35, 66, 0.85);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-title img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            transition: 0.3s;
+        }
+
+        .logo-title img:hover {
+            transform: scale(1.08);
+        }
+
+        .logo-title h2 {
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            color: white;
+            font-size: 0.95rem;
+            position: relative;
+            transition: 0.3s;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0%;
+            height: 2px;
+            background: #4da3ff;
+            left: 0;
+            bottom: -5px;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .menu-btn {
+            display: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* =========================
+           HERO SECTION
+        ========================== */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(rgba(5, 20, 40, 0.75), rgba(5, 20, 40, 0.75)), url('web.jpg') center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 120px 8% 80px;
+        }
+
+        .hero-content {
+            max-width: 850px;
+            animation: fadeIn 1.5s ease;
+        }
+
+        .hero-logo {
+            width: 130px;
+            margin-bottom: 25px;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            color: white;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .hero h3 {
+            color: #d8e8ff;
+            font-size: 1.4rem;
+            margin-bottom: 25px;
+            font-weight: 400;
+        }
+
+        .hero p {
+            color: #f1f1f1;
+            line-height: 1.8;
+            margin-bottom: 35px;
+            font-size: 1rem;
+        }
+
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 18px;
+            flex-wrap: wrap;
+        }
+
+        .hero-buttons a {
+            padding: 14px 28px;
+            border-radius: 40px;
+            font-weight: 500;
+            transition: 0.4s;
+        }
+
+        .btn-primary {
+            background: #1a73e8;
+            color: white;
+            box-shadow: 0 10px 20px rgba(26, 115, 232, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-5px);
+            background: #0d5fd4;
+        }
+
+        .btn-secondary {
+            border: 2px solid white;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            color: #0a2342;
+        }
+
+        /* =========================
+           ANNOUNCEMENT BAR
+        ========================== */
+        .announcement {
+            background: linear-gradient(to right, #0a2342, #1a73e8);
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        /* =========================
+           SERVICES SECTION
+        ========================== */
+        .section {
+            padding: 90px 8%;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: #0a2342;
+            margin-bottom: 15px;
+        }
+
+        .section-title p {
+            color: #666;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .service-card {
+            background: #071a30;
+            padding: 35px 25px;
+            border-radius: 20px;
+            text-align: center;
+            transition: 0.4s;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+            color: white;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .service-card i {
+            font-size: 2.5rem;
+            color: white;
+            margin-bottom: 20px;
+        }
+
+        .service-card h3 {
+            margin-bottom: 15px;
+            color: white;
+        }
+
+        .service-card p {
+            color: #e0e0e0;
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        /* =========================
+           GALLERY (School Highlights) - with ribbon overlay
+        ========================== */
+        .gallery {
+            background: #eef4ff;
+        }
+
+        .gallery-slider {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        /* New style for school highlight figures - rounded + overflow for ribbon */
+        .gallery-slider figure {
+            position: relative;
+            margin: 0;
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .gallery-slider img {
+            width: 100%;
+            height: 260px;
+            object-fit: cover;
+            display: block;
+            transition: 0.4s;
+        }
+
+        .gallery-slider img:hover {
+            transform: scale(1.03);
+        }
+
+        /* Blue ribbon at bottom of the photo */
+        .photo-ribbon {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #071a30;   /* same as footer background */
+            color: white;
+            text-align: center;
+            padding: 6px 0;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+            z-index: 2;
+        }
+
+        /* Remove old figcaption styling completely */
+        .gallery-slider figcaption {
+            display: none;
+        }
+
+        /* =========================
+           QUOTE SECTION
+        ========================== */
+        .quote-box {
+            background: white;
+            max-width: 900px;
+            margin: auto;
+            padding: 50px;
+            border-radius: 25px;
+            text-align: center;
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.07);
+        }
+
+        .quote-box i {
+            font-size: 3rem;
+            color: #1a73e8;
+            margin-bottom: 25px;
+        }
+
+        .quote-box p {
+            font-size: 1.2rem;
+            font-style: italic;
+            color: #444;
+            line-height: 1.8;
+        }
+
+        .quote-box h4 {
+            margin-top: 20px;
+            color: #0a2342;
+        }
+
+        .full-photo {
+            width: 100%;
+            height: 260px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin: 20px 0 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        /* =========================
+           STAFF SECTION (Featured Leadership)
+        ========================== */
+        .staff-card {
+            max-width: 350px;
+            margin: auto;
+            background: white;
+            border-radius: 25px;
+            padding: 35px;
+            text-align: center;
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.07);
+            transition: 0.4s;
+        }
+
+        .staff-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .staff-card img {
+            width: 100%;
+            height: 260px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+
+        .staff-card h3 {
+            color: #0a2342;
+            margin-bottom: 8px;
+        }
+
+        .staff-card p {
+            color: #666;
+        }
+
+        /* =========================
+           SOCIAL SECTION
+        ========================== */
+        .social-container {
+            text-align: center;
+        }
+
+        .social-icons {
+            margin-top: 25px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .social-icons a {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            background: #1a73e8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 1.2rem;
+            transition: 0.4s;
+        }
+
+        .social-icons a:hover {
+            transform: translateY(-5px);
+            background: #0a2342;
+        }
+
+        .email {
+            margin-top: 25px;
+            color: #444;
+        }
+
+        /* =========================
+           ARTICLE READ MORE BUTTON
+        ========================== */
+        .read-more-btn {
+            background: #1a73e8;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+            margin: 20px 0;
+            transition: 0.3s;
+        }
+
+        .read-more-btn:hover {
+            background: #0d5fd4;
+        }
+
+        .hidden-content {
+            display: none;
+        }
+
+        /* =========================
+           FOOTER
+        ========================== */
+        footer {
+            background: #071a30;
+            color: white;
+            padding: 40px 8%;
+            text-align: center;
+        }
+
+        footer p {
+            margin: 10px 0;
+            color: #cfcfcf;
+        }
+
+        /* =========================
+           ANIMATIONS
+        ========================== */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* =========================
+           RESPONSIVE
+        ========================== */
+        @media (max-width: 900px) {
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                right: -100%;
+                width: 280px;
+                height: 100vh;
+                background: #0a2342;
+                flex-direction: column;
+                padding: 40px 30px;
+                transition: 0.4s;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .menu-btn {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: 2.7rem;
+            }
+
+            .hero h3 {
+                font-size: 1.1rem;
+            }
+
+            .section-title h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
 </head>
+
 <body>
-    <!-- Fixed Top Navigation Bar -->
-    <div class="top-nav">
-        <div class="menu-toggle" id="menuToggle">
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="logo-title">
+            <img src="Kemz_logo.png" alt="KEMZ Logo">
+            <h2>KEMZ ONLINE SERVICES</h2>
+        </div>
+
+        <div class="nav-links" id="navLinks">
+            <a href="index.html"><i class="fas fa-home"></i> Home</a>
+            <a href="about.html"><i class="fas fa-info-circle"></i> About</a>
+            <a href="inqu.html"><i class="fas fa-question-circle"></i> Inquiries</a>
+            <a href="services.html"><i class="fas fa-concierge-bell"></i> Services</a>
+            <a href="staff.html"><i class="fas fa-users"></i> Staff</a>
+            <a href="updates.html"><i class="fas fa-bullhorn"></i> Updates</a>
+            <a href="registration.html"><i class="fas fa-file-signature"></i> Registration</a>
+            <a href="results-portal.html"><i class="fas fa-poll"></i> Results</a>
+            <a href="elearning.html"><i class="fas fa-laptop-code"></i> E-Learning</a>
+            <a href="online-classes.html"><i class="fas fa-video"></i> Classes</a>
+        </div>
+
+        <div class="menu-btn" id="menuBtn">
             <i class="fas fa-bars"></i>
         </div>
-        <div class="nav-marquee">
-            <marquee behavior="scroll" direction="left"><h1>KEMZ ONLINE SERVICES</h1></marquee>
-        </div>
-        <div class="nav-logo">
-            <img src="Kemz_logo.png" alt="Kemz Logo">
-        </div>
-    </div>
-    
-    <!-- Sliding Navigation Panel -->
- 
-        <div class="nav-panel" id="navPanel">
-        <a href="index.html" class="nav-link">
-            <i class="fas fa-home"></i> Home
-        </a>
-        <a href="about.html" class="nav-link">
-            <i class="fas fa-info-circle"></i extreme-> About Us
-        </a>
-        <a href="location.html" class="nav-link">
-            <i class="fas fa-map-marker-alt"></i> Location & Contacts
-        </a>
-        <a href="services.html" class="nav-link">
-            <i class="fas fa-concierge-bell"></i> Services Offered
-        </a>
-        <a href="staff.html" class="nav-link">
-            <i class="fas fa-users"></i> Staff Members
-        </a>
-        <a href="updates.html" class="nav-link">
-            <i class="fas fa-bullhorn"></i> Latest Updates
-        </a>
-        <a href="registration.html" class="nav-link">
-            <i class="fas fa-file-signature"></i> Online Registration
-        </a>
-        <a href="results-portal.html">
-            <i class="fas fa-poll"></i> Online Results
-        </a>
-        <a href="elearning.html" class="nav-link">
-            <i class="fas fa-laptop-code"></i> E-Learning Materials
-        </a>
-        <a href="online-classes.html">
-            <i class="fas fa-video"></i> Online Classes
-        </a>
-        <a href="help.html" class="nav-link">
-            <i class="fas fa-question-circle"></i> Help
-        </a>
-    </div>
-    
-    <!-- Header Section with Logo -->
-    <header>
-        <div class="container">
-            <div class="header-content">
-                <div class="logo-container">
-                    <img src="Kemz_logo.png" alt="KEMZ Academic Centre Logo" class="logo-img"> 
-                </div>
-                <div class="tagline">
-                    <h1>KEMZ ACADEMIC CENTRE</h1>
-                </div>
-                <div class="tagline">Hard Work Brings Success!</div>
+    </nav>
+
+    <!-- HERO SECTION (CMS-ready) -->
+    <section class="hero" id="heroSection">
+        <div class="hero-content" id="heroContent">
+            <img src="Kemz_logo.png" class="hero-logo" alt="KEMZ Logo">
+            <h1 id="heroTitle">KEMZ ACADEMIC CENTRE</h1>
+            <h3 id="heroSubtitle">Hard Work Brings Success!</h3>
+            <p id="heroDescription">
+                Welcome to KEMZ ONLINE SERVICES — the official digital platform for
+                KEMZ ACADEMIC CENTRE providing online registration, e-learning,
+                academic updates, online results, and modern educational services.
+            </p>
+            <div class="hero-buttons" id="heroButtons">
+                <a href="registration.html" class="btn-primary">Apply Online</a>
+                <a href="results-portal.html" class="btn-secondary">View Results</a>
+                <a href="inqu.html" class="btn-primary">Make Inquiries</a>
             </div>
         </div>
-    </header>
-    
-    <!-- Main Content Container -->
-    <div class="container">
-        <!-- Home Page Content -->
-        <div class="page-content">
-            <h1 class="section-title">KEMZ ONLINE SERVICES</h1>
-            <p>Welcome to Kemz Online Services, an official website for KEMZ ACADEMIC CENTRE. This site provides access to online services offered by the school. Explore our online services using the menu button at the top left.</p>
-            
-            <!-- Home Page Only Sections -->
-            <div class="home-only">
-                <!-- Image Slideshow -->
-                <div class="slideshow-container">
-                    <div class="slideshow-title" style="font-weight: bold; color: #1a527 extreme-6; text-align: center; margin-bottom: 15px;">Highlights</div>
-                    <div class="mySlides fade">
-                        <img src="Kemz1.jpg" alt="School Building">
-                    </div>
-                    <div class="mySlides fade">
-                        <img src="White.jpg" alt="Students Learning">
-                    </div>
-                    <div class="mySlides fade">
-                        <img src="Tour.jpg" alt="Science Lab">
-                    </div>
-                    <div class="mySlides fade">
-                        <img src="Nurse.jpg" alt="Sports Day">
-                    </div>
-                    <div class="mySlides fade">
-                        <img src="Ken.jpg" alt="Graduation Ceremony">
-                    </div>
-                    <div class="mySlides fade">
-                        <img src="Advert.jpg" alt="Art Exhibition">
-                    </div>
-                </div>
-                
-                <!-- Quote of the Day -->
-                <div class="quote-container">
-                    <h3>Quote of the Day</h3>
-                    <p class="quote-text">"Education is the most powerful weapon which you can use to change the world."</p>
-                    <p class="quote-author">- Nelson Mandela</p>
-                </div>
-                
-                <!-- Featured Staff Member -->
-                <div class="staff-profile">
-                    <h2 class="section-title">Featured Staff Member</h2>
-                    <img src="Kozo.jpg" alt="School Manager" class="staff-photo">
-                    <h3 class="staff-name">Mayungo Kennedy</h3>
-                    <p class="staff-position">School Director</p>
-                </div>
-                
-                <!-- Social Media Section -->
-                <div class="social-section">
-                    <h3>Follow Us On:</h3>
-                    <div class="social-icons">
-                        <a href="https://www.facebook.com/share/1AzFdvL5Yq/" class="social-icon">
-                            <i class="fab fa-facebook-f"></i>
-                        </a>
-                        <a href="#" class="social-icon">
-                            <i class="fab fa-whatsapp"></i>
-                        </a>
-                    </div>
-                    <div class="email-contact">
-                        Email us on: <a href="mailto:kemzacademiccentre@gmail.com">kemzacademiccentre@gmail.com</a>
-                    </div>
-                </div>
+    </section>
+
+    <!-- ANNOUNCEMENT BAR (CMS-ready) -->
+    <div class="announcement" id="announcementBar">
+        <p>📢 2026 Online Registration Now Open</p>
+        <p>📘 E-Learning Materials Available</p>
+        <p>📝 Online Results Portal Active</p>
+    </div>
+
+    <!-- SERVICES SECTION -->
+    <section class="section" id="servicesSection">
+        <div class="section-title">
+            <h2>Over 20 years of Academic Excellence!</h2>
+            <p>Providing quality education from Pre‑School to Secondary level, nurturing future leaders with integrity and innovation".</p>
+            <div class="gallery-slider">
+                <br>
+                <img src="Kemz5.jpg" alt="Campus life">
+            </div>
+            <br>
+            <h2>Our Online Services</h2>
+            <p>Explore modern digital services offered by KEMZ Academic Centre.</p>
+        </div>
+
+        <div class="services-grid" id="servicesGrid">
+            <div class="service-card">
+                <i class="fas fa-question-circle"></i>
+                <h3>Inquiries</h3>
+                <p>Make online inquiries quickly and conveniently at the comfort of your home.</p>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-bullhorn"></i>
+                <h3>Updates</h3>
+                <p>Stay connected by getting updates and announcements about the happenings at KEMZ Academic Centre.</p>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-file-signature"></i>
+                <h3>Online Registration</h3>
+                <p>Apply for admission online quickly and conveniently.</p>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-poll"></i>
+                <h3>Results Portal</h3>
+                <p>Access and download student academic results online.</p>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-laptop-code"></i>
+                <h3>E-Learning</h3>
+                <p>Access educational materials and learning resources digitally.</p>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-video"></i>
+                <h3>Online Classes</h3>
+                <p>Participate in interactive digital learning sessions remotely.</p>
             </div>
         </div>
-    </div>
+    </section>
 
-    <!-- Fixed Footer -->
-    <div class="fixed-footer">
-        <div class="footer-copyright">
-            © 2025 KEMZ ACADEMIC CENTRE | Powered By Kemz Online Services
+    <!-- GALLERY (School Highlights with ribbon tags) - CMS-ready -->
+    <section class="section gallery" id="schoolHighlightsSection">
+        <div class="section-title">
+            <h2>School Highlights</h2>
+            <p>Moments and activities from KEMZ Academic Centre.</p>
         </div>
-    </div>
+        <div class="gallery-slider" id="highlightsGallery">
+            <!-- Each figure now uses .photo-ribbon instead of figcaption -->
+            <figure>
+                <img src="White.jpg" alt="Teachers Day">
+                <div class="photo-ribbon"> Teachers Day</div>
+            </figure>
+            <figure>
+                <img src="Tour.jpg" alt="Recreation Tour">
+                <div class="photo-ribbon"> Recreation Tour</div>
+            </figure>
+            <figure>
+                <img src="Game.jpg" alt="Education Tour">
+                <div class="photo-ribbon"> Education Tour</div>
+            </figure>
+            <figure>
+                <img src="Nurse.jpg" alt="Careers Day">
+                <div class="photo-ribbon"> Careers Day</div>
+            </figure>
+            <figure>
+                <img src="Culture2.jpg" alt="Cultural Day">
+                <div class="photo-ribbon"> Cultural Day</div>
+            </figure>
+            <figure>
+                <img src="Variety.jpg" alt="Variety Show">
+                <div class="photo-ribbon"> Variety Show</div>
+            </figure>
+            <figure>
+                <img src="Civilian.jpg" alt="Civilian Day">
+                <div class="photo-ribbon"> Civilian Day</div>
+            </figure>
+            <figure>
+             <img src="Guidance.jpg" alt="Guidance">
+             <div class="photo-ribbon"> Guidance and Counseling</div>
+            </figure>
+            <figure>
+             <img src="Graduation2.jpg" alt="Graduation">
+             <div class="photo-ribbon"> Graduation</div>
+         </figure>
+            <figure>
+                <img src="Form2C.jpg" alt="Building the Future Leaders">
+                <div class="photo-ribbon"> Building the Future Leaders</div>
+            </figure>
+        </div>
+    </section>
 
-    <script src="script.js"></script>
+    <!-- QUOTE SECTION with full photo (CMS-ready) -->
+    <section class="section" id="quoteSection">
+        <div class="quote-box" id="quoteBox">
+            <p><h2>Quote</h2></p>
+            <p id="quoteText">"Education is indeed a great equaliser. It can make a boy from a village become President of Zambia."</p>
+            <img src="HH.jpg" alt="President Hakainde Hichilema" class="full-photo" id="quoteImage">
+            <h4 id="quoteAuthor">President Hakainde Hichilema</h4>
+        </div>
+    </section>
+
+    <!-- GOVERNMENT ARTICLE SECTION (CMS-ready) -->
+    <section class="section" id="governmentArticleSection">
+        <div class="section-title">
+            <h2 id="articleTitle">GOVERNMENT REAFFIRMS COMMITMENT TO DIGITAL EDUCATION</h2>
+        </div>
+        <div class="gallery-slider" id="articleMainImage">
+            <img src="web.jpg" alt="Website launch">
+        </div>
+        <br>
+        <p id="articleIntro">On 28 March, 2026, Information and Media Permanent Secretary Thabo Kawana, represented by ZANIS Director Loyce Saili, officiated at the launch of the KEMZ Academic Centre School Website and Internet Café in Kanyama-Lusaka.</p>
+        <br>
+
+        <!-- Hidden full article content -->
+        <div id="extraContent" style="display:none;">
+            <p><strong>Here are the highlights:</strong></p><br>
+            <p>• The launch of the KEMZ Academic Centre School Website and Internet Café underscores Government’s commitment to promoting access to information, innovation and technology driven learning as key pillars of national development.</p><br>
+            <p>• Reaffirmed that digital transformation is central to Government’s development agenda, emphasising that the future belongs to societies that invest in digital literacy, innovation and access to information.</p><br>
+            <p>• Emphasised that digital inclusion must begin in schools, as learners must not only consume information but also create it, evaluate it critically and use it responsibly in a rapidly evolving digital environment.</p><br>
+            <p>• Noted that KEMZ website and internet café represent more than just infrastructure, as they provide opportunity, access and empowerment to learners, parents and the wider community through enhanced connectivity and digital services.</p><br>
+            <p>Through this initiative:</p><br>
+            <p>i. Learners will be able to conduct research and access credible academic resources.</p><br>
+            <p>ii. Students will participate in online learning and extend education beyond the classroom.</p><br>
+            <p>iii. Parents will engage more effectively with the school through digital platforms.</p><br>
+            <p>iv. The community will benefit from reliable internet access through the internet café.</p><br>
+            <p>• The initiative directly supports the 2025 Competence Based Curriculum, which emphasises practical skills and real-life application of knowledge, with ICT competence positioned as a foundational requirement in modern education.</p><br>
+            <p>• Stressed that while technology is a powerful tool for education, innovation and connectivity, it must be used responsibly, as lack of discipline and guidance can lead to misuse and misinformation.</p><br>
+            <p>• Urged school management to continue investing in digital infrastructure, teacher training, cybersecurity and digital safety measures to ensure that technology enhances education rather than distracts from it.</p><br>
+            <p> • Learners were encouraged to take advantage of technology for innovation, problem solving and community development, with a call to master technology rather than be controlled by it.</p><br>
+            <p>• Parents and guardians were urged to play an active role in guiding learners to navigate the digital space responsibly, with discipline and purpose.</p><br>
+            <p>• Called on other institutions across the country to emulate such initiatives, emphasizing that collaboration between schools, communities and Government is key to accelerating national development and achieving a digitally inclusive Zambia.</p><br>
+            <p>• Meanwhile, KEMZ Academic Centre School Director Kennedy Muyango said the initiative aligns with Government’s digital transformation agenda and the 2025 Competence Based Curriculum by equipping learners with practical ICT skills for a modern, knowledge driven economy.</p><br>
+            <p>• He added that the launch also supports Government’s goal of digital inclusion by expanding access to technology, online learning and information for learners, parents and the wider community.</p><br>
+            <h4>— Report by Ministry of information and media</h4>
+        </div>
+
+        <button id="readMoreBtn" class="read-more-btn">Continue reading...</button>
+        <br><br>
+
+        <h2>Website Launch Highlights</h2>
+        <div class="gallery-slider" id="launchGallery">
+            <img src="Thabo.jpg" alt="Thabo Kawana">
+            <img src="Loyce.jpg" alt="Loyce Saili">
+            <img src="Loyce2.jpg" alt="Loyce Saili 2">
+            <img src="Parent1.jpg" alt="Parent">
+            <img src="Parent2.jpg" alt="Parent">
+            <img src="Parent3.jpg" alt="Parent">
+            <img src="Teacher.jpg" alt="Teacher">
+            <img src="Pupil.jpg" alt="Pupil">
+            <img src="Tour1.jpg" alt="Tour">
+            <img src="Tour2.jpg" alt="Tour">
+        </div>
+    </section>
+
+    <!-- FEATURED LEADERSHIP (CMS-ready) -->
+    <section class="section" id="leadershipSection">
+        <div class="section-title">
+            <h2>Featured Leadership</h2>
+        </div>
+        <div class="staff-card" id="leadershipCard">
+            <img src="Kozo.jpg" alt="School Director">
+            <h3 id="directorName">Mayungo Kennedy</h3>
+            <p id="directorRole">School Director</p>
+        </div>
+    </section>
+
+    <!-- FOOTER (CMS-ready contact & social) -->
+    <footer id="footerSection">
+        <h3>KEMZ ACADEMIC CENTRE</h3>
+        <p>Hard Work Brings Success!</p>
+        <br>
+        <h2>Contact Us</h2>
+        <div id="contactInfo">
+            <p>📞+260977916081 | +260977432490</p>
+            <p>📧 kemzacademiccentre@gmail.com</p>
+            <p>🌐 www.kemzonline.com</p>
+            <p><i class="fas fa-map-marker-alt"></i> Plot No 88/37, Makeni Villa, Lusaka - Zambia</p>
+        </div>
+        <br>
+        <h2>Follow Us</h2>
+        <div class="social-icons" id="socialLinks">
+            <a href="https://www.facebook.com/share/1AzFdvL5Yq/"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-whatsapp"></i></a>
+            <a href="mailto:kemzacademiccentre@gmail.com"><i class="fas fa-envelope"></i></a>
+        </div>
+        <br>
+        <hr>
+        <p>© 2025 - 2026 KEMZ ACADEMIC CENTRE | All rights reserved</p>
+    </footer>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        // 1. Mobile menu toggle + close when tapping outside the menu panel
+        const menuBtn = document.getElementById("menuBtn");
+        const navLinks = document.getElementById("navLinks");
+
+        menuBtn.onclick = (e) => {
+            e.stopPropagation();
+            navLinks.classList.toggle("active");
+        };
+
+        // Close menu when clicking anywhere outside the menu and outside the menu button
+        document.addEventListener("click", function(event) {
+            const isClickInsideNav = navLinks.contains(event.target);
+            const isClickOnMenuBtn = menuBtn.contains(event.target);
+            if (!isClickInsideNav && !isClickOnMenuBtn && navLinks.classList.contains("active")) {
+                navLinks.classList.remove("active");
+            }
+        });
+
+        // 2. "Continue reading" button logic (unchanged but stays functional)
+        const extraDiv = document.getElementById("extraContent");
+        const readBtn = document.getElementById("readMoreBtn");
+        let expanded = false;
+
+        readBtn.addEventListener("click", function() {
+            if (!expanded) {
+                extraDiv.style.display = "block";
+                readBtn.textContent = "Show less";
+                expanded = true;
+            } else {
+                extraDiv.style.display = "none";
+                readBtn.textContent = "Continue reading...";
+                expanded = false;
+            }
+        });
+    </script>
 </body>
 </html>

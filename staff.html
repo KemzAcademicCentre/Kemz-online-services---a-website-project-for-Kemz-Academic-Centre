@@ -1,350 +1,660 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Staff Members - KEMZ ACADEMIC CENTRE</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Our Staff | KEMZ ACADEMIC CENTRE</title>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
     <style>
-        /* Additional styles for staff page grid layout */
-        .staff-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 25px;
-            margin-top: 30px;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
         }
 
-        .staff-profile {
-            background: #fff;
-            border-radius: 15px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            text-align: center;
-            padding: 20px;
-            transition: transform 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+        body {
+            background: #f4f7fb;
+            color: #222;
+            overflow-x: hidden;
         }
 
-        .staff-profile:hover {
-            transform: scale(1.03);
-            box-shadow: 0 8px 15px rgba(0,0,0,0.15);
+        a {
+            text-decoration: none;
         }
 
-        .staff-photo {
+        /* =========================
+           NAVBAR (same as home)
+        ========================== */
+        .navbar {
+            position: fixed;
+            top: 0;
             width: 100%;
-            height: 280px;
-            border-radius: 15px;
-            object-fit: cover;
-            margin-bottom: 15px;
-            /* REMOVED THE BLUE BORDER FROM HERE */
+            z-index: 1000;
+            padding: 15px 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(10, 35, 66, 0.85);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
         }
 
-        .staff-name {
-            font-size: 1.5rem;
-            color: #1a5276;
-            margin: 10px 0 5px;
+        .logo-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
 
-        .staff-position {
-            font-size: 1.1rem;
-            color: #2874a6;
-            margin-bottom: 10px;
+        .logo-title img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            transition: 0.3s;
+        }
+
+        .logo-title img:hover {
+            transform: scale(1.08);
+        }
+
+        .logo-title h2 {
+            color: white;
+            font-size: 1.2rem;
             font-weight: 600;
         }
 
-        .staff-profile p {
-            margin: 3px 0;
-            color: #555;
-            font-size: 0.95rem;
+        .nav-links {
+            display: flex;
+            gap: 25px;
         }
 
-        /* Content grid adjustment for staff page */
-        .staff-page .content-grid {
-            grid-template-columns: 1fr;
+        .nav-links a {
+            color: white;
+            font-size: 0.95rem;
+            position: relative;
+            transition: 0.3s;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0%;
+            height: 2px;
+            background: #4da3ff;
+            left: 0;
+            bottom: -5px;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .menu-btn {
+            display: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* =========================
+           HERO (unique for staff)
+        ========================== */
+        .staff-hero {
+            min-height: 45vh;
+            background: linear-gradient(135deg, #0f2b44 0%, #1e5a8a 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 140px 8% 70px;
+        }
+
+        .staff-hero-content {
+            max-width: 750px;
+            animation: fadeIn 1.2s ease;
+        }
+
+        .staff-hero h1 {
+            font-size: 3rem;
+            color: white;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .staff-hero p {
+            font-size: 1.1rem;
+            color: #e0e8ff;
+            line-height: 1.6;
+        }
+
+        /* =========================
+           SECTIONS
+        ========================== */
+        .section {
+            padding: 60px 8%;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .section-title h2 {
+            font-size: 2.2rem;
+            color: #0a2342;
+            margin-bottom: 10px;
+            border-bottom: 3px solid #1a73e8;
+            display: inline-block;
+            padding-bottom: 8px;
+        }
+
+        /* Staff Grid */
+        .staff-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        .staff-card {
+            background: white;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+        }
+
+        .staff-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 18px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        /* PHOTO: rounded corners on all four sides, slightly bigger than original */
+        .staff-photo {
+            width: 100%;
+            height: 300px;          /* slightly bigger than original 280px */
+            object-fit: cover;
+            border-radius: 18px;    /* all corners curved, slightly larger radius than original 15px */
+            padding: 8px;           /* optional: gives a little breathing room inside card */
+        }
+
+        .staff-info {
+            padding: 0 18px 25px;
+        }
+
+        .staff-name {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #0a2342;
+            margin-bottom: 6px;
+        }
+
+        .staff-position {
+            font-size: 1rem;
+            color: #1a73e8;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .staff-detail {
+            font-size: 0.9rem;
+            color: #555;
+            line-height: 1.5;
+        }
+
+        /* Former staff (subtle style difference) */
+        .staff-card.former {
+            opacity: 0.92;
+            background: #fef9f0;
+        }
+
+        /* =========================
+           FOOTER (same as home)
+        ========================== */
+        footer {
+            background: #071a30;
+            color: white;
+            padding: 40px 8%;
+            text-align: center;
+        }
+
+        footer p {
+            margin: 10px 0;
+            color: #cfcfcf;
+        }
+
+        .social-icons {
+            margin-top: 25px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .social-icons a {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            background: #1a73e8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 1.2rem;
+            transition: 0.4s;
+        }
+
+        .social-icons a:hover {
+            transform: translateY(-5px);
+            background: #0a2342;
+        }
+
+        hr {
+            margin: 20px 0;
+            border-color: #2a4a7a;
+        }
+
+        /* =========================
+           ANIMATIONS
+        ========================== */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* =========================
+           RESPONSIVE
+        ========================== */
+        @media (max-width: 900px) {
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                right: -100%;
+                width: 280px;
+                height: 100vh;
+                background: #0a2342;
+                flex-direction: column;
+                padding: 40px 30px;
+                transition: 0.4s;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .menu-btn {
+                display: block;
+            }
+
+            .staff-hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .section-title h2 {
+                font-size: 1.8rem;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Fixed Top Navigation Bar -->
-    <div class="top-nav">
-        <div class="menu-toggle" id="menuToggle">
+
+    <!-- NAVBAR (identical to home page) -->
+    <nav class="navbar">
+        <div class="logo-title">
+            <img src="Kemz_logo.png" alt="KEMZ Logo">
+            <h2>KEMZ ONLINE SERVICES</h2>
+        </div>
+
+        <div class="nav-links" id="navLinks">
+            <a href="index.html"><i class="fas fa-home"></i> Home</a>
+            <a href="about.html"><i class="fas fa-info-circle"></i> About</a>
+            <a href="inqu.html"><i class="fas fa-question-circle"></i> Inquiries</a>
+            <a href="services.html"><i class="fas fa-concierge-bell"></i> Services</a>
+            <a href="staff.html"><i class="fas fa-users"></i> Staff</a>
+            <a href="updates.html"><i class="fas fa-bullhorn"></i> Updates</a>
+            <a href="registration.html"><i class="fas fa-file-signature"></i> Registration</a>
+            <a href="results-portal.html"><i class="fas fa-poll"></i> Results</a>
+            <a href="elearning.html"><i class="fas fa-laptop-code"></i> E-Learning</a>
+            <a href="online-classes.html"><i class="fas fa-video"></i> Classes</a>
+        </div>
+
+        <div class="menu-btn" id="menuBtn">
             <i class="fas fa-bars"></i>
         </div>
-        <div class="nav-marquee">
-            <marquee behavior="scroll" direction="left"><h1>KEMZ ONLINE SERVICES</h1></marquee>
+    </nav>
+
+    <!-- UNIQUE HERO SECTION -->
+    <section class="staff-hero">
+        <div class="staff-hero-content">
+            <h1>Meet Our Dedicated Team</h1>
+            <p>Passionate educators and administrators committed to excellence and student success.</p>
         </div>
-        <div class="nav-logo">
-            <img src="Kemz_logo.png" alt="Kemz Logo">
+    </section>
+
+    <!-- SERVING STAFF MEMBERS -->
+    <div class="section">
+        <div class="section-title">
+            <h2>Serving Staff Members</h2>
         </div>
-    </div>
-    
-    <!-- Sliding Navigation Panel -->
-    <div class="nav-panel" id="navPanel">
-        <a href="index.html" class="nav-link">
-            <i class="fas fa-home"></i> Home
-        </a>
-        <a href="about.html" class="nav-link">
-            <i class="fas fa-info-circle"></i> About Us
-        </a>
-        <a href="location.html" class="nav-link">
-            <i class="fas fa-map-marker-alt"></i> Location & Contacts
-        </a>
-        <a href="services.html" class="nav-link">
-            <i class="fas fa-concierge-bell"></i> Services Offered
-        </a>
-        <a href="staff.html" class="nav-link">
-            <i class="fas fa-users"></i> Staff Members
-        </a>
-        <a href="updates.html" class="nav-link">
-            <i class="fas fa-bullhorn"></i> Latest Updates
-        </a>
-        <a href="registration.html" class="nav-link">
-            <i class="fas fa-file-signature"></i> Online Registration
-        </a>
-        <a href="results-portal.html">
-            <i class="fas fa-poll"></i> Online Results
-        </a>
-        <a href="elearning.html" class="nav-link">
-            <i class="fas fa-laptop-code"></i> E-Learning Materials
-        </a>
-        <a href="online-classes.html">
-            <i class="fas fa-video"></i> Online Classes
-        </a>
-        <a href="help.html" class="nav-link">
-            <i class="fas fa-question-circle"></i> Help
-        </a>
-    </div>
-    
-    <!-- Header Section with Logo -->
-    <header>
-        <div class="container">
-            <div class="header-content">
-                <div class="logo-container">
-                    <img src="Kemz_logo.png" alt="KEMZ Academic Centre Logo" class="logo-img"> 
+        <div class="staff-grid" id="servingStaffGrid">
+            <!-- Each staff card has a unique ID for CMS editing -->
+            <div class="staff-card" id="staffMayungoKennedy">
+                <img src="Kennedy.jpg" alt="Mayungo Kennedy" class="staff-photo" id="imgKennedy">
+                <div class="staff-info">
+                    <h3 class="staff-name" id="nameKennedy">Mayungo Kennedy</h3>
+                    <div class="staff-position" id="posKennedy">School Director</div>
+                    <div class="staff-detail" id="detailKennedy">BEd Education, 20 years experience</div>
                 </div>
-                <div class="tagline">
-                    <h1>KEMZ ACADEMIC CENTRE</h1>
-                </div>
-                <div class="tagline">Hard Work Brings Success!</div>
             </div>
-        </div>
-    </header>
-    
-    <!-- Main Content Container -->
-    <div class="container staff-page">
-        <!-- Staff Members Page -->
-        <div class="page-content">
-            <h1 class="section-title">Our Staff Members</h1>
-            <p>Meet our dedicated team of educators, managers and administrators:</p>
-            
-            <div class="staff-container">
-                <div class="staff-profile">
-                    <img src="Kennedy.jpg" alt="School Manager" class="staff-photo">
-                    <h3 class="staff-name">Mayungo Kennedy</h3>
-                    <p class="staff-position">School Director</p>
-                    <p>BEd Education, 20 years experience</p>
+
+            <div class="staff-card" id="staffMayungoPumulo">
+                <img src="Pumulo.jpg" alt="Mayungo Pumulo" class="staff-photo" id="imgPumulo">
+                <div class="staff-info">
+                    <h3 class="staff-name" id="namePumulo">Mayungo Pumulo</h3>
+                    <div class="staff-position" id="posPumulo">School Manager</div>
+                    <div class="staff-detail" id="detailPumulo">BSc Education, 10 years experience</div>
                 </div>
-                
-                <div class="staff-profile">
-                    <img src="Pumulo.jpg" alt="Academic Director" class="staff-photo">
-                    <h3 class="staff-name">Mayungo Pumulo</h3>
-                    <p class="staff-position">School Manager</p>
-                    <p>BSc Education, 10 years experience</p>
+            </div>
+
+            <div class="staff-card" id="staffSiabwizuPerfect">
+                <img src="Perfect.jpg" alt="Siabwizu Perfect" class="staff-photo" id="imgPerfect">
+                <div class="staff-info">
+                    <h3 class="staff-name" id="namePerfect">Siabwizu Perfect</h3>
+                    <div class="staff-position" id="posPerfect">Senior Teacher - Kemz B</div>
+                    <div class="staff-detail" id="detailPerfect">Dip Education, 13 years experience</div>
                 </div>
-                
-                <div class="staff-profile">
-                    <img src="Perfect.jpg" alt="Head of Primary" class="staff-photo">
-                    <h3 class="staff-name">Siabwizu Perfect</h3>
-                    <p class="staff-position">Senior Teacher- Kemz B</p>
-                    <p>Dip Education, 13 years experience</p>
+            </div>
+
+            <div class="staff-card" id="staffHamoongaOdeta">
+                <img src="Odeta.jpg" alt="Hamoonga Odeta" class="staff-photo" id="imgOdeta">
+                <div class="staff-info">
+                    <h3 class="staff-name" id="nameOdeta">Hamoonga Odeta</h3>
+                    <div class="staff-position" id="posOdeta">Senior Teacher - Kemz A</div>
+                    <div class="staff-detail" id="detailOdeta">Dip Education, 13 years experience</div>
                 </div>
-                                <div class="staff-profile">
-                    <img src="Odeta.jpg" alt="Head of Primary" class="staff-photo">
-                    <h3 class="staff-name">Hamoonga Odeta</h3>
-                    <p class="staff-position">Senior Teacher - Kemz A</p>
-                    <p>Dip Education, 13 years experience</p>
+            </div>
+
+            <div class="staff-card" id="staffBusheSiphiwe">
+                <img src="Siphiwe.jpg" alt="Bushe Siphiwe" class="staff-photo" id="imgSiphiwe">
+                <div class="staff-info">
+                    <h3 class="staff-name" id="nameSiphiwe">Bushe Siphiwe</h3>
+                    <div class="staff-position" id="posSiphiwe">School Secretary</div>
+                    <div class="staff-detail" id="detailSiphiwe">Dip Education, 13 years experience</div>
                 </div>
-                
-                <div class="staff-profile">
-                    <img src="Siphiwe.jpg" alt="Head of Primary" class="staff-photo">
-                    <h3 class="staff-name">Bushe Siphiwe</h3>
-                    <p class="staff-position">School Secretary</p>
-                    <p>Dip Education, 13 years experience</p>
+            </div>
+
+            <div class="staff-card" id="staffMulengachonziPriscilla">
+                <img src="Muchonzi.jpg" alt="Mulengachonzi Priscilla" class="staff-photo" id="imgMulengachonzi">
+                <div class="staff-info">
+                    <h3 class="staff-name" id="nameMulengachonzi">Mulengachonzi Priscilla</h3>
+                    <div class="staff-position" id="posMulengachonzi">School Cashier</div>
+                    <div class="staff-detail" id="detailMulengachonzi">13 years experience</div>
                 </div>
-                                <div class="staff-profile">
-                    <img src="Muchonzi.jpg" alt="Head of Primary" class="staff-photo">
-                    <h3 class="staff-name"> Mulengachonzi Priscilla</h3>
-                    <p class="staff-position">School Cashier</p>
-                    <p>13 years experience</p>
+            </div>
+
+            <div class="staff-card" id="staffBandaSarah">
+                <img src="Sarah.jpg" alt="Banda Sarah" class="staff-photo" id="imgSarah">
+                <div class="staff-info">
+                    <h3 class="staff-name" id="nameSarah">Banda Sarah</h3>
+                    <div class="staff-position" id="posSarah">School Cashier</div>
+                    <div class="staff-detail" id="detailSarah">2 years experience</div>
                 </div>
-     
-                <div class="staff-profile">
-                    <img src="Sarah.jpg" alt="Head of Primary" class="staff-photo">
-                    <h3 class="staff-name">Banda Sarah</h3>
-                    <p class="staff-position">School Cashier</p>
-                    <p>2 years experience</p>
+            </div>
+
+            <div class="staff-card" id="staffNkontaFelix">
+                <img src="Felix.jpg" alt="Nkonta Felix" class="staff-photo" id="imgFelix">
+                <div class="staff-info">
+                    <h3 class="staff-name" id="nameFelix">Nkonta Felix</h3>
+                    <div class="staff-position" id="posFelix">Class Teacher</div>
+                    <div class="staff-detail" id="detailFelix">BA Economics, 5 years experience</div>
                 </div>
-                
-                <div class="staff-profile">
-                    <img src="Felix.jpg" alt="Head of Primary" class="staff-photo">
-                    <h3 class="staff-name">Nkonta Felix</h3>
-                    <p class="staff-position">Class Teacher</p>
-                    <p>BA Economics, 5 years experience</p>
+            </div>
+
+            <div class="staff-card" id="staffMalamboMercy">
+                <img src="Mercy.jpg" alt="Malambo Mercy" class="staff-photo" id="imgMercy">
+                <div class="staff-info">
+                    <h3 class="staff-name" id="nameMercy">Malambo Mercy</h3>
+                    <div class="staff-position" id="posMercy">Class Teacher</div>
+                    <div class="staff-detail" id="detailMercy">Dip Education, 5 years experience</div>
                 </div>
-                
-                <div class="staff-profile">
-                    <img src="Mercy.jpg" alt="Head of Primary" class="staff-photo">
-                    <h3 class="staff-name">Malambo Mercy</h3>
-                    <p class="staff-position">Class Teacher</p>
-                    <p>Dip Education, 5 years experience</p>
+            </div>
+
+            <div class="staff-card" id="staffTemboFaith">
+                <img src="Faith.jpg" alt="Tembo Faith" class="staff-photo" id="imgFaith">
+                <div class="staff-info">
+                    <h3 class="staff-name" id="nameFaith">Tembo Faith</h3>
+                    <div class="staff-position" id="posFaith">Class Teacher</div>
+                    <div class="staff-detail" id="detailFaith">Dip Education, 5 years experience</div>
                 </div>
-                
-                <div class="staff-profile">
-                    <img src="Faith.jpg" alt="Head of Primary" class="staff-photo">
-                    <h3 class="staff-name">Tembo Faith</h3>
-                    <p class="staff-position">Class Teacher</p>
-                    <p>Dip Education, 5 years experience</p>
+            </div>
+
+            <div class="staff-card" id="staffSyazuzaPhelia">
+                <img src="Syazuza.jpg" alt="Syazuza Phelia" class="staff-photo" id="imgSyazuza">
+                <div class="staff-info">
+                    <h3 class="staff-name" id="nameSyazuza">Syazuza Phelia</h3>
+                    <div class="staff-position" id="posSyazuza">Class Teacher</div>
+                    <div class="staff-detail" id="detailSyazuza">BA Education, 5 years experience</div>
                 </div>
-                
-                <div class="staff-profile">
-                    <img src="Syazuza.jpg" alt="Head of Primary" class="staff-photo">
-                    <h3 class="staff-name">Syazuza Phelia</h3>
-                    <p class="staff-position">Class Teacher</p>
-                    <p>BA Education, 5 years experience</p>
+            </div>
+
+            <div class="staff-card" id="staffKabayaJane">
+                <img src="Kabaya.jpg" alt="Kabaya Jane" class="staff-photo" id="imgKabaya">
+                <div class="staff-info">
+                    <h3 class="staff-name" id="nameKabaya">Kabaya Jane</h3>
+                    <div class="staff-position" id="posKabaya">Class Teacher</div>
+                    <div class="staff-detail" id="detailKabaya">Dip Education, 5 years experience</div>
                 </div>
-                
-                <div class="staff-profile">
-                    <img src="Kabaya.jpg" alt="Head of Primary" class="staff-photo">
-                    <h3 class="staff-name">Kabaya Jane</h3>
-                    <p class="staff-position">Class Teacher</p>
-                    <p>Dip Education, 5 years experience</p>
+            </div>
+
+            <div class="staff-card" id="staffKateleSansina">
+                <img src="Katele.jpg" alt="Katele Sansina" class="staff-photo" id="imgKatele">
+                <div class="staff-info">
+                    <h3 class="staff-name" id="nameKatele">Katele Sansina</h3>
+                    <div class="staff-position" id="posKatele">Class Teacher</div>
+                    <div class="staff-detail" id="detailKatele">Dip Education, 7 years experience</div>
                 </div>
-                
-                <div class="staff-profile">
-                    <img src="Amukola.jpg" alt="Head of Primary" class="staff-photo">
-                    <h3 class="staff-name">Amukola Nelson</h3>
-                    <p class="staff-position">Class Teacher</p>
-                    <p>Dip Education, 5 years experience</p>
+            </div>
+
+            <div class="staff-card" id="staffPhiriEsther">
+                <img src="Esther.jpg" alt="Phiri Esther" class="staff-photo" id="imgEsther">
+                <div class="staff-info">
+                    <h3 class="staff-name" id="nameEsther">Phiri Esther</h3>
+                    <div class="staff-position" id="posEsther">Class Teacher</div>
+                    <div class="staff-detail" id="detailEsther">BSc Education, 6 years experience</div>
                 </div>
-                
-                <div class="staff-profile">
-                    <img src="Katele.jpg" alt="Head of Primary" class="staff-photo">
-                    <h3 class="staff-name">Katele Sansina</h3>
-                    <p class="staff-position">Class Teacher</p>
-                    <p>Dip Education, 7 years experience</p>
+            </div>
+
+            <div class="staff-card" id="staffHabeezuNamoonga">
+                <img src="Habeenzu.jpg" alt="Habeezu Namoonga" class="staff-photo" id="imgHabeezu">
+                <div class="staff-info">
+                    <h3 class="staff-name" id="nameHabeezu">Habeezu Namoonga</h3>
+                    <div class="staff-position" id="posHabeezu">Class Teacher</div>
+                    <div class="staff-detail" id="detailHabeezu">Dip Education, 8 years experience</div>
                 </div>
-                
-                <div class="staff-profile">
-                    <img src="Esther.jpg" alt="Head of Primary" class="staff-photo">
-                    <h3 class="staff-name">Phiri Esther</h3>
-                    <p class="staff-position">Class Teacher</p>
-                    <p>Bsc Education, 6 years experience</p>
+            </div>
+
+            <div class="staff-card" id="staffSikazweNivas">
+                <img src="Nivas.jpg" alt="Sikazwe Nivas" class="staff-photo" id="imgNivas">
+                <div class="staff-info">
+                    <h3 class="staff-name" id="nameNivas">Sikazwe Nivas</h3>
+                    <div class="staff-position" id="posNivas">Class Teacher</div>
+                    <div class="staff-detail" id="detailNivas">Dip Education, 5 years experience</div>
                 </div>
-                
-                <div class="staff-profile">
-                    <img src="Habeenzu.jpg" alt="Head of Primary" class="staff-photo">
-                    <h3 class="staff-name">Habeezu Namoonga</h3>
-                    <p class="staff-position">Class Teacher</p>
-                    <p>Dip Education, 8 years experience</p>
+            </div>
+
+            <div class="staff-card" id="staffLunguTaza">
+                <img src="Taza.jpg" alt="Lungu Taza" class="staff-photo" id="imgTaza">
+                <div class="staff-info">
+                    <h3 class="staff-name" id="nameTaza">Lungu Taza</h3>
+                    <div class="staff-position" id="posTaza">Class Teacher</div>
+                    <div class="staff-detail" id="detailTaza">Dip Education, 13 years experience</div>
                 </div>
-                
-                <div class="staff-profile">
-                    <img src="Nivas.jpg" alt="Head of Primary" class="staff-photo">
-                    <h3 class="staff-name">Sikazwe Nivas</h3>
-                    <p class="staff-position">Class Teacher</p>
-                    <p>Dip Education, 5 years experience</p>
+            </div>
+
+            <div class="staff-card" id="staffNoangaNosiku">
+                <img src="Nosiku.jpg" alt="Noanga Nosiku" class="staff-photo" id="imgNosiku">
+                <div class="staff-info">
+                    <h3 class="staff-name" id="nameNosiku">Noanga Nosiku</h3>
+                    <div class="staff-position" id="posNosiku">Class Teacher</div>
+                    <div class="staff-detail" id="detailNosiku">Dip Education, 4 years experience</div>
                 </div>
-                
-                <div class="staff-profile">
-                    <img src="Taza.jpg" alt="Head of Primary" class="staff-photo">
-                    <h3 class="staff-name">Lungu Taza</h3>
-                    <p class="staff-position">Class Teacher</p>
-                    <p>Dip Education, 13 years experience</p>
+            </div>
+
+            <div class="staff-card" id="staffNgwenaRuth">
+                <img src="Ruth.jpg" alt="Ngwena Ruth" class="staff-photo" id="imgRuth">
+                <div class="staff-info">
+                    <h3 class="staff-name" id="nameRuth">Ngwena Ruth</h3>
+                    <div class="staff-position" id="posRuth">Class Teacher</div>
+                    <div class="staff-detail" id="detailRuth">Dip Education, 4 years experience</div>
                 </div>
-                
-                <div class="staff-profile">
-                    <img src="Nosiku.jpg" alt="Head of Primary" class="staff-photo">
-                    <h3 class="staff-name">Noanga Nosiku</h3>
-                    <p class="staff-position">Class Teacher</p>
-                    <p>Dip Education, 4 years experience</p>
+            </div>
+
+            <div class="staff-card" id="staffMwanzamoongaMervis">
+                <img src="Mervis.jpg" alt="Mwanzamoonga Mervis" class="staff-photo" id="imgMervis">
+                <div class="staff-info">
+                    <h3 class="staff-name" id="nameMervis">Mwanzamoonga Mervis</h3>
+                    <div class="staff-position" id="posMervis">Class Teacher</div>
+                    <div class="staff-detail" id="detailMervis">Dip Education, 4 years experience</div>
                 </div>
-                
-                <div class="staff-profile">
-                    <img src="Ruth.jpg" alt="Head of Secondary" class="staff-photo">
-                    <h3 class="staff-name">Ngwena Ruth</h3>
-                    <p class="staff-position">Class Teacher</p>
-                    <p>Dip Education, 4 years experience</p>
+            </div>
+
+            <div class="staff-card" id="staffMamboAnnety">
+                <img src="Mambo.jpg" alt="Mambo Annety" class="staff-photo" id="imgMambo">
+                <div class="staff-info">
+                    <h3 class="staff-name" id="nameMambo">Mambo Annety</h3>
+                    <div class="staff-position" id="posMambo">Class Teacher</div>
+                    <div class="staff-detail" id="detailMambo">Dip Education, 6 years experience</div>
                 </div>
-                
-                <div class="staff-profile">
-                    <img src="Constance.jpg" alt="Head of Secondary" class="staff-photo">
-                    <h3 class="staff-name">Chewe Constance</h3>
-                    <p class="staff-position">Class Teacher</p>
-                    <p>Dip Education, 5 years experience</p>
+            </div>
+
+            <div class="staff-card" id="staffKamwenaMirriam">
+                <img src="Mirriam.jpg" alt="Kamwena Mirriam" class="staff-photo" id="imgMirriam">
+                <div class="staff-info">
+                    <h3 class="staff-name" id="nameMirriam">Kamwena Mirriam</h3>
+                    <div class="staff-position" id="posMirriam">Class Teacher</div>
+                    <div class="staff-detail" id="detailMirriam">Dip Education, 2 years experience</div>
                 </div>
-                
-                <div class="staff-profile">
-                    <img src="Mervis.jpg" alt="Head of Secondary" class="staff-photo">
-                    <h3 class="staff-name">Mwanzamoonga Mervis</h3>
-                    <p class="staff-position">Class Teacher</p>
-                    <p>Dip Education, 4 years experience</p>
+            </div>
+
+            <div class="staff-card" id="staffSikaputaLesty">
+                <img src="Lesty.jpg" alt="Sikaputa Lesty" class="staff-photo" id="imgLesty">
+                <div class="staff-info">
+                    <h3 class="staff-name" id="nameLesty">Sikaputa Lesty</h3>
+                    <div class="staff-position" id="posLesty">Class Teacher</div>
+                    <div class="staff-detail" id="detailLesty">Dip Education, 4 years experience</div>
                 </div>
-                
-                <div class="staff-profile">
-                    <img src="Mambo.jpg" alt="Head of Secondary" class="staff-photo">
-                    <h3 class="staff-name">Mambo Annety</h3>
-                    <p class="staff-position">Class Teacher</p>
-                    <p>Dip Education, 6 years experience</p>
+            </div>
+
+            <div class="staff-card" id="staffZuluChiluba">
+                <img src="Chiluba2.jpg" alt="Zulu Chiluba" class="staff-photo" id="imgChiluba">
+                <div class="staff-info">
+                    <h3 class="staff-name" id="nameChiluba">Zulu Chiluba</h3>
+                    <div class="staff-position" id="posChiluba">Class Teacher</div>
+                    <div class="staff-detail" id="detailChiluba">Dip Education, 1 year experience</div>
                 </div>
-                
-                <div class="staff-profile">
-                    <img src="Mirriam.jpg" alt="Head of Secondary" class="staff-photo">
-                    <h3 class="staff-name">Kamwena Mirriam</h3>
-                    <p class="staff-position">Class Teacher</p>
-                    <p>Dip Education, 2 years experience</p>
+            </div>
+
+            <div class="staff-card" id="staffZuluPriscilla">
+                <img src="Musonda.jpg" alt="Zulu Priscilla" class="staff-photo" id="imgZuluPriscilla">
+                <div class="staff-info">
+                    <h3 class="staff-name" id="nameZuluPriscilla">Zulu Priscilla</h3>
+                    <div class="staff-position" id="posZuluPriscilla">Class Teacher</div>
+                    <div class="staff-detail" id="detailZuluPriscilla">Dip Education, 5 years experience</div>
                 </div>
-                
-                <div class="staff-profile">
-                    <img src="Lesty.jpg" alt="Head of Secondary" class="staff-photo">
-                    <h3 class="staff-name">Sikaputa Lesty</h3>
-                    <p class="staff-position">Class Teacher</p>
-                    <p>Dip Education, 4 years experience</p>
+            </div>
+
+            <div class="staff-card" id="staffKatunguNawa">
+                <img src="Katungu.jpg" alt="Katungu Nawa" class="staff-photo" id="imgKatungu">
+                <div class="staff-info">
+                    <h3 class="staff-name" id="nameKatungu">Katungu Nawa</h3>
+                    <div class="staff-position" id="posKatungu">Class Teacher</div>
+                    <div class="staff-detail" id="detailKatungu">Dip Education, 25 years experience</div>
                 </div>
-                
-                <div class="staff-profile">
-                    <img src="Chiluba2.jpg" alt="Head of Secondary" class="staff-photo">
-                    <h3 class="staff-name">Zulu Chiluba</h3>
-                    <p class="staff-position">Class Teacher</p>
-                    <p>Dip Education, 1 year experience</p>
-                </div>
-                                <div class="staff-profile">
-                    <img src="Musonda.jpg" alt="Head of Secondary" class="staff-photo">
-                    <h3 class="staff-name">Zulu Priscilla</h3>
-                    <p class="staff-position">Class Teacher</p>
-                    <p>Dip Education, 5 years experience</p>
-                </div>
-                                     <div class="staff-profile">
-                    <img src="Katungu.jpg" alt="Head of Secondary" class="staff-photo">
-                    <h3 class="staff-name">Katungu Nawa</h3>
-                    <p class="staff-position">Class Teacher</p>
-                    <p>Dip Education, 25 years experience</p>
-                </div>
-     
-                <!-- Other staff profiles continue here without the blue border -->
-                
             </div>
         </div>
     </div>
 
-    <!-- Fixed Footer -->
-    <div class="fixed-footer">
-        <div class="footer-copyright">
-            © 2025 KEMZ ACADEMIC CENTRE | Powered By Kemz Online Services
+    <!-- FORMER STAFF MEMBERS -->
+    <div class="section" style="background: #fef7e8;">
+        <div class="section-title">
+            <h2>Former Staff Members</h2>
+        </div>
+        <div class="staff-grid" id="formerStaffGrid">
+            <div class="staff-card former" id="staffAmukolaNelson">
+                <img src="Amukola.jpg" alt="Amukola Nelson" class="staff-photo" id="imgAmukola">
+                <div class="staff-info">
+                    <h3 class="staff-name" id="nameAmukola">Amukola Nelson</h3>
+                    <div class="staff-position" id="posAmukola">Former Class Teacher</div>
+                    <div class="staff-detail" id="detailAmukola">Dip Education, 5 years experience</div>
+                </div>
+            </div>
+
+            <div class="staff-card former" id="staffCheweConstance">
+                <img src="Constance.jpg" alt="Chewe Constance" class="staff-photo" id="imgConstance">
+                <div class="staff-info">
+                    <h3 class="staff-name" id="nameConstance">Chewe Constance</h3>
+                    <div class="staff-position" id="posConstance">Former Class Teacher</div>
+                    <div class="staff-detail" id="detailConstance">Dip Education, 5 years experience</div>
+                </div>
+            </div>
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <!-- FOOTER (identical to home page) -->
+    <footer id="footerSection">
+        <h3>KEMZ ACADEMIC CENTRE</h3>
+        <p>Hard Work Brings Success!</p>
+        <br>
+        <h2>Contact Us</h2>
+        <div id="footerContactInfo">
+            <p>📞 +260977916081 | +260977432490</p>
+            <p>📧 kemzacademiccentre@gmail.com</p>
+            <p>🌐 www.kemzonline.com</p>
+            <p><i class="fas fa-map-marker-alt"></i> Plot No 88/37, Makeni Villa, Lusaka - Zambia</p>
+        </div>
+        <br>
+        <h2>Follow Us</h2>
+        <div class="social-icons" id="footerSocialLinks">
+            <a href="https://www.facebook.com/share/1AzFdvL5Yq/"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-whatsapp"></i></a>
+            <a href="mailto:kemzacademiccentre@gmail.com"><i class="fas fa-envelope"></i></a>
+        </div>
+        <br>
+        <hr>
+        <p>© 2025 - 2026 KEMZ ACADEMIC CENTRE | All rights reserved</p>
+    </footer>
+
+    <!-- JAVASCRIPT for mobile menu -->
+    <script>
+        const menuBtn = document.getElementById("menuBtn");
+        const navLinks = document.getElementById("navLinks");
+
+        menuBtn.onclick = (e) => {
+            e.stopPropagation();
+            navLinks.classList.toggle("active");
+        };
+
+        document.addEventListener("click", function(event) {
+            const isClickInsideNav = navLinks.contains(event.target);
+            const isClickOnMenuBtn = menuBtn.contains(event.target);
+            if (!isClickInsideNav && !isClickOnMenuBtn && navLinks.classList.contains("active")) {
+                navLinks.classList.remove("active");
+            }
+        });
+    </script>
 </body>
 </html>

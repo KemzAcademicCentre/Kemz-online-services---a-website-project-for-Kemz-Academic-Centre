@@ -1,687 +1,852 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>E-Learning Portal - KEMZ ACADEMIC CENTRE</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+    <title>E‑Learning Portal | KEMZ ACADEMIC CENTRE</title>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+
     <style>
-        /* Additional styles specific to e-learning */
-        .form-group input {
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: #f4f7fb;
+            color: #222;
+            overflow-x: hidden;
             width: 100%;
-            padding: 12px 15px;
-            border: 2px solid #ddd;
-            border-radius: 8px;
-            font-size: 1rem;
-            transition: border-color 0.3s;
+            padding-bottom: 0;
         }
-        
-        .form-group input:focus {
-            outline: none;
-            border-color: #2874a6;
-            box-shadow: 0 0 0 3px rgba(40, 116, 166, 0.2);
-        }
-        
-        .btn {
-            display: inline-block;
-            background: linear-gradient(135deg, #1a5276, #2874a6);
-            color: white;
-            padding: 14px 25px;
-            border-radius: 50px;
+
+        a {
             text-decoration: none;
+        }
+
+        /* =========================
+           NAVBAR (same as home)
+        ========================== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 15px 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(10, 35, 66, 0.85);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-title img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            transition: 0.3s;
+        }
+
+        .logo-title h2 {
+            color: white;
+            font-size: 1.2rem;
             font-weight: 600;
-            transition: all 0.3s ease;
-            border: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            color: white;
+            font-size: 0.95rem;
+            position: relative;
+            transition: 0.3s;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0%;
+            height: 2px;
+            background: #4da3ff;
+            left: 0;
+            bottom: -5px;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .menu-btn {
+            display: none;
+            color: white;
+            font-size: 1.5rem;
             cursor: pointer;
-            font-size: 1rem;
-            box-shadow: 0 4px 15px rgba(26, 82, 118, 0.3);
+        }
+
+        /* =========================
+           HERO (unique for e-learning)
+        ========================== */
+        .elearning-hero {
+            min-height: 45vh;
+            background: linear-gradient(135deg, #0f2b44 0%, #1e5a8a 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 140px 8% 70px;
+            width: 100%;
+        }
+
+        .elearning-hero-content {
+            max-width: 750px;
+            width: 100%;
+            animation: fadeIn 1.2s ease;
+        }
+
+        .elearning-hero h1 {
+            font-size: 3rem;
+            color: white;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .elearning-hero p {
+            font-size: 1.1rem;
+            color: #e0e8ff;
+            line-height: 1.6;
+        }
+
+        /* =========================
+           SECTIONS
+        ========================== */
+        .section {
+            padding: 60px 5%;
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .section-title h2 {
+            font-size: 2rem;
+            color: #0a2342;
+            margin-bottom: 10px;
+            border-bottom: 3px solid #1a73e8;
+            display: inline-block;
+            padding-bottom: 8px;
+        }
+
+        /* Category Grid */
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .category-card {
+            background: white;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s;
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .category-header {
+            background: #071a30;
+            color: white;
+            padding: 15px;
             text-align: center;
         }
-        
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: extreme-0 6px 20px rgba(26, 82, 118, 0.4);
+
+        .category-header h3 {
+            font-size: 1.4rem;
+            margin: 0;
         }
-        
-        .btn i {
-            margin-right: 8px;
+
+        .category-body {
+            padding: 20px;
         }
-        
-        .instructions {
-            background: #e9f7fe;
+
+        .resource-item {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e0e7ed;
+        }
+
+        .resource-item strong {
+            display: block;
+            color: #0a2342;
+            margin-bottom: 5px;
+        }
+
+        .resource-item p {
+            color: #666;
+            font-size: 0.85rem;
+            margin-bottom: 10px;
+        }
+
+        .download-link {
+            display: inline-block;
+            background: #1a73e8;
+            color: white;
+            padding: 6px 15px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            transition: 0.3s;
+        }
+
+        .download-link:hover {
+            background: #0d5fd4;
+        }
+
+        /* Videos Section */
+        .videos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        .video-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .video-card video {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .video-info {
+            padding: 15px;
+        }
+
+        .video-info strong {
+            display: block;
+            color: #0a2342;
+            margin-bottom: 5px;
+        }
+
+        /* Quiz Card */
+        .quiz-card {
+            background: white;
+            border-radius: 28px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            margin-bottom: 40px;
+            overflow: hidden;
+        }
+
+        .quiz-header {
+            background: #071a30;
+            color: white;
+            padding: 20px;
+        }
+
+        .quiz-body {
             padding: 25px;
-            border-radius: 10px;
-            margin: 25px 0;
-            border-left: 5px solid #2874a6;
         }
-        
-        .instructions h3 {
-            color: #1a5276;
-            margin-bottom: 15px;
+
+        .quiz-question {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e0e7ed;
+        }
+
+        .quiz-question p {
+            font-weight: 600;
+            color: #0a2342;
+            margin-bottom: 10px;
+        }
+
+        .quiz-option {
+            margin: 8px 0;
             display: flex;
             align-items: center;
             gap: 10px;
         }
-        
-        .instructions ol {
-            margin-left: 20px;
+
+        .quiz-option input {
+            cursor: pointer;
         }
-        
-        .instructions li {
-            margin-bottom: 12px;
-            line-height: 1.6;
+
+        .quiz-option label {
+            color: #444;
+            cursor: pointer;
         }
-        
-        /* Fix for quiz layout issues */
-        .quiz-option {
+
+        .btn-submit {
+            background: #1a73e8;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 40px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 20px;
+        }
+
+        .btn-submit:hover {
+            background: #0d5fd4;
+            transform: translateY(-2px);
+        }
+
+        .quiz-result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 16px;
+            display: none;
+        }
+
+        .quiz-result.success {
+            background: #d4edda;
+            color: #155724;
+            display: block;
+        }
+
+        .quiz-result.error {
+            background: #f8d7da;
+            color: #721c24;
+            display: block;
+        }
+
+        /* Coming Soon */
+        .coming-soon {
+            text-align: center;
+            padding: 40px;
+            background: #fef9e6;
+            border-radius: 20px;
+            color: #b8860b;
+        }
+
+        .coming-soon i {
+            font-size: 3rem;
             margin-bottom: 10px;
-            display: flex;
-            align-items: center;
         }
-        
-        .quiz-option input[type="radio"] {
+
+        /* Other cards (Virtual Classes, Assignments, etc.) */
+        .info-grid-2col {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .info-card {
+            background: white;
+            border-radius: 24px;
+            padding: 25px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .info-card h3 {
+            color: #0a2342;
+            margin-bottom: 15px;
+            border-left: 4px solid #1a73e8;
+            padding-left: 12px;
+        }
+
+        .info-card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .info-card li {
+            margin: 12px 0;
+        }
+
+        .info-card a {
+            color: #1a73e8;
+        }
+
+        .info-card a:hover {
+            text-decoration: underline;
+        }
+
+        /* Chat section */
+        .chat-container {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            margin-top: 15px;
+        }
+
+        .chat-messages {
+            height: 250px;
+            overflow-y: auto;
+            padding: 15px;
+            background: #f8fafc;
+        }
+
+        .message {
+            margin-bottom: 12px;
+            padding: 8px 12px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .message strong {
+            color: #0a2342;
+        }
+
+        .chat-input {
+            display: flex;
+            padding: 12px;
+            background: white;
+            border-top: 1px solid #e0e7ed;
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 30px;
             margin-right: 10px;
         }
-        
-        /* Ensure footer stays fixed at bottom */
-        body {
-            position: relative;
-            min-height: 100vh;
-            padding-bottom: 60px; /* Space for fixed footer */
+
+        .chat-input button {
+            background: #1a73e8;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 30px;
+            cursor: pointer;
         }
-        
-        .fixed-footer {
-            position: fixed;
-            bottom: 0;
-            left: 0;
+
+        /* FOOTER */
+        footer {
+            background: #071a30;
+            color: white;
+            padding: 40px 8%;
+            text-align: center;
             width: 100%;
-            z-index: 1000;
         }
-        
-        /* Mobile responsiveness improvements */
-        @media (max-width: 768px) {
-            .content-grid {
-                grid-template-columns: 1fr !important;
-            }
-            
-            .card {
-                margin: 15px 0;
-            }
-            
-            .quiz-container {
-                padding: 15px;
-            }
-            
-            .quiz-options {
-                margin-left: 10px;
-            }
-            
-            .video-player {
-                max-width: 100% !important;
-            }
-            
-            .resource-download {
+
+        footer p {
+            margin: 10px 0;
+            color: #cfcfcf;
+        }
+
+        .social-icons {
+            margin-top: 25px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .social-icons a {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            background: #1a73e8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 1.2rem;
+            transition: 0.4s;
+        }
+
+        .social-icons a:hover {
+            transform: translateY(-5px);
+            background: #0a2342;
+        }
+
+        hr {
+            margin: 20px 0;
+            border-color: #2a4a7a;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 900px) {
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                right: -100%;
+                width: 280px;
+                height: 100vh;
+                background: #0a2342;
                 flex-direction: column;
-                text-align: center;
+                padding: 40px 30px;
+                transition: 0.4s;
             }
-            
-            .download-btn {
-                margin-top: 10px;
-            }
-            
-            .chat-messages {
-                height: 200px;
-            }
-            
-            .section-title {
-                font-size: 1.5rem;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .btn {
-                padding: 12px 20px;
-                font-size: 0.9rem;
-            }
-            
-            .page-content {
-                padding: 20px;
-            }
-            
-            .card {
-                padding: 15px;
-            }
-            
-            .quiz-question {
-                font-size: 0.9rem;
-            }
-            
-            .quiz-option label {
-                font-size: 0.9rem;
-            }
-            
-            .btn-submit {
-                padding: 10px 20px;
-                font-size: 0.9rem;
-            }
-            
-            .resource-info {
-                text-align: center;
-            }
-            
-            .resource-info strong {
-                display: block;
-                margin-bottom: 5px;
-            }
-        }
-        
-        /* Fix for extremely long content */
-        .quiz-container {
-            overflow-x: hidden;
-        }
-        
-        .chat-container {
-            max-width: 100%;
-            overflow: hidden;
-        }
-        
-        /* Ensure proper spacing on mobile */
-        @media (max-width: 768px) {
-            .container {
-                padding: 0 10px;
-            }
-            
-            .page-content {
-                margin: 20px 0;
-            }
-            
-            .content-grid {
-                gap: 15px;
-            }
+            .nav-links.active { right: 0; }
+            .menu-btn { display: block; }
+            .elearning-hero h1 { font-size: 2.2rem; }
         }
     </style>
 </head>
 <body>
-    <!-- Fixed Top Navigation Bar -->
-    <div class="top-nav">
-        <div class="menu-toggle" id="menuToggle">
-            <i class="fas fa-bars"></i>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="logo-title">
+            <img src="Kemz_logo.png" alt="KEMZ Logo">
+            <h2>KEMZ ONLINE SERVICES</h2>
         </div>
-        <div class="nav-marquee">
-            <marquee behavior="scroll" direction="left"><h1>KEMZ ONLINE SERVICES</h1></marquee>
+        <div class="nav-links" id="navLinks">
+            <a href="index.html"><i class="fas fa-home"></i> Home</a>
+            <a href="about.html"><i class="fas fa-info-circle"></i> About</a>
+            <a href="inqu.html"><i class="fas fa-question-circle"></i> Inquiries</a>
+            <a href="services.html"><i class="fas fa-concierge-bell"></i> Services</a>
+            <a href="staff.html"><i class="fas fa-users"></i> Staff</a>
+            <a href="updates.html"><i class="fas fa-bullhorn"></i> Updates</a>
+            <a href="registration.html"><i class="fas fa-file-signature"></i> Registration</a>
+            <a href="results-portal.html"><i class="fas fa-poll"></i> Results</a>
+            <a href="elearning.html"><i class="fas fa-laptop-code"></i> E-Learning</a>
+            <a href="online-classes.html"><i class="fas fa-video"></i> Classes</a>
         </div>
-        <div class="nav-logo">
-            <img src="Kemz_logo.png" alt="Kemz Logo">
+        <div class="menu-btn" id="menuBtn"><i class="fas fa-bars"></i></div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="elearning-hero">
+        <div class="elearning-hero-content">
+            <h1>E‑Learning Portal</h1>
+            <p>Access learning materials, videos, quizzes, and virtual classrooms – all in one place.</p>
         </div>
-    </div>
-    
-    <!-- Sliding Navigation Panel -->
-    <div class="nav-panel" id="navPanel">
-        <a href="index.html" class="nav-link">
-            <i class="fas fa-home"></i> Home
-        </a>
-        <a href="about.html" class="nav-link">
-            <i class="fas fa-info-circle"></i> About Us
-        </a>
-        <a href="location.html" class="nav-link">
-            <i class="fas fa-map-marker-alt"></i> Location & Contacts
-        </a>
-        <a href="services.html" class="nav-link">
-            <i class="fas fa-concierge-bell"></i> Services Offered
-        </a>
-        <a href="staff.html" class="nav-link">
-            <i class="fas fa-users"></i> Staff Members
-        </a>
-        <a href="updates.html" class="nav-link">
-            <i class="fas fa-bullhorn"></i> Latest Updates
-        </a>
-        <a href="registration.html" class="nav-link">
-            <i class="fas fa-file-signature"></i> Online Registration
-        </a>
-        <a href="results-portal.html">
-            <i class="fas fa-poll"></i> Online Results
-        </a>
-        <a href="elearning.html" class="nav-link">
-            <i class="fas fa-laptop-code"></i> E-Learning Materials
-        </a>
-        <a href="online-classes.html">
-            <i class="fas fa-video"></i> Online Classes
-        </a>
-        <a href="help.html" class="nav-link">
-            <i class="fas fa-question-circle"></i> Help
-        </a>
-    </div>
-    
-    <!-- Header Section with Logo -->
-    <header>
-        <div class="container">
-            <div class extreme-.header-content">
-                <div class="logo-container">
-                    <img src="Kemz_logo.png" alt="KEMZ Academic Centre Logo" class="logo-img"> 
+    </section>
+
+    <!-- MAIN CONTENT -->
+    <div class="section">
+
+        <!-- 1. LEARNING MATERIALS BY CATEGORY -->
+        <div class="section-title">
+            <h2>📚 Learning Materials</h2>
+        </div>
+        <div class="category-grid" id="materialsGrid">
+            <!-- ECE Category -->
+            <div class="category-card" id="eceMaterials">
+                <div class="category-header"><h3><i class="fas fa-baby-carriage"></i> Early Childhood (ECE)</h3></div>
+                <div class="category-body">
+                    <div class="resource-item"><strong>📖 Big crayons & Exercise Books</strong><p>Learning kits for Baby, Middle & Reception</p></div>
+                    <div class="resource-item"><strong>🎨 Art & Colouring</strong><p>Printable colouring sheets</p><a href="#" class="download-link">Coming Soon</a></div>
                 </div>
-                <div class="tagline">
-                    <h1>KEMZ ACADEMIC CENTRE</h1>
+            </div>
+
+            <!-- Lower Primary Category -->
+            <div class="category-card" id="lowerPrimaryMaterials">
+                <div class="category-header"><h3><i class="fas fa-book-open"></i> Lower Primary (G1‑3)</h3></div>
+                <div class="category-body">
+                    <div class="resource-item"><strong>📖 English Grammar</strong><p>Basic grammar worksheets</p><a href="#" class="download-link">Coming Soon</a></div>
+                    <div class="resource-item"><strong>🔢 Mathematics</strong><p>Addition, subtraction exercises</p><a href="#" class="download-link">Coming Soon</a></div>
                 </div>
-                <div class="tagline">Hard Work Brings Success!</div>
+            </div>
+
+            <!-- Upper Primary Category -->
+            <div class="category-card" id="upperPrimaryMaterials">
+                <div class="category-header"><h3><i class="fas fa-chalkboard"></i> Upper Primary (G4‑7)</h3></div>
+                <div class="category-body">
+                    <div class="resource-item"><strong>📘 Integrated Science</strong><p>Notes & revision questions</p><a href="#" class="download-link">Coming Soon</a></div>
+                    <div class="resource-item"><strong>🌍 Social Studies</strong><p>History & Geography notes</p><a href="#" class="download-link">Coming Soon</a></div>
+                    <div class="resource-item"><strong>📄 Commerce Test (Grade 10)</strong><p>Word document for Commerce</p><a href="Commerce_test.docx" download class="download-link"><i class="fas fa-download"></i> Download</a></div>
+                </div>
+            </div>
+
+            <!-- Secondary Category -->
+            <div class="category-card" id="secondaryMaterials">
+                <div class="category-header"><h3><i class="fas fa-user-graduate"></i> Secondary (Form 1‑4)</h3></div>
+                <div class="category-body">
+                    <div class="resource-item"><strong>💻 Computer Studies</strong><p>PDF document for Computer Course</p><a href="Computer_course.pdf" download class="download-link"><i class="fas fa-download"></i> Download</a></div>
+                    <div class="resource-item"><strong>📐 Mathematics</strong><p>Algebra & Geometry notes</p><a href="#" class="download-link">Coming Soon</a></div>
+                </div>
             </div>
         </div>
-    </header>
-    
-    <!-- Main Content Container -->
-    <div class="container">
-        <!-- E-Learning Page -->
-        <div class="page-content">
-            <h1 class="section-title">E-Learning Materials</h1>
-            <p>Access our online learning resources and virtual classrooms:</p>
-            
-            <div class="content-grid">
-                <div class="card">
-                    <h3><i class="fas fa-book"></i> Learning Materials</h3>
-                    <p>Access subject-specific learning materials and resources.</p>
-                    
-                    <div class="resource-download">
-                        <div class="resource-info">
-                            <strong>Commerce Test</strong>
-                            <p>Word document for Grade 10 Commerce</p>
-                        </div>
-                        <a href="Commerce_test.docx" download class="download-btn">
-                            <i class="fas fa-download"></i> Download
-                        </a>
+
+        <!-- 2. EDUCATIONAL VIDEOS SECTION -->
+        <div class="section-title">
+            <h2>🎥 Educational Videos</h2>
+        </div>
+        <div class="videos-grid" id="videosGrid">
+            <div class="video-card">
+                <video controls><source src="Homophones1.mp4" type="video/mp4">Your browser does not support video.</video>
+                <div class="video-info"><strong>Homophones By Tr Habenzu</strong><p>Grade 3 Lesson: Homophones</p><a href="Homophones1.mp4" download class="download-link"><i class="fas fa-download"></i> Download Video</a></div>
+            </div>
+            <div class="video-card">
+                <video controls><source src="Homophones2.mp4" type="video/mp4">Your browser does not support video.</video>
+                <div class="video-info"><strong>Homophones By Tr Kabaya</strong><p>Grade 3 Lesson: Homophones</p><a href="Homophones2.mp4" download class="download-link"><i class="fas fa-download"></i> Download Video</a></div>
+            </div>
+            <div class="video-card">
+                <video controls><source src="Compounds.mp4" type="video/mp4">Your browser does not support video.</video>
+                <div class="video-info"><strong>Compound Words By Tr. Kamwena</strong><p>Grade 4 Lesson: Compound Words</p><a href="Compounds.mp4" download class="download-link"><i class="fas fa-download"></i> Download Video</a></div>
+            </div>
+            <div class="video-card">
+                <video controls><source src="Math.mp4" type="video/mp4">Your browser does not support video.</video>
+                <div class="video-info"><strong>Mathematics Video Lesson</strong><p>Grade 8 Mathematics tutorial</p><a href="Math.mp4" download class="download-link"><i class="fas fa-download"></i> Download Video</a></div>
+            </div>
+            <div class="video-card">
+                <video controls><source src="Pencil_tail.mp4" type="video/mp4">Your browser does not support video.</video>
+                <div class="video-info"><strong>Pencil's Tale Art Lesson</strong><p>Creative Arts video tutorial</p><a href="Pencil_tail.mp4" download class="download-link"><i class="fas fa-download"></i> Download Video</a></div>
+            </div>
+        </div>
+
+        <!-- 3. QUIZ SECTION (Active quiz for Grade 5 Math) -->
+        <div class="section-title">
+            <h2>📝 Interactive Quiz</h2>
+        </div>
+        <div class="quiz-card" id="activeQuiz">
+            <div class="quiz-header">
+                <h3><i class="fas fa-brain"></i> Mathematics - Grade 5 (Level 1)</h3>
+                <p>Test your knowledge. Select the correct answer for each question.</p>
+            </div>
+            <div class="quiz-body">
+                <form id="quizForm">
+                    <!-- 10 questions with correct answers stored in data attribute -->
+                    <div class="quiz-question" data-correct="b">
+                        <p>1. What is 25 + 37?</p>
+                        <div class="quiz-option"><input type="radio" name="q1" value="a"> <label>52</label></div>
+                        <div class="quiz-option"><input type="radio" name="q1" value="b"> <label>62</label></div>
+                        <div class="quiz-option"><input type="radio" name="q1" value="c"> <label>72</label></div>
+                        <div class="quiz-option"><input type="radio" name="q1" value="d"> <label>82</label></div>
                     </div>
-                    
-                    <div class="resource-download">
-                        <div class="resource-info">
-                            <strong>Computer Course</strong>
-                            <p>PDF document for Computer Studies</p>
-                        </div>
-                        <a href="Computer_course.pdf" download class="download-btn">
-                            <i class="fas fa-download"></i> Download
-                        </a>
+                    <div class="quiz-question" data-correct="c">
+                        <p>2. What is ⅗ of 25?</p>
+                        <div class="quiz-option"><input type="radio" name="q2" value="a"> <label>5</label></div>
+                        <div class="quiz-option"><input type="radio" name="q2" value="b"> <label>10</label></div>
+                        <div class="quiz-option"><input type="radio" name="q2" value="c"> <label>15</label></div>
+                        <div class="quiz-option"><input type="radio" name="q2" value="d"> <label>20</label></div>
                     </div>
-                                        <div class="resource-download">
-                        <div class="resource-info">
-                            <strong>Homophones By Tr Habenzu</strong>
-                            <p>G3  Lesson: Homophones</p>
-                        </div>
-                        <div class="video-container">
-                            <video class="video-player" controls>
-                                <source src="Homophones1.mp4" type="video/mp4">
-                                Your browser does not support the video tag.
-                            </video>
-                        </div>
-                        <a href="Homophones1.mp4" download class="download-btn" style="margin-top: 10px;">
-                            <i class="fas fa-download"></i> Download Video
-                        </a>
+                    <div class="quiz-question" data-correct="c">
+                        <p>3. Which of these is a prime number?</p>
+                        <div class="quiz-option"><input type="radio" name="q3" value="a"> <label>15</label></div>
+                        <div class="quiz-option"><input type="radio" name="q3" value="b"> <label>21</label></div>
+                        <div class="quiz-option"><input type="radio" name="q3" value="c"> <label>29</label></div>
+                        <div class="quiz-option"><input type="radio" name="q3" value="d"> <label>33</label></div>
                     </div>
-                                                <div class="resource-download">
-                                            <div class="resource-info">
-                                                <strong>Homophones By Tr Kabaya</strong>
-                                                <p>G3 Lesson: Homophones</p>
-                                            </div>
-                                            <div class="video-container">
-                                                <video class="video-player" controls>
-                                                    <source src="Homophones2.mp4" type="video/mp4">
-                                                    Your browser does not support the video tag.                        </video>  
-                            </div>    
-                 <a href="Homophones2.mp4" download class="download-btn" style="margin-top: 10px;">
-                <i class="fas fa-download"></i> Download Video
-                                           </a>
-                        </div> 
-                        
-                <div class="resource-download">
-                                            <div class="resource-info">
-                                                <strong>Compound Words By Tr. Kamwena</strong>
-                                                <p>G4 Lesson: Compound Words</p>
-                                            </div>
-                                            <div class="video-container">
-                                                <video class="video-player" controls>
-                                                    <source src="Compounds.mp4" type="video/mp4">
-                                                    Your browser does not support the video tag.
-                                                </video>
-                                            </div>
-                                            <a href="Compounda.mp4" download class="download-btn" style="margin-top: 10px;">
-                                                <i class="fas fa-download"></i> Download Video                                          </a>
-                                        </div>                          </div>
-                  </div>
-                  
-                    <div class="resource-download">
-                        <div class="resource-info">
-                            <strong>Mathematics Video Lesson</strong>
-                            <p>Video tutorial for Grade 8 Mathematics</p>
-                        </div>
-                        <div class="video-container">
-                            <video class="video-player" controls>
-                                <source src="Math.mp4" type="video/mp4">
-                                Your browser does not support the video tag.
-                            </video>
-                        </div>
-                        <a href="Math.mp4" download class="download-btn" style="margin-top: 10px;">
-                            <i class="fas fa-download"></i> Download Video
-                        </a>
+                    <div class="quiz-question" data-correct="b">
+                        <p>4. What is the value of π (pi) to two decimal places?</p>
+                        <div class="quiz-option"><input type="radio" name="q4" value="a"> <label>3.12</label></div>
+                        <div class="quiz-option"><input type="radio" name="q4" value="b"> <label>3.14</label></div>
+                        <div class="quiz-option"><input type="radio" name="q4" value="c"> <label>3.16</label></div>
+                        <div class="quiz-option"><input type="radio" name="q4" value="d"> <label>3.18</label></div>
                     </div>
-                    
-                    <div class="resource-download">
-                        <div class="resource-info">
-                            <strong>Pencil's Tale Art Lesson</strong>
-                            <p>Video tutorial for Art class</p>
-                        </div>
-                        <div class="video-container">
-                            <video class="video-player" controls>
-                                <source src="Pencil_tail.mp4" type="video/mp4">
-                                Your browser does not support the video tag.
-                            </video>
-                        </div>
-                        <a href="Pencil_tail.mp4" download class="download-btn" style="margin-top: 10px;">
-                            <i class="fas fa-download"></i> Download Video
-                        </a>
+                    <div class="quiz-question" data-correct="a">
+                        <p>5. Solve for x: 2x + 5 = 15</p>
+                        <div class="quiz-option"><input type="radio" name="q5" value="a"> <label>5</label></div>
+                        <div class="quiz-option"><input type="radio" name="q5" value="b"> <label>6</label></div>
+                        <div class="quiz-option"><input type="radio" name="q5" value="c"> <label>7</label></div>
+                        <div class="quiz-option"><input type="radio" name="q5" value="d"> <label>8</label></div>
                     </div>
+                    <div class="quiz-question" data-correct="c">
+                        <p>6. What is the area of a rectangle with length 8cm and width 5cm?</p>
+                        <div class="quiz-option"><input type="radio" name="q6" value="a"> <label>13 cm²</label></div>
+                        <div class="quiz-option"><input type="radio" name="q6" value="b"> <label>26 cm²</label></div>
+                        <div class="quiz-option"><input type="radio" name="q6" value="c"> <label>40 cm²</label></div>
+                        <div class="quiz-option"><input type="radio" name="q6" value="d"> <label>45 cm²</label></div>
+                    </div>
+                    <div class="quiz-question" data-correct="c">
+                        <p>7. Which fraction is equivalent to 0.75?</p>
+                        <div class="quiz-option"><input type="radio" name="q7" value="a"> <label>1/4</label></div>
+                        <div class="quiz-option"><input type="radio" name="q7" value="b"> <label>2/3</label></div>
+                        <div class="quiz-option"><input type="radio" name="q7" value="c"> <label>3/4</label></div>
+                        <div class="quiz-option"><input type="radio" name="q7" value="d"> <label>4/5</label></div>
+                    </div>
+                    <div class="quiz-question" data-correct="c">
+                        <p>8. What is the next number in the sequence: 2, 4, 8, 16, ___?</p>
+                        <div class="quiz-option"><input type="radio" name="q8" value="a"> <label>24</label></div>
+                        <div class="quiz-option"><input type="radio" name="q8" value="b"> <label>28</label></div>
+                        <div class="quiz-option"><input type="radio" name="q8" value="c"> <label>32</label></div>
+                        <div class="quiz-option"><input type="radio" name="q8" value="d"> <label>36</label></div>
+                    </div>
+                    <div class="quiz-question" data-correct="c">
+                        <p>9. If a train travels at 60 km/h, how far will it travel in 2.5 hours?</p>
+                        <div class="quiz-option"><input type="radio" name="q9" value="a"> <label>120 km</label></div>
+                        <div class="quiz-option"><input type="radio" name="q9" value="b"> <label>125 km</label></div>
+                        <div class="quiz-option"><input type="radio" name="q9" value="c"> <label>150 km</label></div>
+                        <div class="quiz-option"><input type="radio" name="q9" value="d"> <label>180 km</label></div>
+                    </div>
+                    <div class="quiz-question" data-correct="a">
+                        <p>10. What is the square root of 144?</p>
+                        <div class="quiz-option"><input type="radio" name="q10" value="a"> <label>12</label></div>
+                        <div class="quiz-option"><input type="radio" name="q10" value="b"> <label>14</label></div>
+                        <div class="quiz-option"><input type="radio" name="q10" value="c"> <label>16</label></div>
+                        <div class="quiz-option"><input type="radio" name="q10" value="d"> <label>18</label></div>
+                    </div>
+                    <button type="button" class="btn-submit" id="submitQuiz">Submit Answers</button>
+                </form>
+                <div id="quizResult" class="quiz-result"></div>
+            </div>
+        </div>
+
+        <!-- Quiz Coming Soon Placeholder (for other categories) -->
+        <div class="coming-soon" id="quizComingSoon">
+            <i class="fas fa-clock"></i>
+            <h3>More Quizzes Coming Soon!</h3>
+            <p>Quizzes for other grades and subjects will be added shortly.</p>
+        </div>
+
+        <!-- 4. OTHER SERVICES (Virtual Classes, Assignments, Forums, Courses) -->
+        <div class="info-grid-2col">
+            <div class="info-card">
+                <h3><i class="fas fa-chalkboard-teacher"></i> Virtual Classes</h3>
+                <ul>
+                    <li><i class="fas fa-calendar-check"></i> <a href="#">View Timetable</a></li>
+                    <li><i class="fas fa-video"></i> <a href="#">Join Live Class (Sample)</a></li>
+                    <li><i class="fas fa-reply"></i> <a href="#">Class Recordings</a></li>
+                </ul>
+            </div>
+            <div class="info-card">
+                <h3><i class="fas fa-tasks"></i> Assignments</h3>
+                <ul>
+                    <li><i class="fas fa-pen"></i> <a href="#">Current Assignments</a></li>
+                    <li><i class="fas fa-paper-plane"></i> <a href="#">Submit Assignment</a></li>
+                    <li><i class="fas fa-check-circle"></i> <a href="#">Graded Assignments</a></li>
+                </ul>
+            </div>
+            <div class="info-card">
+                <h3><i class="fas fa-comments"></i> Discussion Forums</h3>
+                <ul>
+                    <li><i class="fas fa-comment-dots"></i> <a href="#">Ask Questions</a></li>
+                    <li><i class="fas fa-users"></i> <a href="#">Group Discussions</a></li>
+                    <li><i class="fas fa-question-circle"></i> <a href="#">Q&A Forum</a></li>
+                </ul>
+            </div>
+            <div class="info-card">
+                <h3><i class="fas fa-graduation-cap"></i> Online Courses</h3>
+                <ul>
+                    <li><i class="fas fa-laptop-code"></i> <a href="#">Computer Skills</a></li>
+                    <li><i class="fas fa-calculator"></i> <a href="#">Advanced Mathematics</a></li>
+                    <li><i class="fas fa-flask"></i> <a href="#">Science Club</a></li>
+                    <li><i class="fas fa-paint-brush"></i> <a href="#">Creative Arts</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 5. GRADE GROUP CHAT -->
+        <div class="info-card" style="margin-top: 40px;">
+            <h3><i class="fas fa-comments"></i> Grade Group Chats</h3>
+            <p>Join discussions with your classmates (Grade 5 demo)</p>
+            <div class="chat-container">
+                <div class="chat-messages" id="chatMessages">
+                    <div class="message"><strong>Teacher:</strong> Welcome to the Grade 5 discussion group!</div>
+                    <div class="message"><strong>Student1:</strong> Hello everyone!</div>
+                    <div class="message"><strong>Student2:</strong> Hi, can someone help with the math homework?</div>
                 </div>
-                
-                <div class="card">
-                    <h3><i class="fas fa-chalkboard-teacher"></i> Virtual Classes</h3>
-                    <p>Join live virtual classes according to your timetable.</p>
-                    <ul class="service-list">
-                        <li><i class="fas fa-calendar-check"></i> <a href="#" style="text-decoration: none; color: #333;">View Timetable</a></li>
-                        <li><i class="fas fa-video"></i> <a href="#" style="text-decoration: none; color: #333;">Join Live Class (Sample)</a></li>
-                        <li><i class="fas fa-reply"></i> <a href="#" style="text-decoration: none; extreme-color: #333;">Class Recordings</a></li>
-                    </ul>
-                </div>
-                
-                <div class="card">
-                    <h3><i class="fas fa-tasks"></i> Assignments</h3>
-                    <p>Submit assignments and view feedback from teachers.</p>
-                    <ul class="service-list">
-                        <li><i class="fas fa-p extreme-en"></i> <a href="#" style="text-decoration: none; color: #333;">Current Assignments</a></li>
-                        <li><i class="fas fa-paper-plane"></i> <a href="#" style="text-decoration: none; color: #333;">Submit Assignment</a></li>
-                        <li><i class="fas fa-check-circle"></i> <a href="#" style="text-decoration: none; color: #333;">Graded Assignments</a></li>
-                    </ul>
-                </div>
-                
-                <div class="card">
-                    <h3><i class="fas fa-comments"></i> Discussion Forums</h3>
-                    <p>Participate in academic discussions with peers and teachers.</p>
-                    <ul class="service-list">
-                        <li><i class="fas fa-comment-dots"></i> <a href="#" style="text-decoration: none; color: #333;">Ask Questions</a></li>
-                        <li><i class="fas fa-users"></i> <a href="#" style="text-decoration: none; color: #333;">Group Discussions</a></li>
-                        <li><i class="fas fa-question-circle"></i> <a href="#" style="text-decoration: none; color: #333;">Q&A Forum</a></li>
-                    </ul>
-                </div>
-                
-                <div class="card">
-                    <h3><i class="fas fa-graduation-cap"></i> Online Courses</h3>
-                    <p>Enroll in additional courses to enhance your skills.</p>
-                    <ul class="service-list">
-                        <li><i class="fas fa-laptop-code"></i> <a href="#" style="text-decoration: none; color: #333;">Computer Skills</a></li>
-                        <li><i class="fas fa-calculator"></i> <a href="#" style="text-decoration: none; color: #333;">Advanced Mathematics</a></li>
-                        <li><i class="fas fa-flask"></i> <a href="#" style="text-decoration: none; color: #333;">Science Club</a></li>
-                        <li><i class="fas fa-paint-brush"></i> <a href="#" style="text-decoration: none; color: #333;">Creative Arts</a></li>
-                    </ul>
-                </div>
-                
-                <div class="card" style="grid-column: 1 / -1;">
-                    <h3><i class="fas fa-brain"></i> Interactive Quizzes</h3>
-                    <p>Test your knowledge with our interactive quizzes:</p>
-                    
-                    <div class="quiz-container">
-                        <h4>Mathematics - Grade 5 (Level 1)</h4>
-                        <div class="quiz-question">
-                            <p>1. What is 25 + 37?</p>
-                            <div class="quiz-options">
-                                <div class="quiz-option">
-                                    <input type="radio" id="q1a" name="q1" value="a">
-                                    <label for="q1a">52</label>
-                                </div>
-                                <div class="quiz-option">
-                                    <input type="radio" id="q1b" name="q1" value="b">
-                                    <label for="q1b">62</label>
-                                </div>
-                                <div class="quiz-option">
-                                    <input type="radio" id="q1c" name="q1" value="c">
-                                    <label for="q1c">72</label>
-                                </div>
-                                <div class="quiz-option">
-                                    <input type="radio" id="q1d" name="q1" value="d">
-                                    <label for="q1d">82</label>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="quiz-question">
-                            <p>2. What is ⅗ of 25?</p>
-                            <div class="quiz-options">
-                                <div class="quiz-option">
-                                    <input type="radio" id="q2a" name="q2" value="a">
-                                    <label for="q2a">5</label>
-                                </div>
-                                <div class="quiz-option">
-                                    <input type="radio" id="q2b" name="q2" value="b">
-                                    <label for="q2b">10</label>
-                                </div>
-                                <div class="quiz-option">
-                                    <input type="radio" id="q2c" name="q2" value="c">
-                                    <label for="q2c">15</label>
-                                </div>
-                                <div class="quiz-option">
-                                    <input type="radio" id="q2d" name="q2" value="d">
-                                    <label for="q2d">20</label>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="quiz-question">
-                            <p>3. Which of these is a prime number?</p>
-                            <div class="quiz-options">
-                                <div class="quiz-option">
-                                    <input type="radio" id="q3a" name="q3" value="a">
-                                    <label for="q3a">15</label>
-                                </div>
-                                <div class="quiz-option">
-                                    <input type="radio" id="q3b" name="q3" value="b">
-                                    <label for="q3b">21</label>
-                                </div>
-                                <div class="quiz-option">
-                                    <input type="radio" id="q3 extreme-c" name="q3" value="c">
-                                    <label for="q3c">29</label>
-                                </div>
-                                <div class="quiz-option">
-                                    <input type="radio" id="q3d" name="q3" value="d">
-                                    <label for="q3d">33</label>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="quiz-question">
-                            <p>4. What is the value of π (pi) to two decimal places?</p>
-                            <div class="quiz-options">
-                                <div class="quiz-option">
-                                    <input type="radio" id="q4a" name="q4" value="a">
-                                    <label for="q4a">3.12</label>
-                                </div>
-                                <div class="quiz-option">
-                                    <input type="radio" id="q4b" name="q4" value="b">
-                                    <label for="q4b">3.14</label>
-                                </div>
-                                <div class="quiz-option">
-                                    <input type="radio" id="q4c" name="q4" value="c">
-                                    <label for="q4c">3.16</label>
-                                </div>
-                                <div class="quiz-option">
-                                    <input type="radio" id="q4d" name="q4" value="d">
-                                    <label for="q4d">3.18</label>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="quiz-question">
-                            <p>5. Solve for x: 2x + 5 = 15</p>
-                            <div class="quiz-options">
-                                <div class="quiz-option">
-                                    <input type="radio" id="q5a" name="q5" value="a">
-                                    <label for="q5a">5</label>
-                                </div>
-                                <div class="quiz-option">
-                                    <input type="radio" id="q5b" name="q5" value="b">
-                                    <label for="q5b">6</label>
-                                </div>
-                                <div class="quiz-option">
-                                    <input type="radio" id="q5c" name="q5" value="c">
-                                    <label for="q5c">7</label>
-                                </div>
-                                <div class="quiz-option">
-                                    <input type="radio" id="q5d" name="q5" value="d">
-                                    <label for="q5d">8</label>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="quiz-question">
-                            <p>6. What is the area of a rectangle with length 8cm and width 5cm?</p>
-                            <div class="quiz-options">
-                                <div class="quiz-option">
-                                    <input type="radio" id="q6a" name extreme-="q6" value="a">
-                                    <label for="q6a">13 cm²</label>
-                                </div>
-                                <div class="quiz-option">
-                                    <input type="radio" id="q6b" name="q6" value="b">
-                                    <label for="q6b">26 cm²</label>
-                                </div>
-                                <div class="quiz-option">
-                                    <input type="radio" id="q6c" name="q6" value="c">
-                                    <label for="q6c">40 cm²</label>
-                                </div>
-                                <div class="quiz-option">
-                                    <input type="radio" id="q6d" name="q6" value="d">
-                                    <label for="q6d">45 cm²</label>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="quiz-question">
-                            <p>7. Which fraction is equivalent to 0.75?</p>
-                            <div class="quiz-options">
-                                <div class="quiz-option">
-                                    <input type="radio" id="q7a" name="q7" value="a">
-                                    <label for="q7a">1/4</label>
-                                </div>
-                                <div class="quiz-option">
-                                    <input type="radio" id="q7b" name="q7" value="b">
-                                    <label for="q7b">2/3</label>
-                                </div>
-                                <div class="quiz-option">
-                                    <input type="radio" id="q7c" name="q7" value="c">
-                                    <label for="q7c">3/4</label>
-                                </div>
-                                <div class="quiz-option">
-                                    <input type="radio" id="q7d" name="q7" value="d">
-                                    <label for="q7d">4/5</label>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="quiz-question">
-                            <p>8. What is the next number in the sequence: 2, 4, 8, 16, ___?</p>
-                            <div class="quiz-options">
-                                <div class="quiz-option">
-                                    <input type="radio" id="q8a" name="q8" value="a">
-                                    <label for="q8a">24</label>
-                                </div>
-                                <div class="quiz-option">
-                                    <input type="radio" id="q8b" name="q8" value="b">
-                                    <label for="q8b">28</label>
-                                </div>
-                                <div class="quiz-option">
-                                    <input type="radio" id="q8c" name="q8" value="c">
-                                    <label for="q8c">32</label>
-                                </div>
-                                <div class="quiz-option">
-                                    <input type="radio" id="q8d" name="q8" value="d">
-                                    <label for="q8d">36</label>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="quiz-question">
-                            <p>9. If a train travels at 60 km/h, how far will it travel in 2.5 hours?</p>
-                            <div class="quiz-options">
-                                <div class="quiz-option">
-                                    <input type="radio" id="q9a" name="q9" value extreme-="a">
-                                    <label for="q9a">120 km</label>
-                                </div>
-                                <div class="quiz-option">
-                                    <input type="radio" id="q9b" name="q9" value="b">
-                                    <label for="q9b">125 km</label>
-                                </div>
-                                <div class="quiz-option">
-                                    <input type="radio" id="q9c" name="q9" value="c">
-                                    <label for="q9c">150 km</label>
-                                </div>
-                                <div class="quiz extreme--option">
-                                    <input type="radio" id="q9d" name="q9" value="d">
-                                    <label for="q9d">180 km</label>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="quiz-question">
-                            <p>10. What is the square root of 144?</p>
-                            <div class="quiz-options">
-                                <div class="quiz-option">
-                                    <input type="radio" id="q10a" name="q10" value="a">
-                                    <label for="q10a">12</label>
-                                </div>
-                                <div class="quiz-option">
-                                    <input type="radio" id="q10b" name="q10" value="b">
-                                    <label for="q10b">14</label>
-                                </div>
-                                <div class="quiz-option">
-                                    <input type="radio" id="q10c" name="q10" value="c">
-                                    <label for="q10c">16</label>
-                                </div>
-                                <div class="quiz-option">
-                                    <input type="radio" id="q10d" name="q10" value="d">
-                                    <label for="q10d">18</label>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <button class="btn-submit">Submit Answers</button>
-                    </div>
-                </div>
-                
-                <div class="card" style="grid-column: 1 / -1;">
-                    <h3><i class="fas fa-comments"></i> Grade Group Chats</h3>
-                    <p>Join discussions with your classmates:</p>
-                    
-                    <div class="chat-container">
-                        <div class="chat-messages">
-                            <div class="message">
-                                <strong>Teacher:</strong> Welcome to the Grade 5 discussion group!
-                            </div>
-                            <div class="message">
-                                <strong>Student1:</strong> Hello everyone!
-                            </div>
-                            <div class="message">
-                                <strong>Student2:</strong> Hi, can someone help with the math homework?
-                            </div>
-                        </div>
-                        <div class="chat-input">
-                            <input type="text" placeholder="Type your message here...">
-                            <button class="btn-submit">Send</button>
-                        </div>
-                    </div>
+                <div class="chat-input">
+                    <input type="text" id="chatInput" placeholder="Type your message here...">
+                    <button id="sendChatBtn">Send</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Fixed Footer -->
-    <div class="fixed-footer">
-        <div class="footer-copyright">
-            © 2025 KEMZ ACADEMIC CENTRE | Powered By Kemz Online Services
+    <!-- FOOTER -->
+    <footer id="footerSection">
+        <h3>KEMZ ACADEMIC CENTRE</h3>
+        <p>Hard Work Brings Success!</p>
+        <br>
+        <h2>Contact Us</h2>
+        <div id="footerContactInfo">
+            <p>📞 +260977916081 | +260977432490</p>
+            <p>📧 kemzacademiccentre@gmail.com</p>
+            <p>🌐 www.kemzonline.com</p>
+            <p><i class="fas fa-map-marker-alt"></i> Plot No 88/37, Makeni Villa, Lusaka - Zambia</p>
         </div>
-    </div>
+        <br>
+        <h2>Follow Us</h2>
+        <div class="social-icons">
+            <a href="https://www.facebook.com/share/1AzFdvL5Yq/"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-whatsapp"></i></a>
+            <a href="mailto:kemzacademiccentre@gmail.com"><i class="fas fa-envelope"></i></a>
+        </div>
+        <br>
+        <hr>
+        <p>© 2025 - 2026 KEMZ ACADEMIC CENTRE | All rights reserved</p>
+    </footer>
 
-    <script src="script.js"></script>
+    <script>
+        // Mobile menu toggle
+        const menuBtn = document.getElementById("menuBtn");
+        const navLinks = document.getElementById("navLinks");
+        menuBtn.onclick = (e) => { e.stopPropagation(); navLinks.classList.toggle("active"); };
+        document.addEventListener("click", function(event) {
+            if (!navLinks.contains(event.target) && !menuBtn.contains(event.target) && navLinks.classList.contains("active")) {
+                navLinks.classList.remove("active");
+            }
+        });
+
+        // QUIZ FUNCTIONALITY
+        document.getElementById("submitQuiz").addEventListener("click", function() {
+            const questions = document.querySelectorAll(".quiz-question");
+            let score = 0;
+            let total = questions.length;
+            let answersSummary = "";
+
+            questions.forEach((q, index) => {
+                const correct = q.getAttribute("data-correct");
+                const selected = q.querySelector(`input[name="q${index+1}"]:checked`);
+                if (selected && selected.value === correct) {
+                    score++;
+                    answersSummary += `Q${index+1}: ✅ Correct\n`;
+                } else {
+                    const correctLetter = correct.toUpperCase();
+                    answersSummary += `Q${index+1}: ❌ Wrong (Correct answer: ${correctLetter})\n`;
+                }
+            });
+
+            const resultDiv = document.getElementById("quizResult");
+            resultDiv.className = "quiz-result success";
+            resultDiv.innerHTML = `<strong>Your Score: ${score} / ${total}</strong><br><br>${answersSummary.replace(/\n/g, '<br>')}`;
+            resultDiv.style.display = "block";
+            window.scrollTo({ top: document.getElementById("activeQuiz").offsetTop - 100, behavior: "smooth" });
+        });
+
+        // Simple Chat Functionality (demo)
+        document.getElementById("sendChatBtn").addEventListener("click", function() {
+            const input = document.getElementById("chatInput");
+            const message = input.value.trim();
+            if (message) {
+                const chatMessages = document.getElementById("chatMessages");
+                const newMsg = document.createElement("div");
+                newMsg.className = "message";
+                newMsg.innerHTML = `<strong>You:</strong> ${message}`;
+                chatMessages.appendChild(newMsg);
+                input.value = "";
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+        });
+
+        document.getElementById("chatInput").addEventListener("keypress", function(e) {
+            if (e.key === "Enter") document.getElementById("sendChatBtn").click();
+        });
+    </script>
 </body>
 </html>
