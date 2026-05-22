@@ -11,7 +11,7 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
 
-    <!-- jsPDF for PDF generation (original library) -->
+    <!-- jsPDF for PDF generation -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
 
@@ -29,7 +29,7 @@
             color: #222;
             overflow-x: hidden;
             width: 100%;
-            padding-bottom: 90px; /* for fixed footer */
+            padding-bottom: 90px;
         }
 
         a {
@@ -64,10 +64,6 @@
             height: 50px;
             border-radius: 50%;
             transition: 0.3s;
-        }
-
-        .logo-title img:hover {
-            transform: scale(1.08);
         }
 
         .logo-title h2 {
@@ -176,7 +172,7 @@
             padding-left: 15px;
         }
 
-        /* Form styling (preserving functionality) */
+        /* Form styling */
         .form-group {
             margin-bottom: 25px;
         }
@@ -262,40 +258,54 @@
             margin-top: 30px;
         }
 
+        /* STUDENT INFO CARDS (dark blue, like service cards on home) */
         .info-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 15px;
             margin-bottom: 30px;
         }
 
-        .info-item {
-            background: #f8fafc;
-            padding: 15px;
+        .info-card-blue {
+            background: #071a30;   /* same as footer / service cards */
             border-radius: 20px;
-            border-left: 4px solid #1a73e8;
+            padding: 15px;
+            text-align: center;
+            transition: transform 0.3s;
         }
 
-        .info-item strong {
+        .info-card-blue:hover {
+            transform: translateY(-3px);
+        }
+
+        .info-card-blue strong {
             display: block;
-            color: #0a2342;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             text-transform: uppercase;
-            margin-bottom: 5px;
+            letter-spacing: 1px;
+            color: #a0c4ff;
+            margin-bottom: 8px;
         }
 
-        .info-item span {
+        .info-card-blue span {
             font-size: 1rem;
             font-weight: 600;
-            color: #1e5a8a;
+            color: white;
+            word-break: break-word;
+        }
+
+        /* Table wrapper for horizontal scroll */
+        .table-wrapper {
+            overflow-x: auto;
+            margin: 20px 0;
+            border-radius: 20px;
         }
 
         .grades-table {
             width: 100%;
             border-collapse: collapse;
-            margin: 20px 0;
-            border-radius: 20px;
-            overflow: hidden;
+            background: white;
+            min-width: 600px; /* Ensures scroll on small screens */
         }
 
         .grades-table thead {
@@ -304,7 +314,7 @@
         }
 
         .grades-table th, .grades-table td {
-            padding: 12px;
+            padding: 12px 15px;
             text-align: left;
             border-bottom: 1px solid #e0e7ed;
         }
@@ -313,39 +323,79 @@
             background: #f8fafc;
         }
 
-        .summary-box {
-            background: #eef4ff;
-            padding: 20px;
-            border-radius: 20px;
-            margin: 20px 0;
+        .grades-table tfoot tr {
+            background: #f8fafc;
+            font-weight: bold;
         }
 
+        /* Overall performance box (dark blue) */
+        .summary-box {
+            background: #071a30;
+            border-radius: 20px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .summary-box strong {
+            color: #a0c4ff;
+            font-size: 1rem;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .summary-box span {
+            color: white;
+            font-size: 1.4rem;
+            font-weight: 700;
+        }
+
+        /* Action buttons - vertical stack */
         .action-buttons {
-            display: none;
-            gap: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
             margin-top: 25px;
-            flex-wrap: wrap;
         }
 
         .btn-download, .btn-print, .btn-new-search {
-            flex: 1;
+            width: 100%;
             padding: 12px 20px;
             border-radius: 40px;
             border: none;
             font-weight: 600;
             cursor: pointer;
             transition: 0.3s;
-            font-size: 0.9rem;
+            font-size: 1rem;
+            text-align: center;
         }
 
-        .btn-download { background: #d35400; color: white; }
-        .btn-download:hover { background: #e67e22; transform: translateY(-2px); }
-        .btn-print { background: #27ae60; color: white; }
-        .btn-print:hover { background: #2ecc71; transform: translateY(-2px); }
-        .btn-new-search { background: #7f8c8d; color: white; }
-        .btn-new-search:hover { background: #95a5a6; transform: translateY(-2px); }
+        .btn-download {
+            background: #d35400;
+            color: white;
+        }
+        .btn-download:hover {
+            background: #e67e22;
+            transform: translateY(-2px);
+        }
+        .btn-print {
+            background: #27ae60;
+            color: white;
+        }
+        .btn-print:hover {
+            background: #2ecc71;
+            transform: translateY(-2px);
+        }
+        .btn-new-search {
+            background: #7f8c8d;
+            color: white;
+        }
+        .btn-new-search:hover {
+            background: #95a5a6;
+            transform: translateY(-2px);
+        }
 
-        /* FOOTER (same as home) */
+        /* FOOTER */
         footer {
             background: #071a30;
             color: white;
@@ -396,28 +446,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Help button (original style but repositioned) */
-        .help-fab {
-            position: fixed;
-            bottom: 100px;
-            right: 20px;
-            background: linear-gradient(135deg, #9b59b6, #8e44ad);
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 60px;
-            height: 60px;
-            font-size: 1.5rem;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(155, 89, 182, 0.3);
-            z-index: 99;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .help-fab:hover { transform: scale(1.1); }
-
         @media (max-width: 900px) {
             .nav-links {
                 position: fixed;
@@ -433,12 +461,24 @@
             .nav-links.active { right: 0; }
             .menu-btn { display: block; }
             .results-hero h1 { font-size: 2.2rem; }
+            .info-grid {
+                grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            }
+        }
+
+        @media (max-width: 600px) {
+            .info-card-blue span {
+                font-size: 0.85rem;
+            }
+            .summary-box span {
+                font-size: 1.1rem;
+            }
         }
     </style>
 </head>
 <body>
 
-    <!-- NAVBAR (identical to home page) -->
+    <!-- NAVBAR -->
     <nav class="navbar">
         <div class="logo-title">
             <img src="Kemz_logo.png" alt="KEMZ Logo">
@@ -467,14 +507,14 @@
         </div>
     </section>
 
-    <!-- MAIN FORM AND RESULTS (preserved IDs and functionality) -->
+    <!-- MAIN FORM AND RESULTS -->
     <div class="section">
         <div class="centered-card">
             <div class="card-content">
                 <h3><i class="fas fa-poll"></i> Access Your Results</h3>
-                <p style="margin-bottom: 20px;">No payment required for this service. Clear any school fee balance before fetching to avoid being denied access to your results.</p>
+                <p style="margin-bottom: 20px;">No payment required. Clear any school fee balance before fetching.</p>
 
-                <!-- Form container (original IDs) -->
+                <!-- Form container -->
                 <div id="formContainer">
                     <div class="form-group">
                         <label><i class="fas fa-id-card"></i> Student ID Number</label>
@@ -511,34 +551,43 @@
 
                 <div class="result-container" id="resultContainer">
                     <h3 style="color:#0a2342; margin-bottom:20px;">ACADEMIC RESULT SLIP</h3>
-                    <div class="info-grid">
-                        <div class="info-item"><strong>Student ID</strong><span id="resultId">-</span></div>
-                        <div class="info-item"><strong>Full Name</strong><span id="resultName">-</span></div>
-                        <div class="info-item"><strong>Category</strong><span id="resultCategory">-</span></div>
-                        <div class="info-item"><strong>Academic Year</strong><span id="resultYear">-</span></div>
-                        <div class="info-item"><strong>Term</strong><span id="resultTerm">-</span></div>
-                        <div class="info-item"><strong>Pathway</strong><span id="resultPathway">-</span></div>
-                        <div class="info-item"><strong>Grade</strong><span id="resultGrade">-</span></div>
-                        <div class="info-item"><strong>Class</strong><span id="resultClass">-</span></div>
-                        <div class="info-item"><strong>Term Ends On</strong><span id="resultTermEnds">-</span></div>
-                        <div class="info-item"><strong>Next Term Begins</strong><span id="resultNextTerm">-</span></div>
-                        <div class="info-item"><strong>Number in Class</strong><span id="resultClassSize">-</span></div>
-                        <div class="info-item"><strong>Class Position</strong><span id="resultPosition">-</span></div>
+                    
+                    <!-- Student info as dark blue cards -->
+                    <div class="info-grid" id="studentInfoGrid">
+                        <div class="info-card-blue"><strong>Student ID</strong><span id="resultId">-</span></div>
+                        <div class="info-card-blue"><strong>Full Name</strong><span id="resultName">-</span></div>
+                        <div class="info-card-blue"><strong>Category</strong><span id="resultCategory">-</span></div>
+                        <div class="info-card-blue"><strong>Academic Year</strong><span id="resultYear">-</span></div>
+                        <div class="info-card-blue"><strong>Term</strong><span id="resultTerm">-</span></div>
+                        <div class="info-card-blue"><strong>Pathway</strong><span id="resultPathway">-</span></div>
+                        <div class="info-card-blue"><strong>Grade</strong><span id="resultGrade">-</span></div>
+                        <div class="info-card-blue"><strong>Class</strong><span id="resultClass">-</span></div>
+                        <div class="info-card-blue"><strong>Term Ends On</strong><span id="resultTermEnds">-</span></div>
+                        <div class="info-card-blue"><strong>Next Term Begins</strong><span id="resultNextTerm">-</span></div>
+                        <div class="info-card-blue"><strong>Number in Class</strong><span id="resultClassSize">-</span></div>
+                        <div class="info-card-blue"><strong>Class Position</strong><span id="resultPosition">-</span></div>
                     </div>
 
-                    <table class="grades-table">
-                        <thead><tr><th>Subject</th><th>Total Marks</th><th>Marks Obtained</th><th>Comment</th></tr></thead>
-                        <tbody id="gradesBody"></tbody>
-                        <tfoot><tr style="background:#f8fafc; font-weight:bold;"><td>OVERALL</td><td id="overallTotal">-</td><td id="overallObtained">-</td><td id="overallComment">-</td></tr></tfoot>
-                    </table>
+                    <!-- Scrollable table wrapper -->
+                    <div class="table-wrapper">
+                        <table class="grades-table">
+                            <thead>
+                                <tr><th>Subject</th><th>Total Marks</th><th>Marks Obtained</th><th>Comment</th></tr>
+                            </thead>
+                            <tbody id="gradesBody"></tbody>
+                            <tfoot>
+                                <tr><td>OVERALL</td><td id="overallTotal">-</td><td id="overallObtained">-</td><td id="overallComment">-</td></tr>
+                            </tfoot>
+                        </table>
+                    </div>
 
+                    <!-- Overall performance box (dark blue) -->
                     <div class="summary-box">
-                        <div class="summary-item highlight">
-                            <strong>OVERALL PERFORMANCE:</strong>
-                            <span id="performanceComment">-</span>
-                        </div>
+                        <strong>OVERALL PERFORMANCE:</strong>
+                        <span id="performanceComment">-</span>
                     </div>
 
+                    <!-- Action buttons (vertical stack) -->
                     <div class="action-buttons" id="actionButtons">
                         <button class="btn-download" id="downloadPDF"><i class="fas fa-file-pdf"></i> Download PDF Result Slip</button>
                         <button class="btn-print" id="printResults"><i class="fas fa-print"></i> Print Results</button>
@@ -549,7 +598,7 @@
         </div>
     </div>
 
-    <!-- FOOTER (same as home) -->
+    <!-- FOOTER -->
     <footer id="footerSection">
         <h3>KEMZ ACADEMIC CENTRE</h3>
         <p>Hard Work Brings Success!</p>
@@ -573,8 +622,8 @@
         <p>© 2025 - 2026 KEMZ ACADEMIC CENTRE | All rights reserved</p>
     </footer>
 
-    <!-- Help Button (original functionality) -->
-    <button class="help-fab" id="helpBtn"><i class="fas fa-question-circle"></i></button>
+    <!-- Help button (optional, from original) -->
+    <button id="helpBtn" style="position:fixed; bottom:100px; right:20px; background:linear-gradient(135deg,#9b59b6,#8e44ad); color:white; border:none; border-radius:50%; width:60px; height:60px; font-size:1.5rem; cursor:pointer; box-shadow:0 4px 15px rgba(155,89,182,0.3); z-index:99;"><i class="fas fa-question-circle"></i></button>
 
     <script>
         // Mobile menu toggle
@@ -587,7 +636,13 @@
             }
         });
 
-        // ==================== ORIGINAL FUNCTIONALITY (preserved exactly) ====================
+        // Help button function
+        function showInstructions() {
+            alert("HOW TO USE THE RESULTS PORTAL:\n\n1. Enter Student ID (e.g., KEMZ-26-00001)\n2. Select term\n3. Select year\n4. Click 'Fetch Results'\n5. View and download PDF\n\nNote: Clear any school fee balance before fetching.");
+        }
+        document.getElementById("helpBtn").addEventListener("click", showInstructions);
+
+        // ==================== ORIGINAL FUNCTIONALITY (PRESERVED) ====================
         let currentResultData = null;
         const fetchBtn = document.getElementById("fetchResults");
         const newSearchBtn = document.getElementById("newSearch");
@@ -624,17 +679,20 @@
             currentResultData = { studentId, term, year };
             const scriptUrl = "https://script.google.com/macros/s/AKfycbx2HPF9RKcNhmaccdBbUmzclYRytXhlJ2ntyCp1rIFfjVy9WIy2MJ_aSfnK7q93x2Bx-g/exec";
             const url = `${scriptUrl}?studentId=${encodeURIComponent(studentId)}&term=${encodeURIComponent(term)}&year=${encodeURIComponent(year)}`;
-            fetch(url).then(response => response.json()).then(data => {
-                loading.style.display = "none";
-                if (data.error) { formContainer.style.display = "block"; showError(data.error); return; }
-                displayResults(data);
-                resultContainer.style.display = "block";
-                actionButtons.style.display = "flex";
-            }).catch(err => {
-                loading.style.display = "none";
-                formContainer.style.display = "block";
-                showError(`Connection error: ${err.message}. Please check your internet.`);
-            });
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    loading.style.display = "none";
+                    if (data.error) { formContainer.style.display = "block"; showError(data.error); return; }
+                    displayResults(data);
+                    resultContainer.style.display = "block";
+                    actionButtons.style.display = "flex";
+                })
+                .catch(err => {
+                    loading.style.display = "none";
+                    formContainer.style.display = "block";
+                    showError(`Connection error: ${err.message}. Please check your internet.`);
+                });
         });
 
         function displayResults(data) {
@@ -747,10 +805,6 @@
 
         document.getElementById("studentId").addEventListener("keypress", (e) => { if(e.key === "Enter") fetchBtn.click(); });
         window.addEventListener("load", () => document.getElementById("studentId").focus());
-        function showInstructions() {
-            alert("HOW TO USE THE RESULTS PORTAL:\n\n1. Enter Student ID (e.g., KEMZ-26-00001)\n2. Select term\n3. Select year\n4. Click 'Fetch Results'\n5. View and download PDF\n\nNote: Clear any school fee balance before fetching.");
-        }
-        document.getElementById("helpBtn").addEventListener("click", showInstructions);
     </script>
 </body>
 </html>
