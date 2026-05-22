@@ -258,39 +258,45 @@
             margin-top: 30px;
         }
 
-        /* STUDENT INFO CARDS (dark blue, like service cards on home) */
+        /* ========================
+           NEW STUDENT INFO CARDS (like attached photo)
+        ======================== */
         .info-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 16px;
             margin-bottom: 30px;
         }
 
-        .info-card-blue {
-            background: #071a30;   /* same as footer / service cards */
+        .info-card {
+            background: white;
             border-radius: 20px;
-            padding: 15px;
+            padding: 16px 12px;
             text-align: center;
-            transition: transform 0.3s;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e9ecef;
+            transition: transform 0.2s, box-shadow 0.2s;
         }
 
-        .info-card-blue:hover {
+        .info-card:hover {
             transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
         }
 
-        .info-card-blue strong {
+        .info-card strong {
             display: block;
             font-size: 0.75rem;
             text-transform: uppercase;
             letter-spacing: 1px;
-            color: #a0c4ff;
+            color: #6c757d;
             margin-bottom: 8px;
+            font-weight: 500;
         }
 
-        .info-card-blue span {
+        .info-card span {
             font-size: 1rem;
             font-weight: 600;
-            color: white;
+            color: #0a2342;
             word-break: break-word;
         }
 
@@ -305,7 +311,7 @@
             width: 100%;
             border-collapse: collapse;
             background: white;
-            min-width: 600px; /* Ensures scroll on small screens */
+            min-width: 600px;
         }
 
         .grades-table thead {
@@ -328,26 +334,30 @@
             font-weight: bold;
         }
 
-        /* Overall performance box (dark blue) */
-        .summary-box {
-            background: #071a30;
+        /* Overall performance card - same style as info cards */
+        .performance-card {
+            background: white;
             border-radius: 20px;
             padding: 20px;
-            margin: 20px 0;
             text-align: center;
+            margin: 20px 0;
+            border: 1px solid #e9ecef;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
         }
 
-        .summary-box strong {
-            color: #a0c4ff;
-            font-size: 1rem;
+        .performance-card strong {
             display: block;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #6c757d;
             margin-bottom: 8px;
         }
 
-        .summary-box span {
-            color: white;
+        .performance-card span {
             font-size: 1.4rem;
             font-weight: 700;
+            color: #1a73e8;
         }
 
         /* Action buttons - vertical stack */
@@ -462,15 +472,15 @@
             .menu-btn { display: block; }
             .results-hero h1 { font-size: 2.2rem; }
             .info-grid {
-                grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
             }
         }
 
         @media (max-width: 600px) {
-            .info-card-blue span {
+            .info-card span {
                 font-size: 0.85rem;
             }
-            .summary-box span {
+            .performance-card span {
                 font-size: 1.1rem;
             }
         }
@@ -552,20 +562,20 @@
                 <div class="result-container" id="resultContainer">
                     <h3 style="color:#0a2342; margin-bottom:20px;">ACADEMIC RESULT SLIP</h3>
                     
-                    <!-- Student info as dark blue cards -->
+                    <!-- Student info grid (new card style) -->
                     <div class="info-grid" id="studentInfoGrid">
-                        <div class="info-card-blue"><strong>Student ID</strong><span id="resultId">-</span></div>
-                        <div class="info-card-blue"><strong>Full Name</strong><span id="resultName">-</span></div>
-                        <div class="info-card-blue"><strong>Category</strong><span id="resultCategory">-</span></div>
-                        <div class="info-card-blue"><strong>Academic Year</strong><span id="resultYear">-</span></div>
-                        <div class="info-card-blue"><strong>Term</strong><span id="resultTerm">-</span></div>
-                        <div class="info-card-blue"><strong>Pathway</strong><span id="resultPathway">-</span></div>
-                        <div class="info-card-blue"><strong>Grade</strong><span id="resultGrade">-</span></div>
-                        <div class="info-card-blue"><strong>Class</strong><span id="resultClass">-</span></div>
-                        <div class="info-card-blue"><strong>Term Ends On</strong><span id="resultTermEnds">-</span></div>
-                        <div class="info-card-blue"><strong>Next Term Begins</strong><span id="resultNextTerm">-</span></div>
-                        <div class="info-card-blue"><strong>Number in Class</strong><span id="resultClassSize">-</span></div>
-                        <div class="info-card-blue"><strong>Class Position</strong><span id="resultPosition">-</span></div>
+                        <div class="info-card"><strong>STUDENT ID</strong><span id="resultId">-</span></div>
+                        <div class="info-card"><strong>FULL NAME</strong><span id="resultName">-</span></div>
+                        <div class="info-card"><strong>CATEGORY</strong><span id="resultCategory">-</span></div>
+                        <div class="info-card"><strong>ACADEMIC YEAR</strong><span id="resultYear">-</span></div>
+                        <div class="info-card"><strong>TERM</strong><span id="resultTerm">-</span></div>
+                        <div class="info-card"><strong>PATHWAY</strong><span id="resultPathway">-</span></div>
+                        <div class="info-card"><strong>GRADE</strong><span id="resultGrade">-</span></div>
+                        <div class="info-card"><strong>CLASS</strong><span id="resultClass">-</span></div>
+                        <div class="info-card"><strong>TERM ENDS ON</strong><span id="resultTermEnds">-</span></div>
+                        <div class="info-card"><strong>NEXT TERM BEGINS</strong><span id="resultNextTerm">-</span></div>
+                        <div class="info-card"><strong>NUMBER IN CLASS</strong><span id="resultClassSize">-</span></div>
+                        <div class="info-card"><strong>CLASS POSITION</strong><span id="resultPosition">-</span></div>
                     </div>
 
                     <!-- Scrollable table wrapper -->
@@ -576,14 +586,15 @@
                             </thead>
                             <tbody id="gradesBody"></tbody>
                             <tfoot>
-                                <tr><td>OVERALL</td><td id="overallTotal">-</td><td id="overallObtained">-</td><td id="overallComment">-</td></tr>
+                                <tr><td colspan="3" style="text-align:right; font-weight:bold;">OVERALL</td><td id="overallTotal">-</td>?
+                                 <!-- simpler: use separate row -->
                             </tfoot>
                         </table>
                     </div>
 
-                    <!-- Overall performance box (dark blue) -->
-                    <div class="summary-box">
-                        <strong>OVERALL PERFORMANCE:</strong>
+                    <!-- Overall performance card (same style as info cards) -->
+                    <div class="performance-card">
+                        <strong>OVERALL PERFORMANCE</strong>
                         <span id="performanceComment">-</span>
                     </div>
 
@@ -622,7 +633,7 @@
         <p>© 2025 - 2026 KEMZ ACADEMIC CENTRE | All rights reserved</p>
     </footer>
 
-    <!-- Help button (optional, from original) -->
+    <!-- Help button -->
     <button id="helpBtn" style="position:fixed; bottom:100px; right:20px; background:linear-gradient(135deg,#9b59b6,#8e44ad); color:white; border:none; border-radius:50%; width:60px; height:60px; font-size:1.5rem; cursor:pointer; box-shadow:0 4px 15px rgba(155,89,182,0.3); z-index:99;"><i class="fas fa-question-circle"></i></button>
 
     <script>
@@ -719,6 +730,7 @@
             } else {
                 gradesBody.innerHTML = '<tr><td colspan="4" style="text-align:center;">No subject results found</td></tr>';
             }
+            // Update overall values
             document.getElementById("overallTotal").textContent = data.student.overallTotal || "-";
             document.getElementById("overallObtained").textContent = data.student.overallObtained || "-";
             document.getElementById("overallComment").textContent = data.student.overallComment || "-";
