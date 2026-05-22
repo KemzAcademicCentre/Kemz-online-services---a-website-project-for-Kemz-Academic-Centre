@@ -258,9 +258,7 @@
             margin-top: 30px;
         }
 
-        /* ========================
-           NEW STUDENT INFO CARDS (like attached photo)
-        ======================== */
+        /* Student info cards (white, subtle border) */
         .info-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
@@ -334,7 +332,7 @@
             font-weight: bold;
         }
 
-        /* Overall performance card - same style as info cards */
+        /* Overall performance card (same style as info cards) */
         .performance-card {
             background: white;
             border-radius: 20px;
@@ -586,8 +584,12 @@
                             </thead>
                             <tbody id="gradesBody"></tbody>
                             <tfoot>
-                                <tr><td colspan="3" style="text-align:right; font-weight:bold;">OVERALL</td><td id="overallTotal">-</td>?
-                                 <!-- simpler: use separate row -->
+                                <tr style="background: #f8fafc; font-weight: bold;">
+                                    <td>OVERALL</td>
+                                    <td id="overallTotal">-</td>
+                                    <td id="overallObtained">-</td>
+                                    <td id="overallComment">-</td>
+                                </tr>
                             </tfoot>
                         </table>
                     </div>
@@ -653,7 +655,7 @@
         }
         document.getElementById("helpBtn").addEventListener("click", showInstructions);
 
-        // ==================== ORIGINAL FUNCTIONALITY (PRESERVED) ====================
+        // ==================== ORIGINAL FUNCTIONALITY (PRESERVED AND FIXED) ====================
         let currentResultData = null;
         const fetchBtn = document.getElementById("fetchResults");
         const newSearchBtn = document.getElementById("newSearch");
@@ -707,6 +709,7 @@
         });
 
         function displayResults(data) {
+            // Student info cards
             document.getElementById("resultId").textContent = data.student.studentId || "-";
             document.getElementById("resultName").textContent = data.student.name || "-";
             document.getElementById("resultCategory").textContent = data.student.category || "-";
@@ -719,6 +722,8 @@
             document.getElementById("resultNextTerm").textContent = data.student.nextTermBeginsOn || "-";
             document.getElementById("resultClassSize").textContent = data.student.numberInClass || "-";
             document.getElementById("resultPosition").textContent = data.student.position || "-";
+            
+            // Subjects table
             const gradesBody = document.getElementById("gradesBody");
             gradesBody.innerHTML = "";
             if (data.results && data.results.length) {
@@ -730,10 +735,13 @@
             } else {
                 gradesBody.innerHTML = '<tr><td colspan="4" style="text-align:center;">No subject results found</td></tr>';
             }
-            // Update overall values
+            
+            // Overall row (table footer)
             document.getElementById("overallTotal").textContent = data.student.overallTotal || "-";
             document.getElementById("overallObtained").textContent = data.student.overallObtained || "-";
             document.getElementById("overallComment").textContent = data.student.overallComment || "-";
+            
+            // Performance card
             document.getElementById("performanceComment").textContent = data.student.overallComment || "-";
         }
 
