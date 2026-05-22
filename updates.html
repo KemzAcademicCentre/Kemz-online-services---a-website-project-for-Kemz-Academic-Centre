@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+    <title>Latest Updates | KEMZ ACADEMIC CENTRE</title>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: #f4f7fb;
+            color: #222;
+            overflow-x: hidden; /* Prevents horizontal shake on mobile */
+            width: 100%;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        /* =========================
+           NAVBAR (same as home)
+        ========================== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 15px 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(10, 35, 66, 0.85);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-title img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            transition: 0.3s;
+        }
+
+        .logo-title img:hover {
+            transform: scale(1.08);
+        }
+
+        .logo-title h2 {
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            color: white;
+            font-size: 0.95rem;
+            position: relative;
+            transition: 0.3s;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0%;
+            height: 2px;
+            background: #4da3ff;
+            left: 0;
+            bottom: -5px;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .menu-btn {
+            display: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* =========================
+           HERO (unique for updates)
+        ========================== */
+        .updates-hero {
+            min-height: 45vh;
+            background: linear-gradient(135deg, #0f2b44 0%, #1e5a8a 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 140px 8% 70px;
+            width: 100%;
+        }
+
+        .updates-hero-content {
+            max-width: 750px;
+            width: 100%;
+            animation: fadeIn 1.2s ease;
+        }
+
+        .updates-hero h1 {
+            font-size: 3rem;
+            color: white;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .updates-hero p {
+            font-size: 1.1rem;
+            color: #e0e8ff;
+            line-height: 1.6;
+        }
+
+        /* =========================
+           SECTIONS
+        ========================== */
+        .section {
+            padding: 60px 5%;  /* Reduced horizontal padding to avoid overflow */
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .section-title h2 {
+            font-size: 2.2rem;
+            color: #0a2342;
+            margin-bottom: 10px;
+            border-bottom: 3px solid #1a73e8;
+            display: inline-block;
+            padding-bottom: 8px;
+        }
+
+        /* Category image styling */
+        .category-img {
+            width: 100%;
+            max-width: 260px;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 20px;
+            margin: 20px auto;
+            display: block;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+
+        /* Single card container - all cards same width, centered */
+        .centered-card {
+            background: white;
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s;
+            max-width: 900px;
+            margin: 0 auto 40px auto;  /* center horizontally, add bottom margin */
+            width: 100%;
+        }
+
+        .centered-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-content {
+            padding: 25px;
+        }
+
+        .card-content h3 {
+            font-size: 1.6rem;
+            color: #0a2342;
+            margin-bottom: 15px;
+            border-left: 4px solid #1a73e8;
+            padding-left: 12px;
+        }
+
+        .card-content p, .card-content li {
+            color: #444;
+            line-height: 1.6;
+            margin-bottom: 12px;
+        }
+
+        .card-content small {
+            color: #1a73e8;
+            font-weight: 600;
+        }
+
+        .video-container {
+            margin: 20px 0;
+            border-radius: 16px;
+            overflow: hidden;
+            background: #000;
+        }
+
+        .video-player {
+            width: 100%;
+            height: auto;
+            display: block;
+            cursor: pointer;
+        }
+
+        .download-btn {
+            display: inline-block;
+            background: #1a73e8;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 40px;
+            margin-top: 10px;
+            transition: 0.3s;
+        }
+
+        .download-btn:hover {
+            background: #0d5fd4;
+            transform: scale(1.02);
+        }
+
+        /* =========================
+           FOOTER (same as home)
+        ========================== */
+        footer {
+            background: #071a30;
+            color: white;
+            padding: 40px 8%;
+            text-align: center;
+            width: 100%;
+        }
+
+        footer p {
+            margin: 10px 0;
+            color: #cfcfcf;
+        }
+
+        .social-icons {
+            margin-top: 25px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .social-icons a {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            background: #1a73e8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 1.2rem;
+            transition: 0.4s;
+        }
+
+        .social-icons a:hover {
+            transform: translateY(-5px);
+            background: #0a2342;
+        }
+
+        hr {
+            margin: 20px 0;
+            border-color: #2a4a7a;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 900px) {
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                right: -100%;
+                width: 280px;
+                height: 100vh;
+                background: #0a2342;
+                flex-direction: column;
+                padding: 40px 30px;
+                transition: 0.4s;
+            }
+            .nav-links.active { right: 0; }
+            .menu-btn { display: block; }
+            .updates-hero h1 { font-size: 2.2rem; }
+            .section-title h2 { font-size: 1.8rem; }
+            .section { padding: 40px 4%; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR (identical) -->
+    <nav class="navbar">
+        <div class="logo-title">
+            <img src="Kemz_logo.png" alt="KEMZ Logo">
+            <h2>KEMZ ONLINE SERVICES</h2>
+        </div>
+        <div class="nav-links" id="navLinks">
+            <a href="index.html"><i class="fas fa-home"></i> Home</a>
+            <a href="about.html"><i class="fas fa-info-circle"></i> About</a>
+            <a href="inqu.html"><i class="fas fa-question-circle"></i> Inquiries</a>
+            <a href="services.html"><i class="fas fa-concierge-bell"></i> Services</a>
+            <a href="staff.html"><i class="fas fa-users"></i> Staff</a>
+            <a href="updates.html"><i class="fas fa-bullhorn"></i> Updates</a>
+            <a href="registration.html"><i class="fas fa-file-signature"></i> Registration</a>
+            <a href="results-portal.html"><i class="fas fa-poll"></i> Results</a>
+            <a href="elearning.html"><i class="fas fa-laptop-code"></i> E-Learning</a>
+            <a href="online-classes.html"><i class="fas fa-video"></i> Classes</a>
+        </div>
+        <div class="menu-btn" id="menuBtn"><i class="fas fa-bars"></i></div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="updates-hero">
+        <div class="updates-hero-content">
+            <h1>Latest Updates</h1>
+            <p>Stay informed about events, announcements, news, and highlights from KEMZ Academic Centre.</p>
+        </div>
+    </section>
+
+    <!-- ALL CARDS - each centered individually -->
+    <div class="section">
+        <!-- Events Card -->
+        <div class="centered-card" id="eventsCard">
+            <img src="events.jpg" alt="Events" class="category-img" id="eventsImg">
+            <div class="card-content">
+                <h3>📅 Upcoming Events - Term 2, 2026</h3>
+                <div id="eventsContent">
+                    <p><small><strong>Careers Day - 19 June, 2026</strong></small><br>There will be a Careers Day on 19 June, 2026. The charge is K10 per learner.</p>
+                    <p><small><strong>Education Tour - August, 2026</strong></small><br> There will be an education tour. The date will be advised in due course. The charge is K190 per learner.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Announcements Card -->
+        <div class="centered-card" id="announcementsCard">
+            <img src="announcements.jpg" alt="Announcements" class="category-img" id="announcementsImg">
+            <div class="card-content">
+                <h3>📢 Announcements</h3>
+                <div id="announcementsContent">
+                    <p><small><strong>Online Results Portal is ready, 2026</strong></small><br>The online results portal is ready. All learners are free to check and download their results.</p>
+                    <p><small><strong>E-learning, 2025</strong></small><br>The school E-learning platform is now active. Watch out for notes, assignments, quizzes and video tutorials -  available for free.</p>
+                    <p><small><strong>Online Classes, 2026</strong></small><br>Online Classs Platform is active. Form 1 and 2 classes are available during holidays. Join the WhatsApp group via +260977819249 for meeting IDs.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- News Card (with video) -->
+        <div class="centered-card" id="newsCard">
+            <img src="News.jpg" alt="News" class="category-img" id="newsImg">
+            <div class="card-content">
+                <h3>📰 News</h3>
+                <div id="newsContent">
+                    <p><small><strong>1. School Expansion: 2026</strong></small><br>Construction of a new block adjacent to Kemz A is currently underway.</p>
+                    <p><small><strong>2. 2025 End of Year Newsletter</strong></small><br>Listen to the end-of-year newsletter below:</p>
+                    <div class="video-container">
+                        <video id="newsVideo" class="video-player" controls playsinline>
+                            <source src="News.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                    <p>Download the newsletter:</p>
+                    <a href="KemzNewsLetter2025" download class="download-btn" id="downloadNewsletterBtn"><i class="fas fa-download"></i> Download PDF</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Highlights of Past Events Card -->
+        <div class="centered-card" id="highlightsCard">
+            <img src="past.jpg" alt="Past Events" class="category-img" id="highlightsImg">
+            <div class="card-content">
+                <h3>🎬 Highlights of Past Events</h3>
+                <div id="highlightsContent">
+                    <p><small><strong>Recreation Tour: August 6, 2025</strong></small><br>Learners enjoying a toy car ride during the recreation tour at Cheryl's Play Park.</p>
+                    <div class="video-container">
+                        <video id="highlightsVideo" class="video-player" controls playsinline>
+                            <source src="Car_ride.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer id="footerSection">
+        <h3>KEMZ ACADEMIC CENTRE</h3>
+        <p>Hard Work Brings Success!</p>
+        <br>
+        <h2>Contact Us</h2>
+        <div id="footerContactInfo">
+            <p>📞 +260977916081 | +260977432490</p>
+            <p>📧 kemzacademiccentre@gmail.com</p>
+            <p>🌐 www.kemzonline.com</p>
+            <p><i class="fas fa-map-marker-alt"></i> Plot No 88/37, Makeni Villa, Lusaka - Zambia</p>
+        </div>
+        <br>
+        <h2>Follow Us</h2>
+        <div class="social-icons" id="footerSocialLinks">
+            <a href="https://www.facebook.com/share/1AzFdvL5Yq/"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-whatsapp"></i></a>
+            <a href="mailto:kemzacademiccentre@gmail.com"><i class="fas fa-envelope"></i></a>
+        </div>
+        <br>
+        <hr>
+        <p>© 2025 - 2026 KEMZ ACADEMIC CENTRE | All rights reserved</p>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const menuBtn = document.getElementById("menuBtn");
+        const navLinks = document.getElementById("navLinks");
+        menuBtn.onclick = (e) => {
+            e.stopPropagation();
+            navLinks.classList.toggle("active");
+        };
+        document.addEventListener("click", function(event) {
+            if (!navLinks.contains(event.target) && !menuBtn.contains(event.target) && navLinks.classList.contains("active")) {
+                navLinks.classList.remove("active");
+            }
+        });
+
+        // Videos: manual play, pause when out of view, only one at a time
+        const newsVideo = document.getElementById("newsVideo");
+        const highlightsVideo = document.getElementById("highlightsVideo");
+        const allVideos = [newsVideo, highlightsVideo].filter(v => v !== null);
+
+        // Pause video when it leaves viewport
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                const video = entry.target;
+                if (!entry.isIntersecting) {
+                    video.pause();
+                }
+            });
+        }, { threshold: 0.1 });
+
+        allVideos.forEach(video => {
+            observer.observe(video);
+        });
+
+        // Only one video plays at a time
+        function handlePlay(event) {
+            const playingVideo = event.target;
+            allVideos.forEach(video => {
+                if (video !== playingVideo && !video.paused) {
+                    video.pause();
+                }
+            });
+        }
+
+        allVideos.forEach(video => {
+            video.addEventListener("play", handlePlay);
+        });
+
+        // Pause all when page hidden
+        document.addEventListener("visibilitychange", () => {
+            if (document.hidden) {
+                allVideos.forEach(video => video.pause());
+            }
+        });
+
+        window.addEventListener("beforeunload", () => {
+            allVideos.forEach(video => video.pause());
+        });
+    </script>
+</body>
+</html>
