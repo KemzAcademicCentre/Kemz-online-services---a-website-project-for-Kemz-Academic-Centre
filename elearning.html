@@ -25,7 +25,6 @@
             color: #222;
             overflow-x: hidden;
             width: 100%;
-            padding-bottom: 0;
         }
 
         a {
@@ -258,7 +257,7 @@
             margin-bottom: 5px;
         }
 
-        /* Quiz Card */
+        /* Quiz Card (step-by-step) */
         .quiz-card {
             background: white;
             border-radius: 28px;
@@ -277,50 +276,71 @@
             padding: 25px;
         }
 
-        .quiz-question {
-            margin-bottom: 25px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid #e0e7ed;
+        .step-question {
+            margin-bottom: 20px;
         }
 
-        .quiz-question p {
+        .step-question p {
             font-weight: 600;
             color: #0a2342;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
         }
 
-        .quiz-option {
-            margin: 8px 0;
+        .step-options {
+            margin-left: 15px;
+        }
+
+        .step-option {
+            margin: 10px 0;
             display: flex;
             align-items: center;
             gap: 10px;
         }
 
-        .quiz-option input {
+        .step-option input {
             cursor: pointer;
         }
 
-        .quiz-option label {
+        .step-option label {
             color: #444;
             cursor: pointer;
         }
 
-        .btn-submit {
+        .step-nav {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            gap: 15px;
+        }
+
+        .step-nav button {
             background: #1a73e8;
             color: white;
             border: none;
-            padding: 12px 30px;
+            padding: 10px 20px;
             border-radius: 40px;
-            font-size: 1rem;
-            font-weight: 600;
             cursor: pointer;
+            font-weight: 500;
             transition: 0.3s;
-            margin-top: 20px;
+            flex: 1;
         }
 
-        .btn-submit:hover {
+        .step-nav button:hover:not(:disabled) {
             background: #0d5fd4;
             transform: translateY(-2px);
+        }
+
+        .step-nav button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .progress {
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: 500;
+            color: #0a2342;
         }
 
         .quiz-result {
@@ -328,35 +348,33 @@
             padding: 15px;
             border-radius: 16px;
             display: none;
+            background: #d4edda;
+            color: #155724;
+            font-weight: 500;
         }
 
         .quiz-result.success {
-            background: #d4edda;
-            color: #155724;
             display: block;
         }
 
-        .quiz-result.error {
-            background: #f8d7da;
-            color: #721c24;
-            display: block;
+        .restart-btn {
+            margin-top: 15px;
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 40px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: 0.3s;
         }
 
-        /* Coming Soon */
-        .coming-soon {
-            text-align: center;
-            padding: 40px;
-            background: #fef9e6;
-            border-radius: 20px;
-            color: #b8860b;
+        .restart-btn:hover {
+            background: #218838;
+            transform: translateY(-2px);
         }
 
-        .coming-soon i {
-            font-size: 3rem;
-            margin-bottom: 10px;
-        }
-
-        /* Other cards (Virtual Classes, Assignments, etc.) */
+        /* Other cards */
         .info-grid-2col {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -512,6 +530,12 @@
             .menu-btn { display: block; }
             .elearning-hero h1 { font-size: 2.2rem; }
         }
+
+        @media (max-width: 600px) {
+            .step-nav {
+                flex-direction: column;
+            }
+        }
     </style>
 </head>
 <body>
@@ -548,12 +572,11 @@
     <!-- MAIN CONTENT -->
     <div class="section">
 
-        <!-- 1. LEARNING MATERIALS BY CATEGORY -->
+        <!-- 1. LEARNING MATERIALS (unchanged) -->
         <div class="section-title">
             <h2>📚 Learning Materials</h2>
         </div>
         <div class="category-grid" id="materialsGrid">
-            <!-- ECE Category -->
             <div class="category-card" id="eceMaterials">
                 <div class="category-header"><h3><i class="fas fa-baby-carriage"></i> Early Childhood (ECE)</h3></div>
                 <div class="category-body">
@@ -561,8 +584,6 @@
                     <div class="resource-item"><strong>🎨 Art & Colouring</strong><p>Printable colouring sheets</p><a href="#" class="download-link">Coming Soon</a></div>
                 </div>
             </div>
-
-            <!-- Lower Primary Category -->
             <div class="category-card" id="lowerPrimaryMaterials">
                 <div class="category-header"><h3><i class="fas fa-book-open"></i> Lower Primary (G1‑3)</h3></div>
                 <div class="category-body">
@@ -570,8 +591,6 @@
                     <div class="resource-item"><strong>🔢 Mathematics</strong><p>Addition, subtraction exercises</p><a href="#" class="download-link">Coming Soon</a></div>
                 </div>
             </div>
-
-            <!-- Upper Primary Category -->
             <div class="category-card" id="upperPrimaryMaterials">
                 <div class="category-header"><h3><i class="fas fa-chalkboard"></i> Upper Primary (G4‑7)</h3></div>
                 <div class="category-body">
@@ -580,8 +599,6 @@
                     <div class="resource-item"><strong>📄 Commerce Test (Grade 10)</strong><p>Word document for Commerce</p><a href="Commerce_test.docx" download class="download-link"><i class="fas fa-download"></i> Download</a></div>
                 </div>
             </div>
-
-            <!-- Secondary Category -->
             <div class="category-card" id="secondaryMaterials">
                 <div class="category-header"><h3><i class="fas fa-user-graduate"></i> Secondary (Form 1‑4)</h3></div>
                 <div class="category-body">
@@ -591,129 +608,83 @@
             </div>
         </div>
 
-        <!-- 2. EDUCATIONAL VIDEOS SECTION -->
+        <!-- 2. EDUCATIONAL VIDEOS (unchanged) -->
         <div class="section-title">
             <h2>🎥 Educational Videos</h2>
         </div>
         <div class="videos-grid" id="videosGrid">
             <div class="video-card">
-                <video controls><source src="Homophones1.mp4" type="video/mp4">Your browser does not support video.</video>
+                <video controls playsinline><source src="Homophones1.mp4" type="video/mp4">Your browser does not support video.</video>
                 <div class="video-info"><strong>Homophones By Tr Habenzu</strong><p>Grade 3 Lesson: Homophones</p><a href="Homophones1.mp4" download class="download-link"><i class="fas fa-download"></i> Download Video</a></div>
             </div>
             <div class="video-card">
-                <video controls><source src="Homophones2.mp4" type="video/mp4">Your browser does not support video.</video>
+                <video controls playsinline><source src="Homophones2.mp4" type="video/mp4">Your browser does not support video.</video>
                 <div class="video-info"><strong>Homophones By Tr Kabaya</strong><p>Grade 3 Lesson: Homophones</p><a href="Homophones2.mp4" download class="download-link"><i class="fas fa-download"></i> Download Video</a></div>
             </div>
             <div class="video-card">
-                <video controls><source src="Compounds.mp4" type="video/mp4">Your browser does not support video.</video>
+                <video controls playsinline><source src="Compounds.mp4" type="video/mp4">Your browser does not support video.</video>
                 <div class="video-info"><strong>Compound Words By Tr. Kamwena</strong><p>Grade 4 Lesson: Compound Words</p><a href="Compounds.mp4" download class="download-link"><i class="fas fa-download"></i> Download Video</a></div>
             </div>
             <div class="video-card">
-                <video controls><source src="Math.mp4" type="video/mp4">Your browser does not support video.</video>
+                <video controls playsinline><source src="Math.mp4" type="video/mp4">Your browser does not support video.</video>
                 <div class="video-info"><strong>Mathematics Video Lesson</strong><p>Grade 8 Mathematics tutorial</p><a href="Math.mp4" download class="download-link"><i class="fas fa-download"></i> Download Video</a></div>
             </div>
             <div class="video-card">
-                <video controls><source src="Pencil_tail.mp4" type="video/mp4">Your browser does not support video.</video>
+                <video controls playsinline><source src="Pencil_tail.mp4" type="video/mp4">Your browser does not support video.</video>
                 <div class="video-info"><strong>Pencil's Tale Art Lesson</strong><p>Creative Arts video tutorial</p><a href="Pencil_tail.mp4" download class="download-link"><i class="fas fa-download"></i> Download Video</a></div>
             </div>
         </div>
 
-        <!-- 3. QUIZ SECTION (Active quiz for Grade 5 Math) -->
+        <!-- 3. INTERACTIVE QUIZZES (step-by-step with restart button) -->
         <div class="section-title">
-            <h2>📝 Interactive Quiz</h2>
+            <h2>📝 Interactive Quizzes</h2>
         </div>
-        <div class="quiz-card" id="activeQuiz">
+
+        <!-- ECE QUIZ -->
+        <div class="quiz-card" id="quizECE">
             <div class="quiz-header">
-                <h3><i class="fas fa-brain"></i> Mathematics - Grade 5 (Level 1)</h3>
-                <p>Test your knowledge. Select the correct answer for each question.</p>
+                <h3><i class="fas fa-baby-carriage"></i> ECE - Basic Literacy (10 Questions)</h3>
             </div>
-            <div class="quiz-body">
-                <form id="quizForm">
-                    <!-- 10 questions with correct answers stored in data attribute -->
-                    <div class="quiz-question" data-correct="b">
-                        <p>1. What is 25 + 37?</p>
-                        <div class="quiz-option"><input type="radio" name="q1" value="a"> <label>52</label></div>
-                        <div class="quiz-option"><input type="radio" name="q1" value="b"> <label>62</label></div>
-                        <div class="quiz-option"><input type="radio" name="q1" value="c"> <label>72</label></div>
-                        <div class="quiz-option"><input type="radio" name="q1" value="d"> <label>82</label></div>
-                    </div>
-                    <div class="quiz-question" data-correct="c">
-                        <p>2. What is ⅗ of 25?</p>
-                        <div class="quiz-option"><input type="radio" name="q2" value="a"> <label>5</label></div>
-                        <div class="quiz-option"><input type="radio" name="q2" value="b"> <label>10</label></div>
-                        <div class="quiz-option"><input type="radio" name="q2" value="c"> <label>15</label></div>
-                        <div class="quiz-option"><input type="radio" name="q2" value="d"> <label>20</label></div>
-                    </div>
-                    <div class="quiz-question" data-correct="c">
-                        <p>3. Which of these is a prime number?</p>
-                        <div class="quiz-option"><input type="radio" name="q3" value="a"> <label>15</label></div>
-                        <div class="quiz-option"><input type="radio" name="q3" value="b"> <label>21</label></div>
-                        <div class="quiz-option"><input type="radio" name="q3" value="c"> <label>29</label></div>
-                        <div class="quiz-option"><input type="radio" name="q3" value="d"> <label>33</label></div>
-                    </div>
-                    <div class="quiz-question" data-correct="b">
-                        <p>4. What is the value of π (pi) to two decimal places?</p>
-                        <div class="quiz-option"><input type="radio" name="q4" value="a"> <label>3.12</label></div>
-                        <div class="quiz-option"><input type="radio" name="q4" value="b"> <label>3.14</label></div>
-                        <div class="quiz-option"><input type="radio" name="q4" value="c"> <label>3.16</label></div>
-                        <div class="quiz-option"><input type="radio" name="q4" value="d"> <label>3.18</label></div>
-                    </div>
-                    <div class="quiz-question" data-correct="a">
-                        <p>5. Solve for x: 2x + 5 = 15</p>
-                        <div class="quiz-option"><input type="radio" name="q5" value="a"> <label>5</label></div>
-                        <div class="quiz-option"><input type="radio" name="q5" value="b"> <label>6</label></div>
-                        <div class="quiz-option"><input type="radio" name="q5" value="c"> <label>7</label></div>
-                        <div class="quiz-option"><input type="radio" name="q5" value="d"> <label>8</label></div>
-                    </div>
-                    <div class="quiz-question" data-correct="c">
-                        <p>6. What is the area of a rectangle with length 8cm and width 5cm?</p>
-                        <div class="quiz-option"><input type="radio" name="q6" value="a"> <label>13 cm²</label></div>
-                        <div class="quiz-option"><input type="radio" name="q6" value="b"> <label>26 cm²</label></div>
-                        <div class="quiz-option"><input type="radio" name="q6" value="c"> <label>40 cm²</label></div>
-                        <div class="quiz-option"><input type="radio" name="q6" value="d"> <label>45 cm²</label></div>
-                    </div>
-                    <div class="quiz-question" data-correct="c">
-                        <p>7. Which fraction is equivalent to 0.75?</p>
-                        <div class="quiz-option"><input type="radio" name="q7" value="a"> <label>1/4</label></div>
-                        <div class="quiz-option"><input type="radio" name="q7" value="b"> <label>2/3</label></div>
-                        <div class="quiz-option"><input type="radio" name="q7" value="c"> <label>3/4</label></div>
-                        <div class="quiz-option"><input type="radio" name="q7" value="d"> <label>4/5</label></div>
-                    </div>
-                    <div class="quiz-question" data-correct="c">
-                        <p>8. What is the next number in the sequence: 2, 4, 8, 16, ___?</p>
-                        <div class="quiz-option"><input type="radio" name="q8" value="a"> <label>24</label></div>
-                        <div class="quiz-option"><input type="radio" name="q8" value="b"> <label>28</label></div>
-                        <div class="quiz-option"><input type="radio" name="q8" value="c"> <label>32</label></div>
-                        <div class="quiz-option"><input type="radio" name="q8" value="d"> <label>36</label></div>
-                    </div>
-                    <div class="quiz-question" data-correct="c">
-                        <p>9. If a train travels at 60 km/h, how far will it travel in 2.5 hours?</p>
-                        <div class="quiz-option"><input type="radio" name="q9" value="a"> <label>120 km</label></div>
-                        <div class="quiz-option"><input type="radio" name="q9" value="b"> <label>125 km</label></div>
-                        <div class="quiz-option"><input type="radio" name="q9" value="c"> <label>150 km</label></div>
-                        <div class="quiz-option"><input type="radio" name="q9" value="d"> <label>180 km</label></div>
-                    </div>
-                    <div class="quiz-question" data-correct="a">
-                        <p>10. What is the square root of 144?</p>
-                        <div class="quiz-option"><input type="radio" name="q10" value="a"> <label>12</label></div>
-                        <div class="quiz-option"><input type="radio" name="q10" value="b"> <label>14</label></div>
-                        <div class="quiz-option"><input type="radio" name="q10" value="c"> <label>16</label></div>
-                        <div class="quiz-option"><input type="radio" name="q10" value="d"> <label>18</label></div>
-                    </div>
-                    <button type="button" class="btn-submit" id="submitQuiz">Submit Answers</button>
-                </form>
-                <div id="quizResult" class="quiz-result"></div>
+            <div class="quiz-body" data-quiz="ece">
+                <div class="quiz-container"></div>
+                <div class="quiz-result"></div>
             </div>
         </div>
 
-        <!-- Quiz Coming Soon Placeholder (for other categories) -->
-        <div class="coming-soon" id="quizComingSoon">
-            <i class="fas fa-clock"></i>
-            <h3>More Quizzes Coming Soon!</h3>
-            <p>Quizzes for other grades and subjects will be added shortly.</p>
+        <!-- LOWER PRIMARY QUIZ -->
+        <div class="quiz-card" id="quizLowerPrimary">
+            <div class="quiz-header">
+                <h3><i class="fas fa-book-open"></i> Lower Primary - Mathematics (10 Questions)</h3>
+            </div>
+            <div class="quiz-body" data-quiz="lower">
+                <div class="quiz-container"></div>
+                <div class="quiz-result"></div>
+            </div>
         </div>
 
-        <!-- 4. OTHER SERVICES (Virtual Classes, Assignments, Forums, Courses) -->
+        <!-- UPPER PRIMARY QUIZ -->
+        <div class="quiz-card" id="quizUpperPrimary">
+            <div class="quiz-header">
+                <h3><i class="fas fa-chalkboard"></i> Upper Primary - Mathematics Grade 5 (10 Questions)</h3>
+            </div>
+            <div class="quiz-body" data-quiz="upper">
+                <div class="quiz-container"></div>
+                <div class="quiz-result"></div>
+            </div>
+        </div>
+
+        <!-- SECONDARY O-LEVEL QUIZ -->
+        <div class="quiz-card" id="quizSecondary">
+            <div class="quiz-header">
+                <h3><i class="fas fa-user-graduate"></i> Secondary O-Level - Biology (10 Questions)</h3>
+            </div>
+            <div class="quiz-body" data-quiz="secondary">
+                <div class="quiz-container"></div>
+                <div class="quiz-result"></div>
+            </div>
+        </div>
+
+        <!-- 4. OTHER SERVICES (unchanged) -->
         <div class="info-grid-2col">
             <div class="info-card">
                 <h3><i class="fas fa-chalkboard-teacher"></i> Virtual Classes</h3>
@@ -750,7 +721,7 @@
             </div>
         </div>
 
-        <!-- 5. GRADE GROUP CHAT -->
+        <!-- 5. GRADE GROUP CHAT (unchanged) -->
         <div class="info-card" style="margin-top: 40px;">
             <h3><i class="fas fa-comments"></i> Grade Group Chats</h3>
             <p>Join discussions with your classmates (Grade 5 demo)</p>
@@ -803,50 +774,224 @@
             }
         });
 
-        // QUIZ FUNCTIONALITY
-        document.getElementById("submitQuiz").addEventListener("click", function() {
-            const questions = document.querySelectorAll(".quiz-question");
-            let score = 0;
-            let total = questions.length;
-            let answersSummary = "";
-
-            questions.forEach((q, index) => {
-                const correct = q.getAttribute("data-correct");
-                const selected = q.querySelector(`input[name="q${index+1}"]:checked`);
-                if (selected && selected.value === correct) {
-                    score++;
-                    answersSummary += `Q${index+1}: ✅ Correct\n`;
-                } else {
-                    const correctLetter = correct.toUpperCase();
-                    answersSummary += `Q${index+1}: ❌ Wrong (Correct answer: ${correctLetter})\n`;
-                }
+        // ==================== VIDEO HANDLING (unchanged) ====================
+        const videos = document.querySelectorAll('.video-card video');
+        let currentlyPlayingVideo = null;
+        function handlePlay() {
+            if (currentlyPlayingVideo && currentlyPlayingVideo !== this) {
+                currentlyPlayingVideo.pause();
+            }
+            currentlyPlayingVideo = this;
+        }
+        videos.forEach(video => {
+            video.addEventListener('play', handlePlay);
+            video.addEventListener('pause', () => {
+                if (currentlyPlayingVideo === video) currentlyPlayingVideo = null;
             });
-
-            const resultDiv = document.getElementById("quizResult");
-            resultDiv.className = "quiz-result success";
-            resultDiv.innerHTML = `<strong>Your Score: ${score} / ${total}</strong><br><br>${answersSummary.replace(/\n/g, '<br>')}`;
-            resultDiv.style.display = "block";
-            window.scrollTo({ top: document.getElementById("activeQuiz").offsetTop - 100, behavior: "smooth" });
         });
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                const video = entry.target;
+                if (!entry.isIntersecting && !video.paused) video.pause();
+            });
+        }, { threshold: 0.1 });
+        videos.forEach(video => observer.observe(video));
 
-        // Simple Chat Functionality (demo)
-        document.getElementById("sendChatBtn").addEventListener("click", function() {
-            const input = document.getElementById("chatInput");
-            const message = input.value.trim();
-            if (message) {
-                const chatMessages = document.getElementById("chatMessages");
-                const newMsg = document.createElement("div");
-                newMsg.className = "message";
-                newMsg.innerHTML = `<strong>You:</strong> ${message}`;
+        // ==================== QUIZ DATA ====================
+        const quizData = {
+            ece: {
+                title: "ECE - Basic Literacy",
+                questions: [
+                    { text: "What letter comes after 'A'?", options: ["Z", "B", "C", "D"], correct: "b" },
+                    { text: "Which shape has three sides?", options: ["Circle", "Square", "Triangle", "Rectangle"], correct: "c" },
+                    { text: "What colour is the sun?", options: ["Yellow", "Blue", "Green", "Red"], correct: "a" },
+                    { text: "How many fingers are on one hand?", options: ["4", "5", "6", "10"], correct: "b" },
+                    { text: "Which animal says 'meow'?", options: ["Dog", "Cow", "Cat", "Bird"], correct: "c" },
+                    { text: "What is 2 + 2?", options: ["4", "5", "3", "6"], correct: "a" },
+                    { text: "Which is a fruit?", options: ["Carrot", "Apple", "Potato", "Broccoli"], correct: "b" },
+                    { text: "What is the opposite of 'big'?", options: ["Large", "Huge", "Tall", "Small"], correct: "d" },
+                    { text: "Which month comes after January?", options: ["March", "December", "February", "April"], correct: "c" },
+                    { text: "What is the first day of the week?", options: ["Friday", "Monday", "Sunday", "Wednesday"], correct: "c" }
+                ]
+            },
+            lower: {
+                title: "Lower Primary - Mathematics",
+                questions: [
+                    { text: "15 + 7 = ?", options: ["20", "22", "23", "25"], correct: "b" },
+                    { text: "50 - 18 = ?", options: ["28", "30", "32", "34"], correct: "c" },
+                    { text: "8 × 4 = ?", options: ["32", "28", "36", "40"], correct: "a" },
+                    { text: "24 ÷ 6 = ?", options: ["3", "5", "6", "4"], correct: "d" },
+                    { text: "Which is the smallest? 45, 32, 57, 28", options: ["45", "28", "32", "57"], correct: "b" },
+                    { text: "100 - 37 = ?", options: ["73", "67", "63", "77"], correct: "c" },
+                    { text: "7 × 6 = ?", options: ["36", "48", "40", "42"], correct: "d" },
+                    { text: "⅓ of 18 = ?", options: ["6", "9", "12", "3"], correct: "a" },
+                    { text: "How many minutes in 2 hours?", options: ["60", "120", "90", "180"], correct: "b" },
+                    { text: "Which shape has four equal sides?", options: ["Rectangle", "Triangle", "Square", "Circle"], correct: "c" }
+                ]
+            },
+            upper: {
+                title: "Upper Primary - Mathematics Grade 5",
+                questions: [
+                    { text: "What is 25 + 37?", options: ["52", "62", "72", "82"], correct: "b" },
+                    { text: "What is ⅗ of 25?", options: ["5", "10", "15", "20"], correct: "c" },
+                    { text: "Which of these is a prime number?", options: ["15", "21", "29", "33"], correct: "c" },
+                    { text: "What is the value of π (pi) to two decimal places?", options: ["3.12", "3.14", "3.16", "3.18"], correct: "b" },
+                    { text: "Solve for x: 2x + 5 = 15", options: ["5", "6", "7", "8"], correct: "a" },
+                    { text: "Area of rectangle 8cm × 5cm?", options: ["13 cm²", "26 cm²", "40 cm²", "45 cm²"], correct: "c" },
+                    { text: "Fraction equivalent to 0.75?", options: ["1/4", "2/3", "3/4", "4/5"], correct: "c" },
+                    { text: "Next in sequence: 2, 4, 8, 16, ___?", options: ["24", "28", "32", "36"], correct: "c" },
+                    { text: "Train 60 km/h, distance in 2.5h?", options: ["120 km", "125 km", "150 km", "180 km"], correct: "c" },
+                    { text: "Square root of 144?", options: ["12", "14", "16", "18"], correct: "a" }
+                ]
+            },
+            secondary: {
+                title: "Secondary O-Level - Biology",
+                questions: [
+                    { text: "Which organ pumps blood?", options: ["Brain", "Heart", "Lungs", "Kidney"], correct: "b" },
+                    { text: "Plants make food through?", options: ["Photosynthesis", "Respiration", "Transpiration", "Fermentation"], correct: "a" },
+                    { text: "Which is a mammal?", options: ["Snake", "Crocodile", "Whale", "Frog"], correct: "c" },
+                    { text: "The process of water loss from plants is?", options: ["Condensation", "Evaporation", "Precipitation", "Transpiration"], correct: "d" },
+                    { text: "What is the basic unit of life?", options: ["Atom", "Cell", "Tissue", "Organ"], correct: "b" },
+                    { text: "Which vitamin is produced by sunlight?", options: ["Vitamin A", "Vitamin C", "Vitamin D", "Vitamin B12"], correct: "c" },
+                    { text: "Where does digestion begin?", options: ["Mouth", "Stomach", "Small intestine", "Oesophagus"], correct: "a" },
+                    { text: "Which part of the leaf allows gas exchange?", options: ["Chloroplast", "Stomata", "Cuticle", "Vein"], correct: "b" },
+                    { text: "The largest organ in the human body is?", options: ["Heart", "Liver", "Skin", "Brain"], correct: "c" },
+                    { text: "What is the normal human body temperature (°C)?", options: ["35.5", "36.0", "36.5", "37.0"], correct: "d" }
+                ]
+            }
+        };
+
+        // Function to build a quiz with restart capability
+        function buildQuiz(quizId, data) {
+            const quizBody = document.querySelector(`.quiz-body[data-quiz="${quizId}"]`);
+            const container = quizBody.querySelector('.quiz-container');
+            const resultDiv = quizBody.querySelector('.quiz-result');
+            const total = data.questions.length;
+            let userAnswers = new Array(total).fill(null);
+            let currentIndex = 0;
+            let quizCompleted = false;
+
+            function render() {
+                if (quizCompleted) return;
+                const q = data.questions[currentIndex];
+                let html = `
+                    <div class="progress">Question ${currentIndex+1} of ${total}</div>
+                    <div class="step-question">
+                        <p>${q.text}</p>
+                        <div class="step-options">
+                `;
+                const letters = ['a', 'b', 'c', 'd'];
+                q.options.forEach((opt, idx) => {
+                    const letter = letters[idx];
+                    const checked = (userAnswers[currentIndex] === letter) ? 'checked' : '';
+                    html += `
+                        <div class="step-option">
+                            <input type="radio" name="q_${currentIndex}" value="${letter}" id="q_${currentIndex}_${letter}" ${checked}>
+                            <label for="q_${currentIndex}_${letter}">${opt}</label>
+                        </div>
+                    `;
+                });
+                html += `</div></div>`;
+                html += `
+                    <div class="step-nav">
+                        <button class="prev-btn" ${currentIndex === 0 ? 'disabled' : ''}>Previous</button>
+                        ${currentIndex === total-1 ? '<button class="submit-btn">Submit Quiz</button>' : '<button class="next-btn">Next</button>'}
+                    </div>
+                `;
+                container.innerHTML = html;
+
+                // Attach event listeners
+                const radioBtns = container.querySelectorAll('input[type="radio"]');
+                radioBtns.forEach(radio => {
+                    radio.addEventListener('change', (e) => {
+                        userAnswers[currentIndex] = e.target.value;
+                    });
+                });
+                const nextBtn = container.querySelector('.next-btn');
+                if (nextBtn) {
+                    nextBtn.addEventListener('click', () => {
+                        if (userAnswers[currentIndex] === null) {
+                            alert("Please select an answer before proceeding.");
+                            return;
+                        }
+                        if (currentIndex < total-1) {
+                            currentIndex++;
+                            render();
+                        }
+                    });
+                }
+                const prevBtn = container.querySelector('.prev-btn');
+                if (prevBtn && !prevBtn.disabled) {
+                    prevBtn.addEventListener('click', () => {
+                        if (currentIndex > 0) {
+                            currentIndex--;
+                            render();
+                        }
+                    });
+                }
+                const submitBtn = container.querySelector('.submit-btn');
+                if (submitBtn) {
+                    submitBtn.addEventListener('click', () => {
+                        const unanswered = userAnswers.some(a => a === null);
+                        if (unanswered) {
+                            alert("Please answer all questions before submitting.");
+                            return;
+                        }
+                        let score = 0;
+                        let resultHtml = "";
+                        for (let i = 0; i < total; i++) {
+                            const correctLetter = data.questions[i].correct;
+                            const isCorrect = (userAnswers[i] === correctLetter);
+                            if (isCorrect) score++;
+                            resultHtml += `Q${i+1}: ${isCorrect ? '✅ Correct' : `❌ Wrong (Correct: ${correctLetter.toUpperCase()})`}<br>`;
+                        }
+                        const percentage = ((score / total) * 100).toFixed(1);
+                        resultDiv.innerHTML = `<strong>Your Score: ${score} / ${total} (${percentage}%)</strong><br><br>${resultHtml}<br><button class="restart-btn" id="restart-${quizId}">🔄 Restart Quiz</button>`;
+                        resultDiv.classList.add('success');
+                        resultDiv.style.display = 'block';
+                        quizCompleted = true;
+                        container.innerHTML = `<div class="progress">Quiz completed. Your score: ${score}/${total} (${percentage}%)</div>`;
+                        const restartBtn = document.getElementById(`restart-${quizId}`);
+                        if (restartBtn) {
+                            restartBtn.addEventListener('click', () => {
+                                // Reset quiz state
+                                userAnswers = new Array(total).fill(null);
+                                currentIndex = 0;
+                                quizCompleted = false;
+                                resultDiv.style.display = 'none';
+                                resultDiv.innerHTML = '';
+                                render();
+                            });
+                        }
+                    });
+                }
+            }
+            render();
+        }
+
+        // Build all quizzes
+        buildQuiz('ece', quizData.ece);
+        buildQuiz('lower', quizData.lower);
+        buildQuiz('upper', quizData.upper);
+        buildQuiz('secondary', quizData.secondary);
+
+        // Chat functionality (unchanged)
+        const sendBtn = document.getElementById('sendChatBtn');
+        const chatInput = document.getElementById('chatInput');
+        const chatMessages = document.getElementById('chatMessages');
+        function sendMessage() {
+            const msg = chatInput.value.trim();
+            if (msg) {
+                const newMsg = document.createElement('div');
+                newMsg.className = 'message';
+                newMsg.innerHTML = `<strong>You:</strong> ${msg}`;
                 chatMessages.appendChild(newMsg);
-                input.value = "";
+                chatInput.value = '';
                 chatMessages.scrollTop = chatMessages.scrollHeight;
             }
-        });
-
-        document.getElementById("chatInput").addEventListener("keypress", function(e) {
-            if (e.key === "Enter") document.getElementById("sendChatBtn").click();
-        });
+        }
+        sendBtn.addEventListener('click', sendMessage);
+        chatInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') sendMessage(); });
     </script>
 </body>
 </html>
