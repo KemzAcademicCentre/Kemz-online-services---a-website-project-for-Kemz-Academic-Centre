@@ -1,0 +1,66 @@
+# admin/config.yml
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "images/uploads"
+public_folder: "/images/uploads"
+
+collections:
+  - label: "Staff"
+    name: "staff"
+    folder: "_data/staff"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Name", name: "name", widget: "string" }
+      - { label: "Position", name: "position", widget: "string" }
+      - { label: "Qualification/Experience", name: "details", widget: "text" }
+      - { label: "Photo", name: "image", widget: "image" }
+      - { label: "Status", name: "status", widget: "select", options: ["serving", "former"], default: "serving" }
+
+  - label: "Updates"
+    name: "updates"
+    folder: "_data/updates"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "Type", name: "type", widget: "select", options: ["News", "Announcement", "Event"] }
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Summary", name: "summary", widget: "text" }
+      - { label: "Detailed Text", name: "body", widget: "markdown" }
+      - { label: "Image", name: "image", widget: "image", required: false }
+      - { label: "Publish Date", name: "date", widget: "datetime" }
+
+  - label: "E-Learning Materials"
+    name: "elearning"
+    folder: "_data/elearning"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Category", name: "category", widget: "select", options: ["ECE", "Lower Primary", "Upper Primary", "Secondary"] }
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Description", name: "description", widget: "text" }
+      - { label: "File (PDF/DOCX)", name: "file", widget: "file" }
+      - { label: "Thumbnail", name: "thumbnail", widget: "image", required: false }
+
+  - label: "Videos"
+    name: "videos"
+    folder: "_data/videos"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Description", name: "description", widget: "text" }
+      - { label: "Video File (.mp4)", name: "video_file", widget: "file" }
+      - { label: "Thumbnail", name: "thumbnail", widget: "image", required: false }
+
+  - label: "Registration Info"
+    name: "registration"
+    folder: "_data/registration"
+    create: true
+    slug: "info"
+    fields:
+      - { label: "Page Heading", name: "heading", widget: "string", default: "Online Registration" }
+      - { label: "Intro Text", name: "intro", widget: "markdown" }
+      - { label: "Google Form Embed URL", name: "form_url", widget: "string" }
