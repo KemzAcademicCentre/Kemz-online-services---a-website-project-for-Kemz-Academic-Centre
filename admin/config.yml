@@ -1,4 +1,3 @@
-# admin/config.yml
 backend:
   name: git-gateway
   branch: main
@@ -7,18 +6,25 @@ media_folder: "images/uploads"
 public_folder: "/images/uploads"
 
 collections:
+  # STAFF (single file list)
   - label: "Staff"
     name: "staff"
-    folder: "_data/staff"
-    create: true
-    slug: "{{slug}}"
-    fields:
-      - { label: "Name", name: "name", widget: "string" }
-      - { label: "Position", name: "position", widget: "string" }
-      - { label: "Qualification/Experience", name: "details", widget: "text" }
-      - { label: "Photo", name: "image", widget: "image" }
-      - { label: "Status", name: "status", widget: "select", options: ["serving", "former"], default: "serving" }
+    files:
+      - name: "all-staff"
+        label: "All Staff Members"
+        file: "_data/staff.json"
+        fields:
+          - label: "Staff List"
+            name: "staff"
+            widget: "list"
+            fields:
+              - { label: "Name", name: "name", widget: "string" }
+              - { label: "Position", name: "position", widget: "string" }
+              - { label: "Qualification/Experience", name: "details", widget: "text" }
+              - { label: "Photo", name: "image", widget: "image" }
+              - { label: "Status", name: "status", widget: "select", options: ["serving", "former"], default: "serving" }
 
+  # UPDATES (News, Announcements, Events)
   - label: "Updates"
     name: "updates"
     folder: "_data/updates"
@@ -32,6 +38,7 @@ collections:
       - { label: "Image", name: "image", widget: "image", required: false }
       - { label: "Publish Date", name: "date", widget: "datetime" }
 
+  # E-LEARNING MATERIALS
   - label: "E-Learning Materials"
     name: "elearning"
     folder: "_data/elearning"
@@ -44,6 +51,7 @@ collections:
       - { label: "File (PDF/DOCX)", name: "file", widget: "file" }
       - { label: "Thumbnail", name: "thumbnail", widget: "image", required: false }
 
+  # VIDEOS
   - label: "Videos"
     name: "videos"
     folder: "_data/videos"
@@ -55,6 +63,7 @@ collections:
       - { label: "Video File (.mp4)", name: "video_file", widget: "file" }
       - { label: "Thumbnail", name: "thumbnail", widget: "image", required: false }
 
+  # REGISTRATION INFO
   - label: "Registration Info"
     name: "registration"
     folder: "_data/registration"
