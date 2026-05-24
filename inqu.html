@@ -2,399 +2,69 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
     <title>Inquiries | KEMZ ACADEMIC CENTRE</title>
-
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
-
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-            scroll-behavior: smooth;
-        }
-
-        body {
-            background: #f4f7fb;
-            color: #222;
-            overflow-x: hidden;
-        }
-
-        a {
-            text-decoration: none;
-        }
-
-        /* =========================
-           NAVBAR (same as home)
-        ========================== */
-        .navbar {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 1000;
-            padding: 15px 6%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(10, 35, 66, 0.85);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        .logo-title {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .logo-title img {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            transition: 0.3s;
-        }
-
-        .logo-title img:hover {
-            transform: scale(1.08);
-        }
-
-        .logo-title h2 {
-            color: white;
-            font-size: 1.2rem;
-            font-weight: 600;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 25px;
-        }
-
-        .nav-links a {
-            color: white;
-            font-size: 0.95rem;
-            position: relative;
-            transition: 0.3s;
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            width: 0%;
-            height: 2px;
-            background: #4da3ff;
-            left: 0;
-            bottom: -5px;
-            transition: 0.3s;
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
-        .menu-btn {
-            display: none;
-            color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-
-        /* =========================
-           HERO (unique for inquiries)
-        ========================== */
-        .inquiries-hero {
-            min-height: 50vh;
-            background: linear-gradient(135deg, #0f2b44 0%, #1e4d7a 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 140px 8% 80px;
-        }
-
-        .inquiries-hero-content {
-            max-width: 750px;
-            animation: fadeIn 1.2s ease;
-        }
-
-        .inquiries-hero h1 {
-            font-size: 3.2rem;
-            color: white;
-            margin-bottom: 20px;
-            font-weight: 700;
-        }
-
-        .inquiries-hero p {
-            font-size: 1.1rem;
-            color: #e0e8ff;
-            line-height: 1.6;
-        }
-
-        /* =========================
-           SECTIONS
-        ========================== */
-        .section {
-            padding: 70px 8%;
-        }
-
-        .section-title {
-            text-align: center;
-            margin-bottom: 50px;
-        }
-
-        .section-title h2 {
-            font-size: 2.5rem;
-            color: #0a2342;
-            margin-bottom: 15px;
-        }
-
-        .section-title p {
-            color: #666;
-            max-width: 700px;
-            margin: 0 auto;
-        }
-
-        /* FAQ image above title */
-        .faq-header-img {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .faq-header-img img {
-            max-width: 100%;
-            width: 100%;
-            max-width: 900px;
-            border-radius: 20px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        /* FAQ Accordion */
-        .faq-container {
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        .faq-item {
-            background: white;
-            border-radius: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            overflow: hidden;
-            transition: 0.3s;
-        }
-
-        /* Question bar - now blue background (same as footer) */
-        .faq-question {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 25px;
-            cursor: pointer;
-            background: #071a30;   /* footer background color */
-            color: white;
-            font-weight: 600;
-            font-size: 1.1rem;
-        }
-
-        .faq-question span {
-            color: white;
-        }
-
-        .faq-question i {
-            font-size: 1.2rem;
-            color: white;
-            transition: transform 0.3s;
-        }
-
-        .faq-answer {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.4s ease-out;
-            background: white;   /* white background for answer */
-        }
-
-        .faq-answer-content {
-            padding: 20px 25px;
-            color: #444;         /* dark text for answer */
-            line-height: 1.7;
-        }
-
-        .faq-answer-content ul, .faq-answer-content p {
-            margin: 10px 0;
-        }
-
-        .faq-answer-content ul {
-            padding-left: 20px;
-        }
-
-        /* Two-column layout for forms */
-        .forms-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 40px;
-            margin-top: 30px;
-        }
-
-        .form-card {
-            background: white;
-            border-radius: 28px;
-            padding: 30px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
-            transition: 0.3s;
-        }
-
-        .form-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .form-card h3 {
-            font-size: 1.6rem;
-            color: #0a2342;
-            margin-bottom: 15px;
-            border-left: 5px solid #1a73e8;
-            padding-left: 15px;
-        }
-
-        .form-card p {
-            color: #555;
-            margin-bottom: 20px;
-        }
-
-        .form-embed {
-            width: 100%;
-            height: 500px;
-            border-radius: 20px;
-            border: 1px solid #e0e7ed;
-            overflow: hidden;
-        }
-
-        .form-embed iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        /* Contact info box */
-        .contact-help-box {
-            background: #eef4ff;
-            border-radius: 28px;
-            padding: 30px;
-            text-align: center;
-            margin-top: 50px;
-        }
-
-        .contact-help-box p {
-            font-size: 1.1rem;
-            color: #0a2342;
-        }
-
-        /* =========================
-           FOOTER (same as home)
-        ========================== */
-        footer {
-            background: #071a30;
-            color: white;
-            padding: 40px 8%;
-            text-align: center;
-        }
-
-        footer p {
-            margin: 10px 0;
-            color: #cfcfcf;
-        }
-
-        .social-icons {
-            margin-top: 25px;
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-        }
-
-        .social-icons a {
-            width: 55px;
-            height: 55px;
-            border-radius: 50%;
-            background: #1a73e8;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            font-size: 1.2rem;
-            transition: 0.4s;
-        }
-
-        .social-icons a:hover {
-            transform: translateY(-5px);
-            background: #0a2342;
-        }
-
-        hr {
-            margin: 20px 0;
-            border-color: #2a4a7a;
-        }
-
-        /* =========================
-           ANIMATIONS
-        ========================== */
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* =========================
-           RESPONSIVE
-        ========================== */
-        @media (max-width: 900px) {
-            .nav-links {
-                position: fixed;
-                top: 80px;
-                right: -100%;
-                width: 280px;
-                height: 100vh;
-                background: #0a2342;
-                flex-direction: column;
-                padding: 40px 30px;
-                transition: 0.4s;
-            }
-
-            .nav-links.active {
-                right: 0;
-            }
-
-            .menu-btn {
-                display: block;
-            }
-
-            .inquiries-hero h1 {
-                font-size: 2.5rem;
-            }
-
-            .section-title h2 {
-                font-size: 2rem;
-            }
+        * { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins',sans-serif; scroll-behavior:smooth; }
+        body { background:#f4f7fb; color:#222; overflow-x:hidden; width:100%; }
+        a { text-decoration:none; }
+        .navbar { position:fixed; top:0; width:100%; z-index:1000; padding:15px 6%; display:flex; justify-content:space-between; align-items:center; background:rgba(10,35,66,0.85); backdrop-filter:blur(10px); box-shadow:0 2px 20px rgba(0,0,0,0.1); }
+        .logo-title { display:flex; align-items:center; gap:12px; }
+        .logo-title img { width:50px; height:50px; border-radius:50%; transition:0.3s; }
+        .logo-title h2 { color:white; font-size:1.2rem; font-weight:600; }
+        .nav-links { display:flex; gap:25px; }
+        .nav-links a { color:white; font-size:0.95rem; position:relative; transition:0.3s; }
+        .nav-links a::after { content:''; position:absolute; width:0%; height:2px; background:#4da3ff; left:0; bottom:-5px; transition:0.3s; }
+        .nav-links a:hover::after { width:100%; }
+        .menu-btn { display:none; color:white; font-size:1.5rem; cursor:pointer; }
+        .inquiries-hero { min-height:50vh; background:linear-gradient(135deg,#0f2b44 0%,#1e4d7a 100%); display:flex; align-items:center; justify-content:center; text-align:center; padding:140px 8% 80px; }
+        .inquiries-hero-content { max-width:750px; animation:fadeIn 1.2s ease; }
+        .inquiries-hero h1 { font-size:3.2rem; color:white; margin-bottom:20px; font-weight:700; }
+        .inquiries-hero p { font-size:1.1rem; color:#e0e8ff; line-height:1.6; }
+        .section { padding:70px 8%; }
+        .section-title { text-align:center; margin-bottom:50px; }
+        .section-title h2 { font-size:2.5rem; color:#0a2342; margin-bottom:15px; }
+        .faq-header-img { text-align:center; margin-bottom:30px; }
+        .faq-header-img img { max-width:100%; width:350px; height:220px; object-fit:cover; border-radius:20px; box-shadow:0 8px 20px rgba(0,0,0,0.1); }
+        .faq-container { max-width:900px; margin:0 auto; }
+        .faq-item { background:white; border-radius:20px; margin-bottom:20px; box-shadow:0 5px 15px rgba(0,0,0,0.05); overflow:hidden; }
+        .faq-question { display:flex; justify-content:space-between; align-items:center; padding:20px 25px; cursor:pointer; background:#071a30; color:white; font-weight:600; font-size:1.1rem; }
+        .faq-question span { color:white; }
+        .faq-question i { font-size:1.2rem; color:white; transition:transform 0.3s; }
+        .faq-answer { max-height:0; overflow:hidden; transition:max-height 0.4s ease-out; background:white; }
+        .faq-answer-content { padding:20px 25px; color:#444; line-height:1.7; }
+        .faq-answer-content ul, .faq-answer-content p { margin:10px 0; }
+        .forms-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:40px; margin-top:30px; }
+        .form-card { background:white; border-radius:28px; padding:30px; box-shadow:0 10px 25px rgba(0,0,0,0.05); transition:0.3s; }
+        .form-card:hover { transform:translateY(-5px); }
+        .form-card h3 { font-size:1.6rem; color:#0a2342; margin-bottom:15px; border-left:5px solid #1a73e8; padding-left:15px; }
+        .form-card p { color:#555; margin-bottom:20px; }
+        .form-embed { width:100%; height:500px; border-radius:20px; border:1px solid #e0e7ed; overflow:hidden; }
+        .form-embed iframe { width:100%; height:100%; border:none; }
+        .contact-help-box { background:#eef4ff; border-radius:28px; padding:30px; text-align:center; margin-top:50px; }
+        .contact-help-box p { font-size:1.1rem; color:#0a2342; }
+        footer { background:#071a30; color:white; padding:40px 8%; text-align:center; width:100%; margin-top:60px; }
+        footer p { margin:10px 0; color:#cfcfcf; }
+        .social-icons { margin-top:25px; display:flex; justify-content:center; gap:20px; flex-wrap:wrap; }
+        .social-icons a { width:55px; height:55px; border-radius:50%; background:#1a73e8; display:flex; justify-content:center; align-items:center; color:white; font-size:1.2rem; transition:0.4s; }
+        .social-icons a:hover { transform:translateY(-5px); background:#0a2342; }
+        hr { margin:20px 0; border-color:#2a4a7a; }
+        @keyframes fadeIn { from{opacity:0; transform:translateY(30px);} to{opacity:1; transform:translateY(0);} }
+        @media (max-width:900px) {
+            .nav-links { position:fixed; top:80px; right:-100%; width:280px; height:100vh; background:#0a2342; flex-direction:column; padding:40px 30px; transition:0.4s; }
+            .nav-links.active { right:0; }
+            .menu-btn { display:block; }
+            .inquiries-hero h1 { font-size:2.5rem; }
+            .section-title h2 { font-size:2rem; }
         }
     </style>
 </head>
 <body>
-
-    <!-- NAVBAR (identical to home page) -->
+    <!-- NAVBAR -->
     <nav class="navbar">
-        <div class="logo-title">
-            <img src="Kemz_logo.png" alt="KEMZ Logo">
-            <h2>KEMZ ONLINE SERVICES</h2>
-        </div>
-
+        <div class="logo-title"><img src="Kemz_logo.png" alt="KEMZ Logo"><h2>KEMZ ONLINE SERVICES</h2></div>
         <div class="nav-links" id="navLinks">
             <a href="index.html"><i class="fas fa-home"></i> Home</a>
             <a href="about.html"><i class="fas fa-info-circle"></i> About</a>
@@ -407,240 +77,143 @@
             <a href="elearning.html"><i class="fas fa-laptop-code"></i> E-Learning</a>
             <a href="online-classes.html"><i class="fas fa-video"></i> Classes</a>
         </div>
-
-        <div class="menu-btn" id="menuBtn">
-            <i class="fas fa-bars"></i>
-        </div>
+        <div class="menu-btn" id="menuBtn"><i class="fas fa-bars"></i></div>
     </nav>
 
-    <!-- UNIQUE HERO SECTION -->
-    <section class="inquiries-hero">
-        <div class="inquiries-hero-content">
-            <h1>Inquiries & Support</h1>
-            <p>Find quick answers to common questions or reach out to us directly. We're here to help.</p>
-        </div>
-    </section>
+    <div id="inquContent"></div>
 
-    <!-- FAQ SECTION with image above title -->
-    <div class="section">
-        <!-- Added image Inquiry.jpg with curved corners -->
-        <div class="faq-header-img">
-            <img src="Inquiry.jpg" alt="Inquiry Support" id="inquiryImage">
-        </div>
-        <div class="section-title">
-            <h2>Frequently Asked Questions</h2>
-            <p>Click on the arrow next to any question to reveal the answer.</p>
-        </div>
-
-        <div class="faq-container" id="faqContainer">
-            <!-- FAQ 1 -->
-            <div class="faq-item" id="faq1">
-            <div class="faq-question">
-            <span>⏰ What are the school hours?</span>
-            <i class="fas fa-chevron-down"></i>
-             </div>
-            <div class="faq-answer">
-            <div class="faq-answer-content">
-            The school operates from 07:20 hrs to 16:00 hrs.
-               </div>
-             </div>
-           </div>
-            <!-- FAQ 2 -->
-                        <div class="faq-item" id="faq1">
-                <div class="faq-question">
-                    <span>📌 How do I register my child?</span>
-                    <i class="fas fa-chevron-down"></i>
-                </div>
-                <div class="faq-answer">
-                    <div class="faq-answer-content">
-                        Click on the navigation menu on the top right corner and select option 7 (Registration). Fill in the registration form details and once done, click on submit.
-                    </div>
-                </div>
-            </div>
-
-            <!-- FAQ 3 -->
-            <div class="faq-item" id="faq3">
-                <div class="faq-question">
-                    <span>📊 How can I access my child's results?</span>
-                    <i class="fas fa-chevron-down"></i>
-                </div>
-                <div class="faq-answer">
-                    <div class="faq-answer-content">
-                        Click on the navigation menu icon on the top right corner, select option 8 (Results). Fill in details: student ID number, select term and select the year. Click on fetch for results to display. To download click on "Download PDF results slip".
-                    </div>
-                </div>
-            </div>
-
-            <!-- FAQ 4 -->
-             <div class="faq-item" id="faq4">
-                  <div class="faq-question">
-                      <span>👩‍🏫 How do I contact my child's teacher?</span>
-                <i class="fas fa-chevron-down"></i>
-                </div>
-                <div class="faq-answer">
-                       <div class="faq-answer-content">
-             Contact the school manager on <strong>+260977819249</strong> for assistance on the contact details of your child's teacher.
-         </div>
-     </div>
- </div>
-            <!-- FAQ 5 -->
-                        <div class="faq-item" id="faq5">
-                <div class="faq-question">
-                    <span>💰 What are the school fees and requirements?</span>
-                    <i class="fas fa-chevron-down"></i>
-                </div>
-                <div class="faq-answer">
-                    <div class="faq-answer-content">
-                        <p><strong>2026 School Fees</strong></p>
-                        <p><strong>Care Service:</strong><br>
-                            • Registration: K20 / once<br>
-                            • School fee: K895 / termly<br>
-                            • Maintenance: K70 / yearly<br>
-                            • ID: K70 / once</p>
-                        
-                        <p><strong>Baby Class - Middle Class:</strong><br>
-                            • Registration: K20 / once<br>
-                            • School fee: K595 / termly<br>
-                            • Maintenance: K70 / yearly<br>
-                            • ID: K70 / once</p>
-                        
-                        <p><strong>Reception - Grade 7:</strong><br>
-                            • Registration: K20 / once<br>
-                            • School fee: K475 / termly<br>
-                            • Maintenance: K70 / yearly<br>
-                            • ID: K70 / once</p>
-                        
-                        <p><strong>Form 1 - Form 4:</strong><br>
-                            • Registration: K20 / once<br>
-                            • School Fee: K505 / termly<br>
-                            • Maintenance Fee: K70 / yearly<br>
-                            • ID: K70 / Once</p>
-                        
-                        <p><strong>Uniforms:</strong><br>
-                            • Day Care - Grade 4: K300 Plus K30 for boys socks or K20 for girls socks<br>
-                            • Grade 5 - 7: K330<br>
-                            • Form 1 - 4: K560</p>
-                        
-                        <p><strong>Requirements:</strong><br>
-                           <p> • 3 bottles of hand wash sanitizer, 3 bottles of chlorine & 6 rolls of tissue(All grades)</p>
-                          <p>  • School bag (All grades)</p>
-                            <p>• Big crayons, pencils and pens, 6 - 7 hard cover exercise books - (Baby Class - Grade 4)</p>
-                           <p> • 7 - 8 Hard cover exercise books, pens - (G5 - 7)</p>
-                          <p>  • 7 - 10 hard cover exercise books, pens, scientific calculator, school dictionary; Collins or Oxford - (Form 1 - 4)</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- QUERY & SUGGESTIONS FORMS SECTION -->
-    <div class="section" style="background: #eef4ff;">
-        <div class="section-title">
-            <h2>Submit a Query or Suggestion</h2>
-            <p>We value your feedback and questions. Fill out the forms below and we'll get back to you.</p>
-        </div>
-
-        <div class="forms-grid">
-            <!-- Query Form Card -->
-            <div class="form-card" id="queryFormCard">
-                <h3><i class="fas fa-question-circle"></i> Submit a Query</h3>
-                <p>Have a question? Use this form to send us your query.</p>
-                <div class="form-embed">
-                    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdq7fu5E_yyTbh23ZcOK-r_oOfG604LNoCsJdx8OrgZBD0beg/viewform?embedded=true" title="Query Form"></iframe>
-                </div>
-            </div>
-
-            <!-- Suggestions Form Card -->
-            <div class="form-card" id="suggestionsFormCard">
-                <h3><i class="fas fa-lightbulb"></i> Suggestions Box</h3>
-                <p>We welcome your suggestions to help us improve our services.</p>
-                <div class="form-embed">
-                    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdFhEZlIVhKNBKn8h2erZZm_DuMA6TgilgpxhYH1VnrSVx9ow/viewform?embedded=true" title="Suggestions Form"></iframe>
-                </div>
-            </div>
-        </div>
-
-        <!-- Additional contact info -->
-        <div class="contact-help-box" id="contactHelpBox">
-            <p><strong>Still need help?</strong> Call us at 📞 +260977916081 or 📞 +260977432490, or email <a href="mailto:kemzacademiccentre@gmail.com" style="color:#1a73e8;">kemzacademiccentre@gmail.com</a></p>
-        </div>
-    </div>
-
-    <!-- FOOTER (identical to home page) -->
     <footer id="footerSection">
         <h3>KEMZ ACADEMIC CENTRE</h3>
         <p>Hard Work Brings Success!</p>
-        <br>
-        <h2>Contact Us</h2>
-        <div id="footerContactInfo">
-            <p>📞 +260977916081 | +260977432490</p>
-            <p>📧 kemzacademiccentre@gmail.com</p>
-            <p>🌐 www.kemzonline.com</p>
-            <p><i class="fas fa-map-marker-alt"></i> Plot No 88/37, Makeni Villa, Lusaka - Zambia</p>
-        </div>
-        <br>
-        <h2>Follow Us</h2>
-        <div class="social-icons" id="footerSocialLinks">
-            <a href="https://www.facebook.com/share/1AzFdvL5Yq/"><i class="fab fa-facebook-f"></i></a>
-            <a href="#"><i class="fab fa-whatsapp"></i></a>
-            <a href="mailto:kemzacademiccentre@gmail.com"><i class="fas fa-envelope"></i></a>
-        </div>
-        <br>
-        <hr>
-        <p>© 2025 - 2026 KEMZ ACADEMIC CENTRE | All rights reserved</p>
+        <br><h2>Contact Us</h2>
+        <div id="footerContactInfo"><p>📞 +260977916081 | +260977432490</p><p>📧 kemzacademiccentre@gmail.com</p><p>🌐 www.kemzonline.com</p><p><i class="fas fa-map-marker-alt"></i> Plot No 88/37, Makeni Villa, Lusaka - Zambia</p></div>
+        <br><h2>Follow Us</h2>
+        <div class="social-icons"><a href="https://www.facebook.com/share/1AzFdvL5Yq/"><i class="fab fa-facebook-f"></i></a><a href="#"><i class="fab fa-whatsapp"></i></a><a href="mailto:kemzacademiccentre@gmail.com"><i class="fas fa-envelope"></i></a></div>
+        <br><hr><p>© 2025 - 2026 KEMZ ACADEMIC CENTRE | All rights reserved</p>
     </footer>
 
-    <!-- JAVASCRIPT for mobile menu + FAQ accordion -->
     <script>
-        // Mobile menu toggle + close on outside tap
+        // Mobile menu toggle
         const menuBtn = document.getElementById("menuBtn");
         const navLinks = document.getElementById("navLinks");
-
-        menuBtn.onclick = (e) => {
-            e.stopPropagation();
-            navLinks.classList.toggle("active");
-        };
-
+        menuBtn.onclick = (e) => { e.stopPropagation(); navLinks.classList.toggle("active"); };
         document.addEventListener("click", function(event) {
-            const isClickInsideNav = navLinks.contains(event.target);
-            const isClickOnMenuBtn = menuBtn.contains(event.target);
-            if (!isClickInsideNav && !isClickOnMenuBtn && navLinks.classList.contains("active")) {
-                navLinks.classList.remove("active");
-            }
+            if (!navLinks.contains(event.target) && !menuBtn.contains(event.target) && navLinks.classList.contains("active")) navLinks.classList.remove("active");
         });
 
-        // FAQ Accordion functionality
-        const faqItems = document.querySelectorAll('.faq-item');
+        // Default FAQ data (mirroring original content)
+        const defaultFaq = [
+            {"question":"How do I register my child?","answer":"Click on the navigation menu on the top right corner and select option 7 - Registration. Fill in the registration form details and once done, click on submit."},
+          
+            {"question":"How can I access my child's results?","answer":"Click on the navigation menu icon on the top right corner, select option 8 (Results). Fill details: student ID number, select term and select the year. Click on fetch for results to display. To download click on 'Download PDF results slip'."},
+            {"question":"What are the school hours?","answer":"The school operates from 07:20 hrs to 16:00 hrs."},
+            {"question":"How do I contact my child's teacher?","answer":"Contact the school manager on **+260977819249** for assistance on the contact details of your child's teacher."}, { "question": "What are the school fees and requirements?", "answer": "**Care Service:**\n• Registration: K20 / once\n• School fee: K895 / termly\n• Maintenance: K70 / yearly\n• ID: K70 / once\n\n**Baby Class - Middle Class:**\n• Registration: K20 / once\n• School fee: K595 / termly\n• Maintenance: K70 / yearly\n• ID: K70 / once\n\n**Reception - Grade 7:**\n• Registration: K20 / once\n• School fee: K475 / termly\n• Maintenance: K70 / yearly\n• ID: K70 / once\n\n**Form 1 - Form 4:**\n• Registration: K20 / once\n• School Fee: K505 / termly\n• Maintenance Fee: K70 yearly\n• ID: K70 / Once\n\n**Uniforms:**\n• Day Care - Grade 4: K300 + K30 (boys socks) or K20 (girls socks)\n• Grade 5 - 7: K330\n• Form 1 - 4: K560\n\n**Requirements:**\n• 3 bottles of hand wash sanitizer, 3 bottles of chlorine & 6 rolls of tissue\n• School bag (All grades)\n• Big crayons, pencils and pens, 6 - 7 hard cover exercise books - (Baby Class - Grade 4)\n• 7 - 8 exercise books, pens - (G5 - 7)\n• 7 - 10 hard cover books, pens, scientific calculator, school dictionary (Collins or Oxford) - (Form 1 - 4)"}
+        ];
 
-        faqItems.forEach(item => {
-            const questionDiv = item.querySelector('.faq-question');
-            const answerDiv = item.querySelector('.faq-answer');
-            const icon = questionDiv.querySelector('i');
-
-            questionDiv.addEventListener('click', () => {
-                // Close all other items
-                faqItems.forEach(otherItem => {
-                    if (otherItem !== item) {
-                        const otherAnswer = otherItem.querySelector('.faq-answer');
-                        const otherIcon = otherItem.querySelector('.faq-question i');
-                        otherAnswer.style.maxHeight = null;
-                        otherIcon.classList.remove('fa-chevron-up');
-                        otherIcon.classList.add('fa-chevron-down');
-                    }
-                });
-
-                // Toggle current
-                if (answerDiv.style.maxHeight) {
-                    answerDiv.style.maxHeight = null;
-                    icon.classList.remove('fa-chevron-up');
-                    icon.classList.add('fa-chevron-down');
-                } else {
-                    answerDiv.style.maxHeight = answerDiv.scrollHeight + "px";
-                    icon.classList.remove('fa-chevron-down');
-                    icon.classList.add('fa-chevron-up');
+        async function loadInquiries() {
+            try {
+                const res = await fetch('/_data/faq.json');
+                let faqList = defaultFaq;
+                if (res.ok) {
+                    const data = await res.json();
+                    faqList = data.faq || defaultFaq;
                 }
+                // Build FAQ accordion
+                let faqHtml = '';
+                faqList.forEach((item, idx) => {
+                    const answerHtml = marked.parse(item.answer);
+                    faqHtml += `
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                <span>${escapeHtml(item.question)}</span>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="faq-answer">
+                                <div class="faq-answer-content">${answerHtml}</div>
+                            </div>
+                        </div>
+                    `;
+                });
+                const fullHtml = `
+                    <section class="inquiries-hero">
+                        <div class="inquiries-hero-content">
+                            <h1>Inquiries & Support</h1>
+                            <p>Find quick answers to common questions or reach out to us directly. We're here to help.</p>
+                        </div>
+                    </section>
+                    <div class="section">
+                        <div class="faq-header-img"><img src="Inquiry.jpg" alt="Inquiry Support"></div>
+                        <div class="section-title"><h2>Frequently Asked Questions</h2><p>Click on the arrow next to any question to reveal the answer.</p></div>
+                        <div class="faq-container">${faqHtml}</div>
+                    </div>
+                    <div class="section" style="background:#eef4ff;">
+                        <div class="section-title"><h2>Submit a Query or Suggestion</h2><p>We value your feedback and questions. Fill out the forms below and we'll get back to you.</p></div>
+                        <div class="forms-grid">
+                            <div class="form-card">
+                                <h3><i class="fas fa-question-circle"></i> Submit a Query</h3>
+                                <p>Have a question? Use this form to send us your query.</p>
+                                <div class="form-embed"><iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdq7fu5E_yyTbh23ZcOK-r_oOfG604LNoCsJdx8OrgZBD0beg/viewform?embedded=true" title="Query Form"></iframe></div>
+                            </div>
+                            <div class="form-card">
+                                <h3><i class="fas fa-lightbulb"></i> Suggestions Box</h3>
+                                <p>We welcome your suggestions to help us improve our services.</p>
+                                <div class="form-embed"><iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdFhEZlIVhKNBKn8h2erZZm_DuMA6TgilgpxhYH1VnrSVx9ow/viewform?embedded=true" title="Suggestions Form"></iframe></div>
+                            </div>
+                        </div>
+                        <div class="contact-help-box">
+                            <p><strong>Still need help?</strong> Call us at 📞 +260977916081 or 📞 +260977432490, or email <a href="mailto:kemzacademiccentre@gmail.com" style="color:#1a73e8;">kemzacademiccentre@gmail.com</a></p>
+                        </div>
+                    </div>
+                `;
+                document.getElementById('inquContent').innerHTML = fullHtml;
+
+                // Activate accordion functionality
+                const faqItems = document.querySelectorAll('.faq-item');
+                faqItems.forEach(item => {
+                    const questionDiv = item.querySelector('.faq-question');
+                    const answerDiv = item.querySelector('.faq-answer');
+                    const icon = questionDiv.querySelector('i');
+                    questionDiv.addEventListener('click', () => {
+                        // Close all others (optional but user-friendly)
+                        faqItems.forEach(other => {
+                            if (other !== item) {
+                                const otherAnswer = other.querySelector('.faq-answer');
+                                const otherIcon = other.querySelector('.faq-question i');
+                                if (otherAnswer) otherAnswer.style.maxHeight = null;
+                                if (otherIcon) otherIcon.classList.remove('fa-chevron-up');
+                                if (otherIcon) otherIcon.classList.add('fa-chevron-down');
+                            }
+                        });
+                        if (answerDiv.style.maxHeight) {
+                            answerDiv.style.maxHeight = null;
+                            icon.classList.remove('fa-chevron-up');
+                            icon.classList.add('fa-chevron-down');
+                        } else {
+                            answerDiv.style.maxHeight = answerDiv.scrollHeight + "px";
+                            icon.classList.remove('fa-chevron-down');
+                            icon.classList.add('fa-chevron-up');
+                        }
+                    });
+                });
+            } catch (err) {
+                console.error(err);
+                document.getElementById('inquContent').innerHTML = '<div class="section"><p style="text-align:center;">Could not load inquiries. Please try again later.</p></div>';
+            }
+        }
+
+        function escapeHtml(str) {
+            if (!str) return '';
+            return str.replace(/[&<>]/g, function(m) {
+                if (m === '&') return '&amp;';
+                if (m === '<') return '&lt;';
+                if (m === '>') return '&gt;';
+                return m;
             });
-        });
+        }
+
+        loadInquiries();
     </script>
+    <!-- Include marked.js for Markdown rendering of answers -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </body>
 </html>
