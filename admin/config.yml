@@ -6,7 +6,7 @@ media_folder: "images/uploads"
 public_folder: "/images/uploads"
 
 collections:
-  # STAFF (already working)
+  # 1. STAFF
   - label: "Staff"
     name: "staff"
     files:
@@ -24,7 +24,7 @@ collections:
               - { label: "Photo", name: "image", widget: "image" }
               - { label: "Status", name: "status", widget: "select", options: ["serving", "former"], default: "serving" }
 
-  # UPDATES (Events, Announcements, News, Highlights)
+  # 2. UPDATES (Events, Announcements, News, Highlights)
   - label: "Updates"
     name: "updates"
     files:
@@ -38,12 +38,12 @@ collections:
             fields:
               - { label: "Type", name: "type", widget: "select", options: ["Event", "Announcement", "News", "Highlight"] }
               - { label: "Title", name: "title", widget: "string" }
-              - { label: "Summary / Short Description", name: "summary", widget: "text" }
-              - { label: "Full Details (optional)", name: "body", widget: "markdown", required: false }
+              - { label: "Summary", name: "summary", widget: "text" }
+              - { label: "Full Details", name: "body", widget: "markdown", required: false }
               - { label: "Image", name: "image", widget: "image", required: false }
-              - { label: "Date / Time", name: "date", widget: "datetime", required: false }
+              - { label: "Date", name: "date", widget: "datetime", required: false }
 
-  # VIDEOS
+  # 3. VIDEOS
   - label: "Videos"
     name: "videos"
     files:
@@ -58,22 +58,27 @@ collections:
               - { label: "Title", name: "title", widget: "string" }
               - { label: "Description", name: "description", widget: "text" }
               - { label: "Video File (.mp4)", name: "video_file", widget: "file" }
-              - { label: "Thumbnail (optional)", name: "thumbnail", widget: "image", required: false }
+              - { label: "Thumbnail", name: "thumbnail", widget: "image", required: false }
 
-  # E-LEARNING MATERIALS (keep as before)
-  - label: "E-Learning Materials"
-    name: "elearning"
-    folder: "_data/elearning"
-    create: true
-    slug: "{{slug}}"
-    fields:
-      - { label: "Category", name: "category", widget: "select", options: ["ECE", "Lower Primary", "Upper Primary", "Secondary"] }
-      - { label: "Title", name: "title", widget: "string" }
-      - { label: "Description", name: "description", widget: "text" }
-      - { label: "File (PDF/DOCX)", name: "file", widget: "file" }
-      - { label: "Thumbnail", name: "thumbnail", widget: "image", required: false }
+  # 4. LEARNING MATERIALS (for E-Learning page)
+  - label: "Learning Materials"
+    name: "learning"
+    files:
+      - name: "all-materials"
+        label: "All Learning Materials"
+        file: "_data/learning.json"
+        fields:
+          - label: "Materials List"
+            name: "materials"
+            widget: "list"
+            fields:
+              - { label: "Category", name: "category", widget: "select", options: ["ECE", "Lower Primary", "Upper Primary", "Secondary"] }
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Description", name: "description", widget: "text" }
+              - { label: "File", name: "file", widget: "file" }
+              - { label: "Thumbnail", name: "thumbnail", widget: "image", required: false }
 
-  # REGISTRATION INFO (keep as before)
+  # 5. REGISTRATION INFO
   - label: "Registration Info"
     name: "registration"
     folder: "_data/registration"
