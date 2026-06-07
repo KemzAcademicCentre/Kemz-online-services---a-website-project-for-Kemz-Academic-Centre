@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
 
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
 
     <style>
         * {
@@ -31,9 +31,7 @@
             text-decoration: none;
         }
 
-        /* =========================
-           NAVBAR (same as home)
-        ========================== */
+        /* NAVBAR (identical to home page) */
         .navbar {
             position: fixed;
             top: 0;
@@ -101,9 +99,7 @@
             cursor: pointer;
         }
 
-        /* =========================
-           HERO (unique for registration)
-        ========================== */
+        /* HERO (unique for registration) */
         .registration-hero {
             min-height: 45vh;
             background: linear-gradient(135deg, #0f2b44 0%, #1e5a8a 100%);
@@ -134,9 +130,7 @@
             line-height: 1.6;
         }
 
-        /* =========================
-           SECTIONS
-        ========================== */
+        /* MAIN SECTION */
         .section {
             padding: 60px 5%;
             width: 100%;
@@ -171,13 +165,6 @@
             padding-left: 15px;
         }
 
-        .card-content p {
-            color: #444;
-            line-height: 1.6;
-            margin-bottom: 20px;
-        }
-
-        /* Google Form embed responsive */
         .google-form-container {
             width: 100%;
             height: 800px;
@@ -193,9 +180,7 @@
             border: none;
         }
 
-        /* =========================
-           FOOTER (same as home)
-        ========================== */
+        /* FOOTER */
         footer {
             background: #071a30;
             color: white;
@@ -266,7 +251,7 @@
 </head>
 <body>
 
-    <!-- NAVBAR (identical) -->
+    <!-- NAVBAR -->
     <nav class="navbar">
         <div class="logo-title">
             <img src="Kemz_logo.png" alt="KEMZ Logo">
@@ -287,11 +272,11 @@
         <div class="menu-btn" id="menuBtn"><i class="fas fa-bars"></i></div>
     </nav>
 
-    <!-- HERO SECTION -->
+    <!-- HERO -->
     <section class="registration-hero">
         <div class="registration-hero-content">
             <h1>Online Registration</h1>
-            <p>Secure your child’s place at KEMZ Academic Centre for the current / upcoming academic year.</p>
+            <p>Secure your child’s place at KEMZ Academic Centre for the upcoming academic year.</p>
         </div>
     </section>
 
@@ -301,12 +286,12 @@
             <div class="card-content">
                 <h3><i class="fas fa-file-signature"></i> Student Registration Form</h3>
                 <p>Please fill out the form below completely. All fields marked with an asterisk (*) are required. After submission, you will receive a confirmation email with the details you entered.</p>
-                
+
                 <div class="google-form-container" id="googleFormContainer">
-                    <!-- Google Form Embed (same as your original) -->
+                    <!-- Fallback static iframe (original hardcoded URL) will be replaced by JS -->
                     <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSf9R1nJvPvlM5h7tqy7sFafo3feVYW18vEzCsAB2ysqo6srug/viewform?embedded=true" title="Registration Form"></iframe>
                 </div>
-                
+
                 <p style="text-align: center;">
                     Having trouble with the form? <a href="mailto:kemzacademiccentre@gmail.com" style="color:#1a73e8;">Contact us directly</a>.
                 </p>
@@ -342,15 +327,39 @@
         // Mobile menu toggle
         const menuBtn = document.getElementById("menuBtn");
         const navLinks = document.getElementById("navLinks");
-        menuBtn.onclick = (e) => {
-            e.stopPropagation();
-            navLinks.classList.toggle("active");
-        };
+        menuBtn.onclick = (e) => { e.stopPropagation(); navLinks.classList.toggle("active"); };
         document.addEventListener("click", function(event) {
             if (!navLinks.contains(event.target) && !menuBtn.contains(event.target) && navLinks.classList.contains("active")) {
                 navLinks.classList.remove("active");
             }
         });
+
+        // Load Google Form URL from Decap CMS (/_data/registration.json)
+        async function loadFormUrl() {
+            try {
+                // Note: The CMS collection "Registration Info" can have multiple files.
+                // We'll fetch the first (or the one named "info") – simplest approach:
+                const res = await fetch('/_data/registration/info.json');
+                if (!res.ok) {
+                    // Fallback to original hardcoded URL
+                    console.log("No CMS registration data found, using default form.");
+                    return;
+                }
+                const data = await res.json();
+                if (data.form_url) {
+                    // Replace the iframe src with CMS-provided URL
+                    const iframe = document.querySelector('#googleFormContainer iframe');
+                    if (iframe) {
+                        iframe.src = data.form_url;
+                    }
+                }
+            } catch (err) {
+                console.error("Could not load registration form URL from CMS", err);
+                // Keep default iframe src – no action needed
+            }
+        }
+
+        loadFormUrl();
     </script>
 </body>
 </html>

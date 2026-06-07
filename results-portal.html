@@ -4,502 +4,81 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
     <title>Results Portal | KEMZ ACADEMIC CENTRE</title>
-
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
-
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
-
-    <!-- jsPDF for PDF generation -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
-
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-            scroll-behavior: smooth;
-        }
-
-        body {
-            background: #f4f7fb;
-            color: #222;
-            overflow-x: hidden;
-            width: 100%;
-            padding-bottom: 90px;
-        }
-
-        a {
-            text-decoration: none;
-        }
-
-        /* =========================
-           NAVBAR (same as home)
-        ========================== */
-        .navbar {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 1000;
-            padding: 15px 6%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(10, 35, 66, 0.85);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        .logo-title {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .logo-title img {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            transition: 0.3s;
-        }
-
-        .logo-title h2 {
-            color: white;
-            font-size: 1.2rem;
-            font-weight: 600;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 25px;
-        }
-
-        .nav-links a {
-            color: white;
-            font-size: 0.95rem;
-            position: relative;
-            transition: 0.3s;
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            width: 0%;
-            height: 2px;
-            background: #4da3ff;
-            left: 0;
-            bottom: -5px;
-            transition: 0.3s;
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
-        .menu-btn {
-            display: none;
-            color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-
-        /* =========================
-           HERO (unique for results)
-        ========================== */
-        .results-hero {
-            min-height: 45vh;
-            background: linear-gradient(135deg, #0f2b44 0%, #1e5a8a 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 140px 8% 70px;
-            width: 100%;
-        }
-
-        .results-hero-content {
-            max-width: 750px;
-            width: 100%;
-            animation: fadeIn 1.2s ease;
-        }
-
-        .results-hero h1 {
-            font-size: 3rem;
-            color: white;
-            margin-bottom: 20px;
-            font-weight: 700;
-        }
-
-        .results-hero p {
-            font-size: 1.1rem;
-            color: #e0e8ff;
-            line-height: 1.6;
-        }
-
-        /* =========================
-           MAIN SECTION
-        ========================== */
-        .section {
-            padding: 60px 5%;
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .centered-card {
-            background: white;
-            border-radius: 28px;
-            overflow: hidden;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
-            transition: transform 0.3s;
-            max-width: 1000px;
-            margin: 0 auto;
-            width: 100%;
-        }
-
-        .card-content {
-            padding: 30px;
-        }
-
-        .card-content h3 {
-            font-size: 1.8rem;
-            color: #0a2342;
-            margin-bottom: 20px;
-            border-left: 5px solid #1a73e8;
-            padding-left: 15px;
-        }
-
-        /* Form styling */
-        .form-group {
-            margin-bottom: 25px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 10px;
-            color: #0a2342;
-            font-weight: 600;
-            font-size: 1rem;
-        }
-
-        .form-group input,
-        .form-group select {
-            width: 100%;
-            padding: 14px 18px;
-            border: 2px solid #e0e7ed;
-            border-radius: 16px;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            background: #f8fafc;
-        }
-
-        .form-group input:focus,
-        .form-group select:focus {
-            outline: none;
-            border-color: #1a73e8;
-            background: white;
-            box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.1);
-        }
-
-        .btn-submit {
-            width: 100%;
-            background: #1a73e8;
-            color: white;
-            padding: 14px;
-            border-radius: 40px;
-            border: none;
-            cursor: pointer;
-            font-size: 1rem;
-            font-weight: 600;
-            transition: 0.3s;
-        }
-
-        .btn-submit:hover {
-            background: #0d5fd4;
-            transform: translateY(-2px);
-        }
-
-        .error-message {
-            display: none;
-            background: #fee;
-            color: #c33;
-            padding: 15px;
-            border-radius: 16px;
-            margin-top: 20px;
-            font-weight: 500;
-        }
-
-        .loading {
-            display: none;
-            text-align: center;
-            padding: 40px;
-            background: white;
-            border-radius: 28px;
-            margin-top: 20px;
-        }
-
-        .loading i {
-            font-size: 2.5rem;
-            color: #1a73e8;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        /* Result container */
-        .result-container {
-            display: none;
-            margin-top: 30px;
-        }
-
-        /* ============================================
-           TWO-TONE STUDENT INFO CARDS (exactly like photo)
-        ============================================ */
-        .info-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-
-        .info-card {
-            background: linear-gradient(to bottom, #071a30 50%, white 50%);
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-            transition: transform 0.2s;
-            text-align: center;
-        }
-
-        .info-card:hover {
-            transform: translateY(-3px);
-        }
-
-        .info-card strong {
-            display: block;
-            background: transparent;
-            color: white;
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            padding: 16px 12px 8px 12px;
-            font-weight: 500;
-        }
-
-        .info-card span {
-            display: block;
-            background: transparent;
-            color: #0a2342;
-            font-size: 1rem;
-            font-weight: 600;
-            padding: 8px 12px 16px 12px;
-            word-break: break-word;
-        }
-
-        /* Overall performance card (same two-tone) */
-        .performance-card {
-            background: linear-gradient(to bottom, #071a30 50%, white 50%);
-            border-radius: 16px;
-            overflow: hidden;
-            margin: 20px 0;
-            text-align: center;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-        }
-
-        .performance-card strong {
-            display: block;
-            background: transparent;
-            color: white;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            padding: 16px 12px 8px 12px;
-        }
-
-        .performance-card span {
-            display: block;
-            background: transparent;
-            color: #1a73e8;
-            font-size: 1.4rem;
-            font-weight: 700;
-            padding: 8px 12px 16px 12px;
-        }
-
-        /* Table wrapper for horizontal scroll */
-        .table-wrapper {
-            overflow-x: auto;
-            margin: 20px 0;
-            border-radius: 20px;
-        }
-
-        .grades-table {
-            width: 100%;
-            border-collapse: collapse;
-            background: white;
-            min-width: 600px;
-        }
-
-        .grades-table thead {
-            background: #0a2342;
-            color: white;
-        }
-
-        .grades-table th, .grades-table td {
-            padding: 12px 15px;
-            text-align: left;
-            border-bottom: 1px solid #e0e7ed;
-        }
-
-        .grades-table tbody tr:hover {
-            background: #f8fafc;
-        }
-
-        .grades-table tfoot tr {
-            background: #f8fafc;
-            font-weight: bold;
-        }
-
-        /* Action buttons - vertical stack */
-        .action-buttons {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            margin-top: 25px;
-        }
-
-        .btn-download, .btn-print, .btn-new-search {
-            width: 100%;
-            padding: 12px 20px;
-            border-radius: 40px;
-            border: none;
-            font-weight: 600;
-            cursor: pointer;
-            transition: 0.3s;
-            font-size: 1rem;
-            text-align: center;
-        }
-
-        .btn-download {
-            background: #d35400;
-            color: white;
-        }
-        .btn-download:hover {
-            background: #e67e22;
-            transform: translateY(-2px);
-        }
-        .btn-print {
-            background: #27ae60;
-            color: white;
-        }
-        .btn-print:hover {
-            background: #2ecc71;
-            transform: translateY(-2px);
-        }
-        .btn-new-search {
-            background: #7f8c8d;
-            color: white;
-        }
-        .btn-new-search:hover {
-            background: #95a5a6;
-            transform: translateY(-2px);
-        }
-
-        /* FOOTER */
-        footer {
-            background: #071a30;
-            color: white;
-            padding: 40px 8%;
-            text-align: center;
-            width: 100%;
-            margin-top: 60px;
-        }
-
-        footer p {
-            margin: 10px 0;
-            color: #cfcfcf;
-        }
-
-        .social-icons {
-            margin-top: 25px;
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-
-        .social-icons a {
-            width: 55px;
-            height: 55px;
-            border-radius: 50%;
-            background: #1a73e8;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            font-size: 1.2rem;
-            transition: 0.4s;
-        }
-
-        .social-icons a:hover {
-            transform: translateY(-5px);
-            background: #0a2342;
-        }
-
-        hr {
-            margin: 20px 0;
-            border-color: #2a4a7a;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @media (max-width: 900px) {
-            .nav-links {
-                position: fixed;
-                top: 80px;
-                right: -100%;
-                width: 280px;
-                height: 100vh;
-                background: #0a2342;
-                flex-direction: column;
-                padding: 40px 30px;
-                transition: 0.4s;
-            }
-            .nav-links.active { right: 0; }
-            .menu-btn { display: block; }
-            .results-hero h1 { font-size: 2.2rem; }
-            .info-grid {
-                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-                gap: 15px;
-            }
-        }
-
-        @media (max-width: 600px) {
-            .info-card span {
-                font-size: 0.85rem;
-            }
-            .performance-card span {
-                font-size: 1.1rem;
-            }
+        * { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins',sans-serif; scroll-behavior:smooth; }
+        body { background:#f4f7fb; color:#222; overflow-x:hidden; width:100%; padding-bottom:90px; }
+        a { text-decoration:none; }
+        .navbar { position:fixed; top:0; width:100%; z-index:1000; padding:15px 6%; display:flex; justify-content:space-between; align-items:center; background:rgba(10,35,66,0.85); backdrop-filter:blur(10px); box-shadow:0 2px 20px rgba(0,0,0,0.1); }
+        .logo-title { display:flex; align-items:center; gap:12px; }
+        .logo-title img { width:50px; height:50px; border-radius:50%; transition:0.3s; }
+        .logo-title h2 { color:white; font-size:1.2rem; font-weight:600; }
+        .nav-links { display:flex; gap:25px; }
+        .nav-links a { color:white; font-size:0.95rem; position:relative; transition:0.3s; }
+        .nav-links a::after { content:''; position:absolute; width:0%; height:2px; background:#4da3ff; left:0; bottom:-5px; transition:0.3s; }
+        .nav-links a:hover::after { width:100%; }
+        .menu-btn { display:none; color:white; font-size:1.5rem; cursor:pointer; }
+        .results-hero { min-height:45vh; background:linear-gradient(135deg,#0f2b44 0%,#1e5a8a 100%); display:flex; align-items:center; justify-content:center; text-align:center; padding:140px 8% 70px; width:100%; }
+        .results-hero-content { max-width:750px; animation:fadeIn 1.2s ease; }
+        .results-hero h1 { font-size:3rem; color:white; margin-bottom:20px; font-weight:700; }
+        .results-hero p { font-size:1.1rem; color:#e0e8ff; line-height:1.6; }
+        .section { padding:60px 5%; width:100%; max-width:1200px; margin:0 auto; }
+        .centered-card { background:white; border-radius:28px; overflow:hidden; box-shadow:0 10px 25px rgba(0,0,0,0.08); max-width:1000px; margin:0 auto; width:100%; }
+        .card-content { padding:30px; }
+        .card-content h3 { font-size:1.8rem; color:#0a2342; margin-bottom:20px; border-left:5px solid #1a73e8; padding-left:15px; }
+        .form-group { margin-bottom:25px; }
+        .form-group label { display:block; margin-bottom:10px; color:#0a2342; font-weight:600; font-size:1rem; }
+        .form-group input, .form-group select { width:100%; padding:14px 18px; border:2px solid #e0e7ed; border-radius:16px; font-size:1rem; background:#f8fafc; }
+        .form-group input:focus, .form-group select:focus { outline:none; border-color:#1a73e8; background:white; box-shadow:0 0 0 3px rgba(26,115,232,0.1); }
+        .btn-submit { width:100%; background:#1a73e8; color:white; padding:14px; border-radius:40px; border:none; cursor:pointer; font-size:1rem; font-weight:600; transition:0.3s; }
+        .btn-submit:hover { background:#0d5fd4; transform:translateY(-2px); }
+        .error-message { display:none; background:#fee; color:#c33; padding:15px; border-radius:16px; margin-top:20px; font-weight:500; }
+        .loading { display:none; text-align:center; padding:40px; background:white; border-radius:28px; margin-top:20px; }
+        .loading i { font-size:2.5rem; color:#1a73e8; animation:spin 1s linear infinite; }
+        @keyframes spin { 0%{transform:rotate(0deg);} 100%{transform:rotate(360deg);} }
+        .result-container { display:none; margin-top:30px; }
+        .info-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); gap:16px; margin-bottom:30px; }
+        .info-card { background:white; border-radius:20px; padding:16px 12px; text-align:center; box-shadow:0 2px 8px rgba(0,0,0,0.05); border:1px solid #e9ecef; }
+        .info-card strong { display:block; font-size:0.75rem; text-transform:uppercase; letter-spacing:1px; color:#6c757d; margin-bottom:8px; font-weight:500; }
+        .info-card span { font-size:1rem; font-weight:600; color:#0a2342; word-break:break-word; }
+        .table-wrapper { overflow-x:auto; margin:20px 0; border-radius:20px; }
+        .grades-table { width:100%; border-collapse:collapse; background:white; min-width:600px; }
+        .grades-table thead { background:#0a2342; color:white; }
+        .grades-table th, .grades-table td { padding:12px 15px; text-align:left; border-bottom:1px solid #e0e7ed; }
+        .grades-table tbody tr:hover { background:#f8fafc; }
+        .grades-table tfoot tr { background:#f8fafc; font-weight:bold; }
+        .performance-card { background:white; border-radius:20px; padding:20px; text-align:center; margin:20px 0; border:1px solid #e9ecef; box-shadow:0 2px 8px rgba(0,0,0,0.05); }
+        .performance-card strong { display:block; font-size:0.8rem; text-transform:uppercase; letter-spacing:1px; color:#6c757d; margin-bottom:8px; }
+        .performance-card span { font-size:1.4rem; font-weight:700; color:#1a73e8; }
+        .action-buttons { display:flex; flex-direction:column; gap:12px; margin-top:25px; }
+        .btn-download, .btn-print, .btn-new-search { width:100%; padding:12px 20px; border-radius:40px; border:none; font-weight:600; cursor:pointer; transition:0.3s; font-size:1rem; text-align:center; }
+        .btn-download { background:#d35400; color:white; }
+        .btn-download:hover { background:#e67e22; }
+        .btn-print { background:#27ae60; color:white; }
+        .btn-print:hover { background:#2ecc71; }
+        .btn-new-search { background:#7f8c8d; color:white; }
+        .btn-new-search:hover { background:#95a5a6; }
+        footer { background:#071a30; color:white; padding:40px 8%; text-align:center; width:100%; margin-top:60px; }
+        footer p { margin:10px 0; color:#cfcfcf; }
+        .social-icons { margin-top:25px; display:flex; justify-content:center; gap:20px; flex-wrap:wrap; }
+        .social-icons a { width:55px; height:55px; border-radius:50%; background:#1a73e8; display:flex; justify-content:center; align-items:center; color:white; font-size:1.2rem; transition:0.4s; }
+        .social-icons a:hover { transform:translateY(-5px); background:#0a2342; }
+        hr { margin:20px 0; border-color:#2a4a7a; }
+        @keyframes fadeIn { from{opacity:0; transform:translateY(30px);} to{opacity:1; transform:translateY(0);} }
+        @media (max-width:900px) {
+            .nav-links { position:fixed; top:80px; right:-100%; width:280px; height:100vh; background:#0a2342; flex-direction:column; padding:40px 30px; transition:0.4s; }
+            .nav-links.active { right:0; }
+            .menu-btn { display:block; }
+            .results-hero h1 { font-size:2.2rem; }
         }
     </style>
 </head>
 <body>
-
-    <!-- NAVBAR -->
     <nav class="navbar">
-        <div class="logo-title">
-            <img src="Kemz_logo.png" alt="KEMZ Logo">
-            <h2>KEMZ ONLINE SERVICES</h2>
-        </div>
+        <div class="logo-title"><img src="Kemz_logo.png" alt="KEMZ Logo"><h2>KEMZ ONLINE SERVICES</h2></div>
         <div class="nav-links" id="navLinks">
             <a href="index.html"><i class="fas fa-home"></i> Home</a>
             <a href="about.html"><i class="fas fa-info-circle"></i> About</a>
@@ -515,7 +94,6 @@
         <div class="menu-btn" id="menuBtn"><i class="fas fa-bars"></i></div>
     </nav>
 
-    <!-- HERO SECTION -->
     <section class="results-hero">
         <div class="results-hero-content">
             <h1>Online Results Portal</h1>
@@ -523,14 +101,11 @@
         </div>
     </section>
 
-    <!-- MAIN FORM AND RESULTS -->
     <div class="section">
         <div class="centered-card">
             <div class="card-content">
                 <h3><i class="fas fa-poll"></i> Access Your Results</h3>
-                <p style="margin-bottom: 20px;">No payment required for this service. Clear any school fee balance before fetching to avoid being denied access to your results.</p>
-
-                <!-- Form container -->
+                <p style="margin-bottom:20px;">No payment required. Clear any school fee balance before fetching.</p>
                 <div id="formContainer">
                     <div class="form-group">
                         <label><i class="fas fa-id-card"></i> Student ID Number</label>
@@ -547,29 +122,15 @@
                     </div>
                     <div class="form-group">
                         <label><i class="fas fa-calendar"></i> Academic Year</label>
-                        <select id="year">
-                            <option value="">Select Year</option>
-                            <option value="2026">2026</option>
-                            <option value="2025">2025</option>
-                            <option value="2024">2024</option>
-                        </select>
+                        <select id="year"></select>
                     </div>
-                    <button class="btn-submit" id="fetchResults">
-                        <i class="fas fa-search"></i> Fetch Results
-                    </button>
+                    <button class="btn-submit" id="fetchResults"><i class="fas fa-search"></i> Fetch Results</button>
                     <div class="error-message" id="errorMessage"></div>
                 </div>
-
-                <div class="loading" id="loading">
-                    <i class="fas fa-spinner"></i>
-                    <p>Fetching results from database...</p>
-                </div>
-
+                <div class="loading" id="loading"><i class="fas fa-spinner"></i><p>Fetching results from database...</p></div>
                 <div class="result-container" id="resultContainer">
                     <h3 style="color:#0a2342; margin-bottom:20px;">ACADEMIC RESULT SLIP</h3>
-                    
-                    <!-- Two-tone student info cards -->
-                    <div class="info-grid" id="studentInfoGrid">
+                    <div class="info-grid">
                         <div class="info-card"><strong>STUDENT ID</strong><span id="resultId">-</span></div>
                         <div class="info-card"><strong>FULL NAME</strong><span id="resultName">-</span></div>
                         <div class="info-card"><strong>CATEGORY</strong><span id="resultCategory">-</span></div>
@@ -583,32 +144,14 @@
                         <div class="info-card"><strong>NUMBER IN CLASS</strong><span id="resultClassSize">-</span></div>
                         <div class="info-card"><strong>CLASS POSITION</strong><span id="resultPosition">-</span></div>
                     </div>
-
-                    <!-- Scrollable table wrapper -->
                     <div class="table-wrapper">
                         <table class="grades-table">
-                            <thead>
-                                <tr><th>Subject</th><th>Total Marks</th><th>Marks Obtained</th><th>Comment</th></tr>
-                            </thead>
+                            <thead><tr><th>Subject</th><th>Total Marks</th><th>Marks Obtained</th><th>Comment</th></tr></thead>
                             <tbody id="gradesBody"></tbody>
-                            <tfoot>
-                                <tr style="background: #f8fafc; font-weight: bold;">
-                                    <td>OVERALL</td>
-                                    <td id="overallTotal">-</td>
-                                    <td id="overallObtained">-</td>
-                                    <td id="overallComment">-</td>
-                                </tr>
-                            </tfoot>
+                            <tfoot><tr style="background:#f8fafc; font-weight:bold;"><td>OVERALL</td><td id="overallTotal">-</td><td id="overallObtained">-</td><td id="overallComment">-</td></tr></tfoot>
                         </table>
                     </div>
-
-                    <!-- Two-tone overall performance card -->
-                    <div class="performance-card">
-                        <strong>OVERALL PERFORMANCE</strong>
-                        <span id="performanceComment">-</span>
-                    </div>
-
-                    <!-- Action buttons (vertical stack) -->
+                    <div class="performance-card"><strong>OVERALL PERFORMANCE</strong><span id="performanceComment">-</span></div>
                     <div class="action-buttons" id="actionButtons">
                         <button class="btn-download" id="downloadPDF"><i class="fas fa-file-pdf"></i> Download PDF Result Slip</button>
                         <button class="btn-print" id="printResults"><i class="fas fa-print"></i> Print Results</button>
@@ -619,52 +162,52 @@
         </div>
     </div>
 
-    <!-- FOOTER -->
-    <footer id="footerSection">
+    <footer>
         <h3>KEMZ ACADEMIC CENTRE</h3>
         <p>Hard Work Brings Success!</p>
-        <br>
-        <h2>Contact Us</h2>
-        <div id="footerContactInfo">
-            <p>📞 +260977916081 | +260977432490</p>
-            <p>📧 kemzacademiccentre@gmail.com</p>
-            <p>🌐 www.kemzonline.com</p>
-            <p><i class="fas fa-map-marker-alt"></i> Plot No 88/37, Makeni Villa, Lusaka - Zambia</p>
-        </div>
-        <br>
-        <h2>Follow Us</h2>
-        <div class="social-icons">
-            <a href="https://www.facebook.com/share/1AzFdvL5Yq/"><i class="fab fa-facebook-f"></i></a>
-            <a href="#"><i class="fab fa-whatsapp"></i></a>
-            <a href="mailto:kemzacademiccentre@gmail.com"><i class="fas fa-envelope"></i></a>
-        </div>
-        <br>
-        <hr>
-        <p>© 2025 - 2026 KEMZ ACADEMIC CENTRE | All rights reserved</p>
+        <br><h2>Contact Us</h2>
+        <div><p>📞 +260977916081 | +260977432490</p><p>📧 kemzacademiccentre@gmail.com</p><p>🌐 www.kemzonline.com</p><p><i class="fas fa-map-marker-alt"></i> Plot No 88/37, Makeni Villa, Lusaka - Zambia</p></div>
+        <br><h2>Follow Us</h2>
+        <div class="social-icons"><a href="https://www.facebook.com/share/1AzFdvL5Yq/"><i class="fab fa-facebook-f"></i></a><a href="#"><i class="fab fa-whatsapp"></i></a><a href="mailto:kemzacademiccentre@gmail.com"><i class="fas fa-envelope"></i></a></div>
+        <br><hr><p>© 2025 - 2026 KEMZ ACADEMIC CENTRE | All rights reserved</p>
     </footer>
 
-    <!-- Help button -->
-    <button id="helpBtn" style="position:fixed; bottom:100px; right:20px; background:linear-gradient(135deg,#9b59b6,#8e44ad); color:white; border:none; border-radius:50%; width:60px; height:60px; font-size:1.5rem; cursor:pointer; box-shadow:0 4px 15px rgba(155,89,182,0.3); z-index:99;"><i class="fas fa-question-circle"></i></button>
+    <button id="helpBtn" style="position:fixed; bottom:100px; right:20px; background:linear-gradient(135deg,#9b59b6,#8e44ad); color:white; border:none; border-radius:50%; width:60px; height:60px; font-size:1.5rem; cursor:pointer; z-index:99;"><i class="fas fa-question-circle"></i></button>
 
     <script>
-        // Mobile menu toggle
         const menuBtn = document.getElementById("menuBtn");
         const navLinks = document.getElementById("navLinks");
         menuBtn.onclick = (e) => { e.stopPropagation(); navLinks.classList.toggle("active"); };
         document.addEventListener("click", function(event) {
-            if (!navLinks.contains(event.target) && !menuBtn.contains(event.target) && navLinks.classList.contains("active")) {
-                navLinks.classList.remove("active");
-            }
+            if (!navLinks.contains(event.target) && !menuBtn.contains(event.target) && navLinks.classList.contains("active")) navLinks.classList.remove("active");
         });
-
-        // Help button function
-        function showInstructions() {
-            alert("HOW TO USE THE RESULTS PORTAL:\n\n1. Enter Student ID (e.g., KEMZ-26-00001)\n2. Select term\n3. Select year\n4. Click 'Fetch Results'\n5. View and download PDF\n\nNote: Clear any school fee balance before fetching.");
-        }
+        function showInstructions() { alert("HOW TO USE THE RESULTS PORTAL:\n\n1. Enter Student ID (e.g., KEMZ-26-00001)\n2. Select term\n3. Select year\n4. Click 'Fetch Results'\n5. View and download PDF\n\nNote: Clear any school fee balance before fetching."); }
         document.getElementById("helpBtn").addEventListener("click", showInstructions);
 
-        // ==================== ORIGINAL FUNCTIONALITY (PRESERVED) ====================
         let currentResultData = null;
+        let yearScriptMap = {};
+
+        async function loadYearOptions() {
+            try {
+                const res = await fetch('/_data/results_settings.json');
+                if (!res.ok) throw new Error('No results settings found');
+                const data = await res.json();
+                const years = data.years || [];
+                const yearSelect = document.getElementById('year');
+                yearSelect.innerHTML = '<option value="">Select Year</option>';
+                years.forEach(item => {
+                    const option = document.createElement('option');
+                    option.value = item.year;
+                    option.textContent = item.year;
+                    yearSelect.appendChild(option);
+                    yearScriptMap[item.year] = item.script_url;
+                });
+            } catch (err) {
+                console.error(err);
+                document.getElementById('year').innerHTML = '<option value="">Error loading years</option>';
+            }
+        }
+
         const fetchBtn = document.getElementById("fetchResults");
         const newSearchBtn = document.getElementById("newSearch");
         const downloadPDFBtn = document.getElementById("downloadPDF");
@@ -675,10 +218,7 @@
         const errorMessage = document.getElementById("errorMessage");
         const actionButtons = document.getElementById("actionButtons");
 
-        function showError(msg) {
-            errorMessage.textContent = msg;
-            errorMessage.style.display = "block";
-        }
+        function showError(msg) { errorMessage.textContent = msg; errorMessage.style.display = "block"; }
         function hideError() { errorMessage.style.display = "none"; }
 
         fetchBtn.addEventListener("click", () => {
@@ -688,17 +228,15 @@
             if (!studentId) { showError("Please enter your Student ID"); return; }
             if (!term) { showError("Please select the academic term"); return; }
             if (!year) { showError("Please select the academic year"); return; }
-            if (!studentId.match(/^KEMZ-\d{2}-\d{5}$/i)) {
-                showError("Please enter a valid Student ID format (e.g., KEMZ-26-00001)");
-                return;
-            }
+            if (!studentId.match(/^KEMZ-\d{2}-\d{5}$/i)) { showError("Invalid Student ID format (e.g., KEMZ-26-00001)"); return; }
+            const scriptUrl = yearScriptMap[year];
+            if (!scriptUrl) { showError("No results URL configured for this year. Please contact admin."); return; }
             hideError();
             formContainer.style.display = "none";
             loading.style.display = "block";
             resultContainer.style.display = "none";
             actionButtons.style.display = "none";
             currentResultData = { studentId, term, year };
-            const scriptUrl = "https://script.google.com/macros/s/AKfycbx2HPF9RKcNhmaccdBbUmzclYRytXhlJ2ntyCp1rIFfjVy9WIy2MJ_aSfnK7q93x2Bx-g/exec";
             const url = `${scriptUrl}?studentId=${encodeURIComponent(studentId)}&term=${encodeURIComponent(term)}&year=${encodeURIComponent(year)}`;
             fetch(url)
                 .then(response => response.json())
@@ -712,12 +250,11 @@
                 .catch(err => {
                     loading.style.display = "none";
                     formContainer.style.display = "block";
-                    showError(`Connection error: ${err.message}. Please check your internet.`);
+                    showError(`Connection error: ${err.message}`);
                 });
         });
 
         function displayResults(data) {
-            // Student info cards
             document.getElementById("resultId").textContent = data.student.studentId || "-";
             document.getElementById("resultName").textContent = data.student.name || "-";
             document.getElementById("resultCategory").textContent = data.student.category || "-";
@@ -730,8 +267,6 @@
             document.getElementById("resultNextTerm").textContent = data.student.nextTermBeginsOn || "-";
             document.getElementById("resultClassSize").textContent = data.student.numberInClass || "-";
             document.getElementById("resultPosition").textContent = data.student.position || "-";
-            
-            // Subjects table
             const gradesBody = document.getElementById("gradesBody");
             gradesBody.innerHTML = "";
             if (data.results && data.results.length) {
@@ -743,13 +278,9 @@
             } else {
                 gradesBody.innerHTML = '<tr><td colspan="4" style="text-align:center;">No subject results found</td></tr>';
             }
-            
-            // Overall row (table footer)
             document.getElementById("overallTotal").textContent = data.student.overallTotal || "-";
             document.getElementById("overallObtained").textContent = data.student.overallObtained || "-";
             document.getElementById("overallComment").textContent = data.student.overallComment || "-";
-            
-            // Performance card
             document.getElementById("performanceComment").textContent = data.student.overallComment || "-";
         }
 
@@ -786,18 +317,22 @@
             const overallObtained = document.getElementById("overallObtained").textContent;
             const overallComment = document.getElementById("overallComment").textContent;
             const logoUrl = "https://www.kemzonline.com/Kemz_logo.png";
-            const logoWidth = 33, logoHeight = 25, logoSideMargin = 20;
+            const logoWidth = 25, logoHeight = 25, logoSideMargin = 20;
             const pageWidth = doc.internal.pageSize.width;
             const centerX = pageWidth / 2;
             const line1Y = 20, line2Y = 30, line3Y = 38;
             const leftLogoX = logoSideMargin, rightLogoX = pageWidth - logoWidth - logoSideMargin;
-            const logoY = line2Y - (logoHeight / 2) + 1;
-            doc.setFontSize(20); doc.setTextColor(26, 82, 118); doc.text("KEMZ ACADEMIC CENTRE", centerX, line1Y, { align: 'center' });
-            try { doc.addImage(logoUrl, 'PNG', leftLogoX, logoY, logoWidth, logoHeight); doc.addImage(logoUrl, 'PNG', rightLogoX, logoY, logoWidth, logoHeight); } catch(e) {}
-            doc.setFontSize(16); doc.text("OFFICIAL RESULT SLIP", centerX, line2Y, { align: 'center' });
-            doc.setFontSize(12); doc.setTextColor(40, 116, 166); doc.text("Hard Work Brings Success!", centerX, line3Y, { align: 'center' });
+            const logoY = line2Y - (logoHeight / 2) + 2;
+            doc.setTextColor(0, 0, 0);
+            doc.setFontSize(20);
+            doc.text("KEMZ ACADEMIC CENTRE", centerX, line1Y, { align: 'center' });
+            try { doc.addImage(logoUrl, 'PNG', leftLogoX, logoY, logoWidth, logoHeight); doc.addImage(logoUrl, 'PNG', rightLogoX, logoY, logoWidth, logoHeight); } catch(e) { console.log("Logo error"); }
+            doc.setFontSize(16);
+            doc.text("OFFICIAL RESULT SLIP", centerX, line2Y, { align: 'center' });
+            doc.setFontSize(12);
+            doc.text("Hard Work Brings Success!", centerX, line3Y, { align: 'center' });
             const infoStartY = line3Y + 15;
-            doc.setFontSize(10); doc.setTextColor(0,0,0);
+            doc.setFontSize(12);
             const studentInfo = [
                 ["Student ID:", studentId, "Academic Year:", year],
                 ["Full Name:", studentName, "Term:", term],
@@ -806,7 +341,15 @@
                 ["Grade:", document.getElementById("resultGrade").textContent, "Class Size:", document.getElementById("resultClassSize").textContent],
                 ["Term Ends:", document.getElementById("resultTermEnds").textContent, "Next Term:", document.getElementById("resultNextTerm").textContent]
             ];
-            doc.autoTable({ startY: infoStartY, head: [], body: studentInfo, theme: 'plain', styles: { fontSize: 9 }, margin: { left: 20, right: 20 }, columnStyles: { 0: { fontStyle: 'bold', cellWidth: 30 }, 1: { cellWidth: 45 }, 2: { fontStyle: 'bold', cellWidth: 30 }, 3: { cellWidth: 45 } } });
+            doc.autoTable({
+                startY: infoStartY,
+                head: [],
+                body: studentInfo,
+                theme: 'plain',
+                styles: { fontSize: 12, textColor: [0,0,0], lineWidth: 0.5, lineColor: [0,0,0] },
+                margin: { left: 20, right: 20 },
+                columnStyles: { 0: { fontStyle: 'bold', cellWidth: 30 }, 1: { cellWidth: 45 }, 2: { fontStyle: 'bold', cellWidth: 30 }, 3: { cellWidth: 45 } }
+            });
             const tableRows = [];
             document.querySelectorAll("#gradesBody tr").forEach(row => {
                 const rowData = [];
@@ -819,20 +362,30 @@
                 head: [["Subject", "Total Marks", "Marks Obtained", "Comment"]],
                 body: tableRows,
                 theme: 'grid',
-                headStyles: { fillColor: [26, 82, 118], textColor: [255,255,255] },
+                headStyles: { fillColor: [26, 82, 118], textColor: [255,255,255], fontSize: 12, fontStyle: 'bold', lineWidth: 0.5, lineColor: [0,0,0] },
+                bodyStyles: { fontSize: 12, textColor: [0,0,0], lineWidth: 0.5, lineColor: [0,0,0] },
+                alternateRowStyles: { fillColor: [245,245,245] },
                 margin: { left: 20, right: 20 },
-                willDrawCell: (data) => { if (data.row.index === tableRows.length-1) { data.cell.styles.fillColor = [240,247,255]; data.cell.styles.fontStyle = 'bold'; } }
+                tableLineWidth: 0.5,
+                tableLineColor: [0,0,0],
+                willDrawCell: (data) => {
+                    if (data.row.index === tableRows.length-1) {
+                        data.cell.styles.fillColor = [240,247,255];
+                        data.cell.styles.fontStyle = 'bold';
+                        data.cell.styles.textColor = [0,0,0];
+                    }
+                }
             });
             const finalY = doc.lastAutoTable.finalY + 20;
-            doc.setFontSize(8); doc.setTextColor(100,100,100);
+            doc.setFontSize(12);
+            doc.setTextColor(0,0,0);
             doc.text("Downloaded from: www.kemzonline.com", centerX, finalY, { align: 'center' });
-            doc.text(`Date: ${new Date().toLocaleDateString()} | Time: ${new Date().toLocaleTimeString()}`, centerX, finalY+6, { align: 'center' });
-            doc.text("This is a computer-generated document. No signature required.", centerX, finalY+12, { align: 'center' });
+            doc.text(`Date: ${new Date().toLocaleDateString()} | Time: ${new Date().toLocaleTimeString()}`, centerX, finalY + 6, { align: 'center' });
+            doc.text("This is a computer-generated document. No signature required.", centerX, finalY + 12, { align: 'center' });
             doc.save(`Result_${studentId}_${term}_${year}.pdf`);
         }
 
         document.getElementById("studentId").addEventListener("keypress", (e) => { if(e.key === "Enter") fetchBtn.click(); });
-        window.addEventListener("load", () => document.getElementById("studentId").focus());
+        loadYearOptions().then(() => { document.getElementById("studentId").focus(); });
     </script>
 </body>
-</html>

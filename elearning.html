@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
     <style>
+        /* same styles as before – omitted for brevity, but same as previous dynamic elearning.html */
         * { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins',sans-serif; scroll-behavior:smooth; }
         body { background:#f4f7fb; color:#222; overflow-x:hidden; width:100%; }
         a { text-decoration:none; }
@@ -39,7 +40,8 @@
         .download-link:hover { background:#0d5fd4; }
         .videos-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:25px; margin-top:20px; margin-bottom:40px; }
         .video-card { background:white; border-radius:20px; overflow:hidden; box-shadow:0 8px 20px rgba(0,0,0,0.08); }
-        .video-card video { width:100%; height:auto; display:block; }
+        .video-responsive { position:relative; padding-bottom:56.25%; height:0; }
+        .video-responsive iframe { position:absolute; top:0; left:0; width:100%; height:100%; border:0; }
         .video-info { padding:15px; }
         .video-info strong { display:block; color:#0a2342; margin-bottom:5px; }
         .quiz-card { background:white; border-radius:28px; box-shadow:0 10px 25px rgba(0,0,0,0.08); margin-bottom:40px; overflow:hidden; }
@@ -121,7 +123,6 @@
     </footer>
 
     <script>
-        // Mobile menu
         const menuBtn = document.getElementById("menuBtn");
         const navLinks = document.getElementById("navLinks");
         menuBtn.onclick = (e) => { e.stopPropagation(); navLinks.classList.toggle("active"); };
@@ -129,23 +130,13 @@
             if (!navLinks.contains(event.target) && !menuBtn.contains(event.target) && navLinks.classList.contains("active")) navLinks.classList.remove("active");
         });
 
-        // Helper functions
-        function escapeHtml(str) {
-            if (!str) return '';
-            return str.replace(/[&<>]/g, function(m) {
-                if (m === '&') return '&amp;';
-                if (m === '<') return '&lt;';
-                if (m === '>') return '&gt;';
-                return m;
-            });
-        }
+        function escapeHtml(str) { if (!str) return ''; return str.replace(/[&<>]/g, m => m==='&'?'&amp;':m==='<'?'&lt;':'&gt;'); }
 
-        // Build a single quiz with step-by-step UI
-        function buildQuiz(container, quizData, quizId, title) {
+        // Build quiz function (same as before)
+        function buildQuiz(container, quizData, quizId) {
             const total = quizData.questions.length;
             let userAnswers = new Array(total).fill(null);
             let currentIndex = 0;
-
             function render() {
                 const q = quizData.questions[currentIndex];
                 let html = `<div class="progress">Question ${currentIndex+1} of ${total}</div>
@@ -161,7 +152,6 @@
                 html += (currentIndex === total-1) ? `<button class="submit-btn">Submit Quiz</button>` : `<button class="next-btn">Next</button>`;
                 html += `</div>`;
                 container.innerHTML = html;
-
                 const radios = container.querySelectorAll('input[type="radio"]');
                 radios.forEach(radio => radio.addEventListener('change', (e) => userAnswers[currentIndex] = e.target.value));
                 const nextBtn = container.querySelector('.next-btn');
@@ -201,7 +191,6 @@
 
         async function loadElearning() {
             try {
-                // Fetch learning materials, videos, and quizzes
                 const [materialsRes, videosRes, quizzesRes] = await Promise.all([
                     fetch('/_data/learning.json'),
                     fetch('/_data/videos.json'),
@@ -212,26 +201,23 @@
                 if (videosRes.ok) videos = (await videosRes.json()).videos || [];
                 if (quizzesRes.ok) quizzes = (await quizzesRes.json()).quizzes || [];
 
-                // Default quizzes (fallback)
+                // Default quizzes fallback (same as before)
                 const defaultQuizzes = [
-                    {"id":"ece","title":"ECE - Basic Literacy","questions":[{"text":"What letter comes after 'A'?","options":["Z","B","C","D"],"correct":"b"},{"text":"Which shape has three sides?","options":["Circle","Square","Triangle","Rectangle"],"correct":"c"},{"text":"What colour is the sun?","options":["Yellow","Blue","Green","Red"],"correct":"a"},{"text":"How many fingers on one hand?","options":["4","5","6","10"],"correct":"b"},{"text":"Which animal says 'meow'?","options":["Dog","Cow","Cat","Bird"],"correct":"c"},{"text":"2 + 2 = ?","options":["4","5","3","6"],"correct":"a"},{"text":"Which is a fruit?","options":["Carrot","Apple","Potato","Broccoli"],"correct":"b"},{"text":"Opposite of 'big'?","options":["Large","Huge","Tall","Small"],"correct":"d"},{"text":"Month after January?","options":["March","December","February","April"],"correct":"c"},{"text":"First day of the week?","options":["Friday","Monday","Sunday","Wednesday"],"correct":"c"}]},
+                    {"id":"ece","title":"ECE - Basic Literacy","questions":[{"text":"What letter comes after 'A'?","options":["Z","B","C","D"],"correct":"b"},{"text":"Which shape has three sides?","options":["Circle","Square","Triangle","Rectangle"],"correct":"c"},{"text":"What colour is the sun?","options":["Yellow","Blue","Green","Red"],"correct":"a"},{"text":"How many fingers on one hand?","options":["4","5","6","10"],"correct":"b"},{"text":"Which animal says 'meow'?","options":["Dog","Cow","Cat","Bird"],"correct":"c"},{"text":"2 + 2 = ?","options":["4","5","3","6"],"correct":"a"},{"text":"Which is a fruit?","options":["Carrot","Apple","Potato","Broccoli"],"correct":"b"},{"text":"Opposite of 'big'?","options":["Large","Huge","Tall","Small"],"correct":"d"},{"text":"Month after January?","options":["March","December","February","April"],"correct":"c"},{"text":"First day of the week?","options":["Friday","Monday","Sunday","Wednesday"],"correct":"b"}]},
                     {"id":"lower","title":"Lower Primary - Mathematics","questions":[{"text":"15 + 7 = ?","options":["20","22","23","25"],"correct":"b"},{"text":"50 - 18 = ?","options":["28","30","32","34"],"correct":"c"},{"text":"8 × 4 = ?","options":["32","28","36","40"],"correct":"a"},{"text":"24 ÷ 6 = ?","options":["3","5","6","4"],"correct":"d"},{"text":"Smallest? 45,32,57,28","options":["45","28","32","57"],"correct":"b"},{"text":"100 - 37 = ?","options":["73","67","63","77"],"correct":"c"},{"text":"7 × 6 = ?","options":["36","48","40","42"],"correct":"d"},{"text":"⅓ of 18 = ?","options":["6","9","12","3"],"correct":"a"},{"text":"Minutes in 2 hours?","options":["60","120","90","180"],"correct":"b"},{"text":"Shape with four equal sides?","options":["Rectangle","Triangle","Square","Circle"],"correct":"c"}]},
                     {"id":"upper","title":"Upper Primary - Mathematics Grade 5","questions":[{"text":"25 + 37 = ?","options":["52","62","72","82"],"correct":"b"},{"text":"⅗ of 25 = ?","options":["5","10","15","20"],"correct":"c"},{"text":"Prime number?","options":["15","21","29","33"],"correct":"c"},{"text":"π to two decimals?","options":["3.12","3.14","3.16","3.18"],"correct":"b"},{"text":"2x+5=15, x=?","options":["5","6","7","8"],"correct":"a"},{"text":"Area 8cm×5cm?","options":["13","26","40","45"],"correct":"c"},{"text":"0.75 as fraction?","options":["1/4","2/3","3/4","4/5"],"correct":"c"},{"text":"Sequence: 2,4,8,16,__?","options":["24","28","32","36"],"correct":"c"},{"text":"60 km/h for 2.5h = ?","options":["120","125","150","180"],"correct":"c"},{"text":"√144 = ?","options":["12","14","16","18"],"correct":"a"}]},
                     {"id":"secondary","title":"Secondary O-Level - Biology","questions":[{"text":"Pumps blood?","options":["Brain","Heart","Lungs","Kidney"],"correct":"b"},{"text":"Plants make food by?","options":["Photosynthesis","Respiration","Transpiration","Fermentation"],"correct":"a"},{"text":"Mammal?","options":["Snake","Crocodile","Whale","Frog"],"correct":"c"},{"text":"Water loss from plants?","options":["Condensation","Evaporation","Precipitation","Transpiration"],"correct":"d"},{"text":"Basic unit of life?","options":["Atom","Cell","Tissue","Organ"],"correct":"b"},{"text":"Vitamin from sunlight?","options":["A","C","D","B12"],"correct":"c"},{"text":"Digestion begins in?","options":["Mouth","Stomach","Small intestine","Oesophagus"],"correct":"a"},{"text":"Gas exchange in leaf?","options":["Chloroplast","Stomata","Cuticle","Vein"],"correct":"b"},{"text":"Largest human organ?","options":["Heart","Liver","Skin","Brain"],"correct":"c"},{"text":"Normal body temp (°C)?","options":["35.5","36.0","36.5","37.0"],"correct":"d"}]}
                 ];
                 const finalQuizzes = (quizzes.length ? quizzes : defaultQuizzes);
 
-                // Build learning materials section
+                // Build learning materials
                 const categories = ['ECE', 'Lower Primary', 'Upper Primary', 'Secondary'];
                 let materialsHtml = `<div class="section"><div class="section-title"><h2>📚 Learning Materials</h2></div><div class="category-grid">`;
                 for (let cat of categories) {
                     const catMaterials = materials.filter(m => m.category === cat);
-                    materialsHtml += `<div class="category-card">
-                        <div class="category-header"><h3><i class="fas fa-${cat === 'ECE' ? 'baby-carriage' : (cat === 'Lower Primary' ? 'book-open' : (cat === 'Upper Primary' ? 'chalkboard' : 'user-graduate'))}"></i> ${cat}</h3></div>
-                        <div class="category-body">`;
-                    if (catMaterials.length === 0) {
-                        materialsHtml += `<p>No materials added yet.</p>`;
-                    } else {
+                    materialsHtml += `<div class="category-card"><div class="category-header"><h3><i class="fas fa-${cat === 'ECE' ? 'baby-carriage' : (cat === 'Lower Primary' ? 'book-open' : (cat === 'Upper Primary' ? 'chalkboard' : 'user-graduate'))}"></i> ${cat}</h3></div><div class="category-body">`;
+                    if (catMaterials.length === 0) materialsHtml += `<p>No materials added yet.</p>`;
+                    else {
                         catMaterials.forEach(m => {
                             materialsHtml += `<div class="resource-item"><strong>${escapeHtml(m.title)}</strong><p>${escapeHtml(m.description)}</p><a href="${m.file}" download class="download-link"><i class="fas fa-download"></i> Download</a></div>`;
                         });
@@ -240,79 +226,63 @@
                 }
                 materialsHtml += `</div></div>`;
 
-                // Videos section
+                // Build videos (YouTube)
                 let videosHtml = '';
                 if (videos.length > 0) {
                     videosHtml = `<div class="section"><div class="section-title"><h2>🎥 Educational Videos</h2></div><div class="videos-grid">`;
                     videos.forEach(v => {
-                        videosHtml += `<div class="video-card">
-                            <video controls playsinline><source src="${v.video_file}" type="video/mp4">Your browser does not support video.</video>
-                            <div class="video-info">
-                                <strong>${escapeHtml(v.title)}</strong>
-                                <p>${escapeHtml(v.description || '')}</p>
-                                <a href="${v.video_file}" download class="download-link"><i class="fas fa-download"></i> Download Video</a>
+                        const embedUrl = `https://www.youtube.com/embed/${v.youtube_id}`;
+                        videosHtml += `
+                            <div class="video-card">
+                                <div class="video-responsive"><iframe src="${embedUrl}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+                                <div class="video-info">
+                                    <strong>${escapeHtml(v.title)}</strong>
+                                    <p>${escapeHtml(v.description || '')}</p>
+                                    <a href="https://www.youtube.com/watch?v=${v.youtube_id}" target="_blank" class="download-link"><i class="fab fa-youtube"></i> Watch on YouTube</a>
+                                </div>
                             </div>
-                        </div>`;
+                        `;
                     });
                     videosHtml += `</div></div>`;
+                } else {
+                    videosHtml = `<div class="section"><div class="section-title"><h2>🎥 Educational Videos</h2></div><p style="text-align:center;">No videos added yet. Check back later.</p></div>`;
                 }
 
-                // Quizzes section
+                // Build quizzes
                 let quizzesHtml = `<div class="section"><div class="section-title"><h2>📝 Interactive Quizzes</h2></div>`;
                 finalQuizzes.forEach(quiz => {
-                    quizzesHtml += `
-                        <div class="quiz-card" id="quiz-${quiz.id}">
-                            <div class="quiz-header"><h3><i class="fas fa-brain"></i> ${escapeHtml(quiz.title)}</h3></div>
-                            <div class="quiz-body"><div class="quiz-container" data-quiz-id="${quiz.id}"></div></div>
-                        </div>
-                    `;
+                    quizzesHtml += `<div class="quiz-card" id="quiz-${quiz.id}"><div class="quiz-header"><h3><i class="fas fa-brain"></i> ${escapeHtml(quiz.title)}</h3></div><div class="quiz-body"><div class="quiz-container" data-quiz-id="${quiz.id}"></div></div></div>`;
                 });
                 quizzesHtml += `</div>`;
 
-                // Other static sections (Virtual Classes, Assignments, Forums, Courses, Chat)
+                // Other static sections (unchanged)
                 const otherHtml = `
                     <div class="info-grid-2col">
-                        <div class="info-card"><h3><i class="fas fa-chalkboard-teacher"></i> Virtual Classes</h3>
-                            <ul><li><i class="fas fa-calendar-check"></i> <a href="#">View Timetable</a></li><li><i class="fas fa-video"></i> <a href="#">Join Live Class (Sample)</a></li><li><i class="fas fa-reply"></i> <a href="#">Class Recordings</a></li></ul>
-                        </div>
-                        <div class="info-card"><h3><i class="fas fa-tasks"></i> Assignments</h3>
-                            <ul><li><i class="fas fa-pen"></i> <a href="#">Current Assignments</a></li><li><i class="fas fa-paper-plane"></i> <a href="#">Submit Assignment</a></li><li><i class="fas fa-check-circle"></i> <a href="#">Graded Assignments</a></li></ul>
-                        </div>
-                        <div class="info-card"><h3><i class="fas fa-comments"></i> Discussion Forums</h3>
-                            <ul><li><i class="fas fa-comment-dots"></i> <a href="#">Ask Questions</a></li><li><i class="fas fa-users"></i> <a href="#">Group Discussions</a></li><li><i class="fas fa-question-circle"></i> <a href="#">Q&A Forum</a></li></ul>
-                        </div>
-                        <div class="info-card"><h3><i class="fas fa-graduation-cap"></i> Online Courses</h3>
-                            <ul><li><i class="fas fa-laptop-code"></i> <a href="#">Computer Skills</a></li><li><i class="fas fa-calculator"></i> <a href="#">Advanced Mathematics</a></li><li><i class="fas fa-flask"></i> <a href="#">Science Club</a></li><li><i class="fas fa-paint-brush"></i> <a href="#">Creative Arts</a></li></ul>
-                        </div>
+                        <div class="info-card"><h3><i class="fas fa-chalkboard-teacher"></i> Virtual Classes</h3><ul><li><i class="fas fa-calendar-check"></i> <a href="#">View Timetable</a></li><li><i class="fas fa-video"></i> <a href="#">Join Live Class (Sample)</a></li><li><i class="fas fa-reply"></i> <a href="#">Class Recordings</a></li></ul></div>
+                        <div class="info-card"><h3><i class="fas fa-tasks"></i> Assignments</h3><ul><li><i class="fas fa-pen"></i> <a href="#">Current Assignments</a></li><li><i class="fas fa-paper-plane"></i> <a href="#">Submit Assignment</a></li><li><i class="fas fa-check-circle"></i> <a href="#">Graded Assignments</a></li></ul></div>
+                        <div class="info-card"><h3><i class="fas fa-comments"></i> Discussion Forums</h3><ul><li><i class="fas fa-comment-dots"></i> <a href="#">Ask Questions</a></li><li><i class="fas fa-users"></i> <a href="#">Group Discussions</a></li><li><i class="fas fa-question-circle"></i> <a href="#">Q&A Forum</a></li></ul></div>
+                        <div class="info-card"><h3><i class="fas fa-graduation-cap"></i> Online Courses</h3><ul><li><i class="fas fa-laptop-code"></i> <a href="#">Computer Skills</a></li><li><i class="fas fa-calculator"></i> <a href="#">Advanced Mathematics</a></li><li><i class="fas fa-flask"></i> <a href="#">Science Club</a></li><li><i class="fas fa-paint-brush"></i> <a href="#">Creative Arts</a></li></ul></div>
                     </div>
                     <div class="info-card" style="margin: 40px 5%;">
                         <h3><i class="fas fa-comments"></i> Grade Group Chats</h3>
                         <p>Join discussions with your classmates (Grade 5 demo)</p>
                         <div class="chat-container">
-                            <div class="chat-messages" id="chatMessages">
-                                <div class="message"><strong>Teacher:</strong> Welcome to the Grade 5 discussion group!</div>
-                                <div class="message"><strong>Student1:</strong> Hello everyone!</div>
-                                <div class="message"><strong>Student2:</strong> Hi, can someone help with the math homework?</div>
-                            </div>
-                            <div class="chat-input">
-                                <input type="text" id="chatInput" placeholder="Type your message here...">
-                                <button id="sendChatBtn">Send</button>
-                            </div>
+                            <div class="chat-messages" id="chatMessages"><div class="message"><strong>Teacher:</strong> Welcome to the Grade 5 discussion group!</div><div class="message"><strong>Student1:</strong> Hello everyone!</div><div class="message"><strong>Student2:</strong> Hi, can someone help with the math homework?</div></div>
+                            <div class="chat-input"><input type="text" id="chatInput" placeholder="Type your message here..."><button id="sendChatBtn">Send</button></div>
                         </div>
                     </div>
                 `;
 
-                // Combine everything
                 const fullHtml = materialsHtml + videosHtml + quizzesHtml + otherHtml;
                 document.getElementById('elearningContent').innerHTML = fullHtml;
 
-                // Initialize each quiz after DOM is ready
+                // Initialize quizzes
                 finalQuizzes.forEach(quiz => {
                     const container = document.querySelector(`.quiz-container[data-quiz-id="${quiz.id}"]`);
-                    if (container) buildQuiz(container, quiz, quiz.id, quiz.title);
+                    if (container) buildQuiz(container, quiz, quiz.id);
                 });
 
-                // Chat functionality (unchanged)
+                // Chat functionality
                 const sendBtn = document.getElementById('sendChatBtn');
                 const chatInput = document.getElementById('chatInput');
                 const chatMessages = document.getElementById('chatMessages');
