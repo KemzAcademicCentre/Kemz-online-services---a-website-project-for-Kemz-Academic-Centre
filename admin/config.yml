@@ -105,7 +105,7 @@ collections:
               - { label: "File", name: "file", widget: "file" }
               - { label: "Thumbnail", name: "thumbnail", widget: "image", required: false }
 
-  # 7. HOMEPAGE
+  # 7. HOMEPAGE (with video_id field)
   - label: "Homepage"
     name: "homepage"
     files:
@@ -118,6 +118,8 @@ collections:
           - { label: "Hero Description", name: "hero_description", widget: "markdown", default: "Welcome to KEMZ ONLINE SERVICES — the official digital platform for KEMZ ACADEMIC CENTRE providing online registration, e-learning, academic updates, online results, and modern educational services." }
           - { label: "Hero Buttons", name: "hero_buttons", widget: "list", fields: [{ label: "Text", name: "text", widget: "string" }, { label: "Link", name: "link", widget: "string" }], default: [{"text":"Apply Online","link":"registration.html"},{"text":"View Results","link":"results-portal.html"},{"text":"Make Inquiries","link":"inqu.html"}] }
           - { label: "Announcement Bar", name: "announcements", widget: "list", fields: [{ label: "Text", name: "text", widget: "string" }], default: [{"text":"📢 2026 Online Registration Now Open"},{"text":"📘 E-Learning Materials Available"},{"text":"📝 Online Results Portal Active"}] }
+          # ===== NEW VIDEO ID FIELD =====
+          - { label: "Promotional Video ID (YouTube)", name: "video_id", widget: "string", required: false, default: "N4pLoFCntu8" }
           - { label: "About Section Title", name: "about_title", widget: "string", default: "Over 20 years of Academic Excellence!" }
           - { label: "About Section Text", name: "about_text", widget: "markdown", default: "Providing quality education from Pre‑School to Secondary level, nurturing future leaders with integrity and innovation." }
           - { label: "About Section Image", name: "about_image", widget: "image", default: "Kemz5.jpg" }
@@ -204,4 +206,3 @@ collections:
       - { label: "Page Heading", name: "heading", widget: "string", default: "Online Registration" }
       - { label: "Intro Text", name: "intro", widget: "markdown" }
       - { label: "Google Form Embed URL", name: "form_url", widget: "string" }
-      
