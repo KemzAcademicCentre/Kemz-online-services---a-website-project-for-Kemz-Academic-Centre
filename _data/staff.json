@@ -41,6 +41,13 @@
       "position": "Class Teacher ",
       "details": "Primary Diploma ",
       "image": "/images/uploads/7dececfd-998b-419a-9fdf-efaa0dd784a8.jpeg"
+    },
+    {
+      "status": "serving",
+      "name": "Sarah Banda",
+      "position": "School Cashier",
+      "details": "Basics in Accounts",
+      "image": "/images/uploads/1000672335.jpg"
     }
   ]
 }
