@@ -9,10 +9,17 @@
     },
     {
       "status": "serving",
-      "name": "Priscilla Mulengachonzi ",
-      "position": "School Cashier ",
-      "details": "Grade 12 certificate \nBasics in principles of accounts ",
-      "image": "/images/uploads/20260716_180544.jpg"
+      "name": "Habeenzu Namoonga ",
+      "position": "Teacher ",
+      "details": "Primary teachers' diploma ",
+      "image": "/images/uploads/1000642497.jpg"
+    },
+    {
+      "status": "serving",
+      "name": "Siphiwe Bushe ",
+      "position": "Teacher ",
+      "details": "ece diploma ",
+      "image": "/images/uploads/untitled-44-of-66-1.jpg"
     }
   ]
 }
