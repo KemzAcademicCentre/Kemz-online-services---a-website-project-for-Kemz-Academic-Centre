@@ -6,7 +6,7 @@ media_folder: "images/uploads"
 public_folder: "/images/uploads"
 
 collections:
-  # 1. RESULTS PORTAL SETTINGS (per‑year Google Apps Script URLs)
+  # 1. RESULTS PORTAL SETTINGS
   - label: "Results Settings"
     name: "results_settings"
     files:
@@ -21,7 +21,7 @@ collections:
               - { label: "Year", name: "year", widget: "string", pattern: ["^\\d{4}$", "Must be a 4‑digit year"] }
               - { label: "Google Apps Script URL", name: "script_url", widget: "string", required: true }
 
-  # 2. INQUIRY PAGE FORMS (Google Form embed URLs)
+  # 2. INQUIRY PAGE FORMS
   - label: "Inquiry Forms"
     name: "forms_settings"
     files:
@@ -32,7 +32,7 @@ collections:
           - { label: "Query Form URL", name: "query_form_url", widget: "string", required: true, default: "https://docs.google.com/forms/d/e/1FAIpQLSdq7fu5E_yyTbh23ZcOK-r_oOfG604LNoCsJdx8OrgZBD0beg/viewform?embedded=true" }
           - { label: "Suggestions Form URL", name: "suggestions_form_url", widget: "string", required: true, default: "https://docs.google.com/forms/d/e/1FAIpQLSdFhEZlIVhKNBKn8h2erZZm_DuMA6TgilgpxhYH1VnrSVx9ow/viewform?embedded=true" }
 
-  # 3. VIDEOS (YouTube unlisted)
+  # 3. VIDEOS (with category)
   - label: "Videos"
     name: "videos"
     files:
@@ -46,10 +46,11 @@ collections:
             fields:
               - { label: "Title", name: "title", widget: "string" }
               - { label: "Description", name: "description", widget: "text" }
-              - { label: "YouTube Video ID (e.g., dQw4w9WgXcQ)", name: "youtube_id", widget: "string", required: true }
+              - { label: "YouTube Video ID", name: "youtube_id", widget: "string", required: true }
+              - { label: "Category", name: "category", widget: "select", options: ["elearning", "updates", "both"], default: "elearning" }
               - { label: "Thumbnail (optional)", name: "thumbnail", widget: "image", required: false }
 
-  # 4. STAFF (single file list)
+  # 4. STAFF
   - label: "Staff"
     name: "staff"
     files:
@@ -67,7 +68,7 @@ collections:
               - { label: "Photo", name: "image", widget: "image" }
               - { label: "Status", name: "status", widget: "select", options: ["serving", "former"], default: "serving" }
 
-  # 5. UPDATES (single file list)
+  # 5. UPDATES
   - label: "Updates"
     name: "updates"
     files:
@@ -85,11 +86,8 @@ collections:
               - { label: "Full Details", name: "body", widget: "markdown", required: false }
               - { label: "Image", name: "image", widget: "image", required: false }
               - { label: "Date", name: "date", widget: "datetime", required: false }
-              # Optional video fields for News/Highlights – comment out if not needed
-              # - { label: "Video File (optional)", name: "video_file", widget: "file", required: false }
-              # - { label: "Download Link (optional)", name: "download_link", widget: "string", required: false }
 
-  # 6. LEARNING MATERIALS (single file list)
+  # 6. LEARNING MATERIALS
   - label: "Learning Materials"
     name: "learning"
     files:
@@ -107,7 +105,7 @@ collections:
               - { label: "File", name: "file", widget: "file" }
               - { label: "Thumbnail", name: "thumbnail", widget: "image", required: false }
 
-  # 7. HOMEPAGE CONTENT
+  # 7. HOMEPAGE
   - label: "Homepage"
     name: "homepage"
     files:
@@ -161,7 +159,7 @@ collections:
           - { label: "Contact Email", name: "email", widget: "string", default: "kemzacademiccentre@gmail.com" }
           - { label: "Office Hours", name: "hours", widget: "list", fields: [{ label: "Day", name: "day", widget: "string" }, { label: "Hours", name: "hours", widget: "string" }], default: [{"day":"Monday-Friday","hours":"7:30 AM - 5:00 PM"},{"day":"Saturday","hours":"8:00 AM - 12:00 PM"},{"day":"Sunday","hours":"Closed"}] }
 
-  # 9. FAQ (Inquiries page)
+  # 9. FAQ
   - label: "FAQ"
     name: "faq"
     files:
@@ -176,7 +174,7 @@ collections:
               - { label: "Question", name: "question", widget: "string" }
               - { label: "Answer", name: "answer", widget: "markdown" }
 
-  # 10. QUIZZES (for E-Learning page)
+  # 10. QUIZZES
   - label: "Quizzes"
     name: "quizzes"
     files:
@@ -206,3 +204,4 @@ collections:
       - { label: "Page Heading", name: "heading", widget: "string", default: "Online Registration" }
       - { label: "Intro Text", name: "intro", widget: "markdown" }
       - { label: "Google Form Embed URL", name: "form_url", widget: "string" }
+      
