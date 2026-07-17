@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
     <style>
-        /* same styles as before – omitted for brevity, but same as previous dynamic elearning.html */
         * { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins',sans-serif; scroll-behavior:smooth; }
         body { background:#f4f7fb; color:#222; overflow-x:hidden; width:100%; }
         a { text-decoration:none; }
@@ -44,6 +43,8 @@
         .video-responsive iframe { position:absolute; top:0; left:0; width:100%; height:100%; border:0; }
         .video-info { padding:15px; }
         .video-info strong { display:block; color:#0a2342; margin-bottom:5px; }
+        .video-info a { display:inline-block; background:#1a73e8; color:white; padding:6px 15px; border-radius:30px; font-size:0.8rem; transition:0.3s; margin-top:8px; }
+        .video-info a:hover { background:#0d5fd4; }
         .quiz-card { background:white; border-radius:28px; box-shadow:0 10px 25px rgba(0,0,0,0.08); margin-bottom:40px; overflow:hidden; }
         .quiz-header { background:#071a30; color:white; padding:20px; }
         .quiz-body { padding:25px; }
@@ -132,7 +133,6 @@
 
         function escapeHtml(str) { if (!str) return ''; return str.replace(/[&<>]/g, m => m==='&'?'&amp;':m==='<'?'&lt;':'&gt;'); }
 
-        // Build quiz function (same as before)
         function buildQuiz(container, quizData, quizId) {
             const total = quizData.questions.length;
             let userAnswers = new Array(total).fill(null);
@@ -201,7 +201,10 @@
                 if (videosRes.ok) videos = (await videosRes.json()).videos || [];
                 if (quizzesRes.ok) quizzes = (await quizzesRes.json()).quizzes || [];
 
-                // Default quizzes fallback (same as before)
+                // ===== FILTER VIDEOS FOR E-LEARNING =====
+                // Show videos with category "elearning" or "both"
+                const elearningVideos = videos.filter(v => v.category === 'elearning' || v.category === 'both');
+
                 const defaultQuizzes = [
                     {"id":"ece","title":"ECE - Basic Literacy","questions":[{"text":"What letter comes after 'A'?","options":["Z","B","C","D"],"correct":"b"},{"text":"Which shape has three sides?","options":["Circle","Square","Triangle","Rectangle"],"correct":"c"},{"text":"What colour is the sun?","options":["Yellow","Blue","Green","Red"],"correct":"a"},{"text":"How many fingers on one hand?","options":["4","5","6","10"],"correct":"b"},{"text":"Which animal says 'meow'?","options":["Dog","Cow","Cat","Bird"],"correct":"c"},{"text":"2 + 2 = ?","options":["4","5","3","6"],"correct":"a"},{"text":"Which is a fruit?","options":["Carrot","Apple","Potato","Broccoli"],"correct":"b"},{"text":"Opposite of 'big'?","options":["Large","Huge","Tall","Small"],"correct":"d"},{"text":"Month after January?","options":["March","December","February","April"],"correct":"c"},{"text":"First day of the week?","options":["Friday","Monday","Sunday","Wednesday"],"correct":"b"}]},
                     {"id":"lower","title":"Lower Primary - Mathematics","questions":[{"text":"15 + 7 = ?","options":["20","22","23","25"],"correct":"b"},{"text":"50 - 18 = ?","options":["28","30","32","34"],"correct":"c"},{"text":"8 × 4 = ?","options":["32","28","36","40"],"correct":"a"},{"text":"24 ÷ 6 = ?","options":["3","5","6","4"],"correct":"d"},{"text":"Smallest? 45,32,57,28","options":["45","28","32","57"],"correct":"b"},{"text":"100 - 37 = ?","options":["73","67","63","77"],"correct":"c"},{"text":"7 × 6 = ?","options":["36","48","40","42"],"correct":"d"},{"text":"⅓ of 18 = ?","options":["6","9","12","3"],"correct":"a"},{"text":"Minutes in 2 hours?","options":["60","120","90","180"],"correct":"b"},{"text":"Shape with four equal sides?","options":["Rectangle","Triangle","Square","Circle"],"correct":"c"}]},
@@ -226,11 +229,11 @@
                 }
                 materialsHtml += `</div></div>`;
 
-                // Build videos (YouTube)
+                // Build videos (filtered for elearning)
                 let videosHtml = '';
-                if (videos.length > 0) {
+                if (elearningVideos.length > 0) {
                     videosHtml = `<div class="section"><div class="section-title"><h2>🎥 Educational Videos</h2></div><div class="videos-grid">`;
-                    videos.forEach(v => {
+                    elearningVideos.forEach(v => {
                         const embedUrl = `https://www.youtube.com/embed/${v.youtube_id}`;
                         videosHtml += `
                             <div class="video-card">
@@ -238,7 +241,7 @@
                                 <div class="video-info">
                                     <strong>${escapeHtml(v.title)}</strong>
                                     <p>${escapeHtml(v.description || '')}</p>
-                                    <a href="https://www.youtube.com/watch?v=${v.youtube_id}" target="_blank" class="download-link"><i class="fab fa-youtube"></i> Watch on YouTube</a>
+                                    <a href="https://www.youtube.com/watch?v=${v.youtube_id}" target="_blank"><i class="fab fa-youtube"></i> Watch on YouTube</a>
                                 </div>
                             </div>
                         `;

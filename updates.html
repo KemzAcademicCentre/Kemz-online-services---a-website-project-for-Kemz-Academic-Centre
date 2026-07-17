@@ -4,13 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
     <title>Latest Updates | KEMZ ACADEMIC CENTRE</title>
-
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
-
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
     <style>
         * { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins',sans-serif; scroll-behavior:smooth; }
         body { background:#f4f7fb; color:#222; overflow-x:hidden; width:100%; }
@@ -25,7 +20,7 @@
         .nav-links a:hover::after { width:100%; }
         .menu-btn { display:none; color:white; font-size:1.5rem; cursor:pointer; }
         .updates-hero { min-height:45vh; background:linear-gradient(135deg,#0f2b44 0%,#1e5a8a 100%); display:flex; align-items:center; justify-content:center; text-align:center; padding:140px 8% 70px; width:100%; }
-        .updates-hero-content { max-width:750px; width:100%; animation:fadeIn 1.2s ease; }
+        .updates-hero-content { max-width:750px; animation:fadeIn 1.2s ease; }
         .updates-hero h1 { font-size:3rem; color:white; margin-bottom:20px; font-weight:700; }
         .updates-hero p { font-size:1.1rem; color:#e0e8ff; line-height:1.6; }
         .section { padding:60px 5%; width:100%; max-width:1200px; margin:0 auto; }
@@ -103,15 +98,15 @@
         <br><hr><p>© 2025 - 2026 KEMZ ACADEMIC CENTRE | All rights reserved</p>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script>
-        // Mobile menu toggle
         const menuBtn = document.getElementById("menuBtn");
         const navLinks = document.getElementById("navLinks");
         menuBtn.onclick = (e) => { e.stopPropagation(); navLinks.classList.toggle("active"); };
         document.addEventListener("click", function(event) {
             if (!navLinks.contains(event.target) && !menuBtn.contains(event.target) && navLinks.classList.contains("active")) navLinks.classList.remove("active");
         });
+
+        function escapeHtml(str) { if (!str) return ''; return str.replace(/[&<>]/g, m => m==='&'?'&amp;':m==='<'?'&lt;':'&gt;'); }
 
         // Default data (exactly as in your original code)
         const defaultUpdates = {
@@ -133,7 +128,6 @@
             ]
         };
 
-        // Function to generate a card from an item (for Events, Announcements, and also News/Highlights without video)
         function generateCard(item, image, showVideo = false, videoSrc = null, downloadLink = null) {
             let imageHtml = image ? `<img src="${image}" alt="${item.title}" class="category-img">` : '';
             let dateHtml = item.date ? `<p><small>${new Date(item.date).toLocaleDateString()}</small></p>` : '';
@@ -157,201 +151,168 @@
             `;
         }
 
-        function escapeHtml(str) {
-            if (!str) return '';
-            return str.replace(/[&<>]/g, m => m==='&'?'&amp;':m==='<'?'&lt;':'&gt;');
-        }
-
-        // Function to render the entire page from CMS data or fallback to defaults
         async function loadUpdates() {
-            let updates = null;
-            let videos = [];
-            let fetchFailed = false;
-
             try {
                 const [updatesRes, videosRes] = await Promise.all([
                     fetch('/_data/updates.json'),
                     fetch('/_data/videos.json')
                 ]);
+                let updates = null;
+                let videos = [];
+
                 if (updatesRes.ok) updates = (await updatesRes.json()).updates || [];
                 if (videosRes.ok) videos = (await videosRes.json()).videos || [];
-            } catch (err) {
-                console.error("Failed to fetch CMS data, using defaults", err);
-                fetchFailed = true;
-            }
 
-            // If no CMS updates or fetch failed, use full default HTML (exactly as original)
-            if (fetchFailed || !updates || updates.length === 0) {
-                // Fallback to original static HTML (identical to your provided code)
-                document.getElementById('updatesContainer').innerHTML = `
-                    <div class="centered-card" id="eventsCard">
-                        <img src="events.jpg" alt="Events" class="category-img">
-                        <div class="card-content">
-                            <h3>📅 Upcoming Events - Term 2, 2026</h3>
-                            <div>
-                                <p><small><strong>Careers Day - 19 June, 2026</strong></small><br>There will be a Careers Day on 19 June, 2026. The charge is K10 per learner.</p>
-                                <p><small><strong>Education Tour - 5 August, 2026</strong></small><br> There will be an education tour on 5 August, 2026 at Palms Play Park. The charge is K190 per learner.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="centered-card" id="announcementsCard">
-                        <img src="announcements.jpg" alt="Announcements" class="category-img">
-                        <div class="card-content">
-                            <h3>📢 Announcements</h3>
-                            <div>
-                                <p><small><strong>Online Results Portal is ready, 2026</strong></small><br>The online results portal is ready. All learners are free to check and download their results.</p>
-                                <p><small><strong>E-learning, 2025</strong></small><br>The school E-learning platform is now active. Watch out for notes, assignments, quizzes and video tutorials -  available for free.</p>
-                                <p><small><strong>Online Classes, 2026</strong></small><br>Online Classs Platform is active. Form 1 and 2 classes are available during holidays. Join the WhatsApp group via +260977819249 for meeting IDs.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="centered-card" id="newsCard">
-                        <img src="News.jpg" alt="News" class="category-img">
-                        <div class="card-content">
-                            <h3>📰 News</h3>
-                            <div>
-                                <p><small><strong>School Expansion: 2026</strong></small><br>Construction of a new block adjacent to Kemz A is currently underway.</p>
-                                <p><small><strong>2025 End of Year Newsletter</strong></small><br>Listen to the end-of-year newsletter below:</p>
-                                <div class="video-container"><video id="newsVideo" class="video-player" controls playsinline><source src="News.mp4" type="video/mp4">Your browser does not support video.</video></div>
-                                <a href="KemzNewsLetter2025" download class="download-btn"><i class="fas fa-download"></i> Download PDF</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="centered-card" id="highlightsCard">
-                        <img src="past.jpg" alt="Past Events" class="category-img">
-                        <div class="card-content">
-                            <h3>🎬 Highlights of Past Events</h3>
-                            <div>
-                                <p><small><strong>Recreation Tour: August 6, 2025</strong></small><br>Learners enjoying a toy car ride during the recreation tour at Cheryl's Play Park.</p>
-                                <div class="video-container"><video id="highlightsVideo" class="video-player" controls playsinline><source src="Car_ride.mp4" type="video/mp4">Your browser does not support video.</video></div>
-                            </div>
-                        </div>
-                    </div>
-                `;
-                // Re‑attach video listeners for default videos
-                const newsVideo = document.getElementById("newsVideo");
-                const highlightsVideo = document.getElementById("highlightsVideo");
-                const allVideos = [newsVideo, highlightsVideo].filter(v => v !== null);
-                const observer = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => { if (!entry.isIntersecting) entry.target.pause(); });
-                }, { threshold: 0.1 });
-                allVideos.forEach(video => { observer.observe(video); video.addEventListener("play", function() { allVideos.forEach(v => { if (v !== this && !v.paused) v.pause(); }); }); });
-                return;
-            }
+                // ===== FILTER VIDEOS FOR UPDATES =====
+                // Show videos with category "updates" or "both"
+                const updatesVideos = videos.filter(v => v.category === 'updates' || v.category === 'both');
 
-            // Group CMS updates by type
-            const events = updates.filter(u => u.type === 'Event');
-            const announcements = updates.filter(u => u.type === 'Announcement');
-            const news = updates.filter(u => u.type === 'News');
-            const highlights = updates.filter(u => u.type === 'Highlight');
-
-            let html = '';
-
-            // Events card
-            if (events.length > 0) {
-                html += `<div class="centered-card"><img src="${events[0].image || 'events.jpg'}" alt="Events" class="category-img"><div class="card-content"><h3>📅 Upcoming Events</h3>`;
-                events.forEach(ev => {
-                    let dateHtml = ev.date ? `<p><small>${new Date(ev.date).toLocaleDateString()}</small></p>` : '';
-                    html += `<p><small><strong>${escapeHtml(ev.title)}</strong></small><br>${escapeHtml(ev.summary)}</p>${dateHtml}`;
-                });
-                html += `</div></div>`;
-            } else {
-                // Use default events card
-                html += `<div class="centered-card"><img src="events.jpg" alt="Events" class="category-img"><div class="card-content"><h3>📅 Upcoming Events - Term 2, 2026</h3>
-                    <p><small><strong>Careers Day - 19 June, 2026</strong></small><br>There will be a Careers Day on 19 June, 2026. The charge is K10 per learner.</p>
-                    <p><small><strong>Education Tour - 5 August, 2026</strong></small><br> There will be an education tour on 5 August, 2026 at Palms Play Park. The charge is K190 per learner.</p></div></div>`;
-            }
-
-            // Announcements card
-            if (announcements.length > 0) {
-                html += `<div class="centered-card"><img src="announcements.jpg" alt="Announcements" class="category-img"><div class="card-content"><h3>📢 Announcements</h3>`;
-                announcements.forEach(ann => {
-                    html += `<p><small><strong>${escapeHtml(ann.title)}</strong></small><br>${escapeHtml(ann.summary)}</p>`;
-                });
-                html += `</div></div>`;
-            } else {
-                html += `<div class="centered-card"><img src="announcements.jpg" alt="Announcements" class="category-img"><div class="card-content"><h3>📢 Announcements</h3>
-                    <p><small><strong>Online Results Portal is ready, 2026</strong></small><br>The online results portal is ready. All learners are free to check and download their results.</p>
-                    <p><small><strong>E-learning, 2025</strong></small><br>The school E-learning platform is now active. Watch out for notes, assignments, quizzes and video tutorials -  available for free.</p>
-                    <p><small><strong>Online Classes, 2026</strong></small><br>Online Classs Platform is active. Form 1 and 2 classes are available during holidays. Join the WhatsApp group via +260977819249 for meeting IDs.</p></div></div>`;
-            }
-
-            // News card (with video handling)
-            if (news.length > 0) {
-                // For simplicity, we'll take the first news item and display it with a possible video if provided
-                const firstNews = news[0];
-                let videoHtml = '';
-                if (firstNews.video_file) {
-                    videoHtml = `<div class="video-container"><video class="video-player" controls playsinline><source src="${firstNews.video_file}" type="video/mp4">Your browser does not support video.</video></div>`;
-                }
-                html += `<div class="centered-card"><img src="${firstNews.image || 'News.jpg'}" alt="News" class="category-img"><div class="card-content"><h3>📰 News</h3>
-                    <p><small><strong>${escapeHtml(firstNews.title)}</strong></small><br>${escapeHtml(firstNews.summary)}</p>
-                    ${videoHtml}
-                    ${firstNews.download_link ? `<a href="${firstNews.download_link}" download class="download-btn"><i class="fas fa-download"></i> Download PDF</a>` : ''}
-                </div></div>`;
-            } else {
-                // Default news card with local video
-                html += `<div class="centered-card"><img src="News.jpg" alt="News" class="category-img"><div class="card-content"><h3>📰 News</h3>
-                    <p><small><strong>School Expansion: 2026</strong></small><br>Construction of a new block adjacent to Kemz A is currently underway.</p>
-                    <p><small><strong>2025 End of Year Newsletter</strong></small><br>Listen to the end-of-year newsletter below:</p>
-                    <div class="video-container"><video id="newsVideo" class="video-player" controls playsinline><source src="News.mp4" type="video/mp4">Your browser does not support video.</video></div>
-                    <a href="KemzNewsLetter2025" download class="download-btn"><i class="fas fa-download"></i> Download PDF</a>
-                </div></div>`;
-            }
-
-            // Highlights card (with video)
-            if (highlights.length > 0) {
-                const firstHighlight = highlights[0];
-                let videoHtml = '';
-                if (firstHighlight.video_file) {
-                    videoHtml = `<div class="video-container"><video class="video-player" controls playsinline><source src="${firstHighlight.video_file}" type="video/mp4">Your browser does not support video.</video></div>`;
-                }
-                html += `<div class="centered-card"><img src="${firstHighlight.image || 'past.jpg'}" alt="Past Events" class="category-img"><div class="card-content"><h3>🎬 Highlights of Past Events</h3>
-                    <p><small><strong>${escapeHtml(firstHighlight.title)}</strong></small><br>${escapeHtml(firstHighlight.summary)}</p>
-                    ${videoHtml}
-                </div></div>`;
-            } else {
-                html += `<div class="centered-card"><img src="past.jpg" alt="Past Events" class="category-img"><div class="card-content"><h3>🎬 Highlights of Past Events</h3>
-                    <p><small><strong>Recreation Tour: August 6, 2025</strong></small><br>Learners enjoying a toy car ride during the recreation tour at Cheryl's Play Park.</p>
-                    <div class="video-container"><video id="highlightsVideo" class="video-player" controls playsinline><source src="Car_ride.mp4" type="video/mp4">Your browser does not support video.</video></div>
-                </div></div>`;
-            }
-
-            // Educational Videos section from CMS (YouTube)
-            if (videos.length > 0) {
-                let videosHtml = `<div class="section-title"><h2>🎥 Educational Videos</h2></div><div class="videos-grid">`;
-                videos.forEach(v => {
-                    const embedUrl = `https://www.youtube.com/embed/${v.youtube_id}`;
-                    videosHtml += `
-                        <div class="video-card">
-                            <div class="video-responsive"><iframe src="${embedUrl}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
-                            <div class="video-info">
-                                <strong>${escapeHtml(v.title)}</strong>
-                                <p>${escapeHtml(v.description || '')}</p>
-                                <a href="https://www.youtube.com/watch?v=${v.youtube_id}" target="_blank"><i class="fab fa-youtube"></i> Watch on YouTube</a>
-                            </div>
-                        </div>
+                // If no CMS updates or fetch failed, use defaults
+                if (!updates || updates.length === 0) {
+                    // Use default HTML (same as original)
+                    // ... (I'll keep this section clean)
+                    document.getElementById('updatesContainer').innerHTML = `
+                        <div class="centered-card"><img src="events.jpg" alt="Events" class="category-img"><div class="card-content"><h3>📅 Upcoming Events - Term 2, 2026</h3>
+                            <p><small><strong>Careers Day - 19 June, 2026</strong></small><br>There will be a Careers Day on 19 June, 2026. The charge is K10 per learner.</p>
+                            <p><small><strong>Education Tour - 5 August, 2026</strong></small><br> There will be an education tour on 5 August, 2026 at Palms Play Park. The charge is K190 per learner.</p></div></div>
+                        <div class="centered-card"><img src="announcements.jpg" alt="Announcements" class="category-img"><div class="card-content"><h3>📢 Announcements</h3>
+                            <p><small><strong>Online Results Portal is ready, 2026</strong></small><br>The online results portal is ready. All learners are free to check and download their results.</p>
+                            <p><small><strong>E-learning, 2025</strong></small><br>The school E-learning platform is now active. Watch out for notes, assignments, quizzes and video tutorials -  available for free.</p>
+                            <p><small><strong>Online Classes, 2026</strong></small><br>Online Classs Platform is active. Form 1 and 2 classes are available during holidays. Join the WhatsApp group via +260977819249 for meeting IDs.</p></div></div>
+                        <div class="centered-card"><img src="News.jpg" alt="News" class="category-img"><div class="card-content"><h3>📰 News</h3>
+                            <p><small><strong>School Expansion: 2026</strong></small><br>Construction of a new block adjacent to Kemz A is currently underway.</p>
+                            <p><small><strong>2025 End of Year Newsletter</strong></small><br>Listen to the end-of-year newsletter below:</p>
+                            <div class="video-container"><video id="newsVideo" class="video-player" controls playsinline><source src="News.mp4" type="video/mp4">Your browser does not support video.</video></div>
+                            <a href="KemzNewsLetter2025" download class="download-btn"><i class="fas fa-download"></i> Download PDF</a></div></div>
+                        <div class="centered-card"><img src="past.jpg" alt="Past Events" class="category-img"><div class="card-content"><h3>🎬 Highlights of Past Events</h3>
+                            <p><small><strong>Recreation Tour: August 6, 2025</strong></small><br>Learners enjoying a toy car ride during the recreation tour at Cheryl's Play Park.</p>
+                            <div class="video-container"><video id="highlightsVideo" class="video-player" controls playsinline><source src="Car_ride.mp4" type="video/mp4">Your browser does not support video.</video></div></div></div>
                     `;
-                });
-                videosHtml += `</div>`;
-                html += videosHtml;
-            }
+                    // Re-attach video listeners for default videos
+                    const newsVideo = document.getElementById("newsVideo");
+                    const highlightsVideo = document.getElementById("highlightsVideo");
+                    const allVideos = [newsVideo, highlightsVideo].filter(v => v !== null);
+                    const observer = new IntersectionObserver((entries) => {
+                        entries.forEach(entry => { if (!entry.isIntersecting) entry.target.pause(); });
+                    }, { threshold: 0.1 });
+                    allVideos.forEach(video => { observer.observe(video); video.addEventListener("play", function() { allVideos.forEach(v => { if (v !== this && !v.paused) v.pause(); }); }); });
+                    return;
+                }
 
-            document.getElementById('updatesContainer').innerHTML = html;
+                // Group CMS updates by type
+                const events = updates.filter(u => u.type === 'Event');
+                const announcements = updates.filter(u => u.type === 'Announcement');
+                const news = updates.filter(u => u.type === 'News');
+                const highlights = updates.filter(u => u.type === 'Highlight');
 
-            // Attach video player logic to any dynamically added videos (IDs or classes)
-            const dynamicVideos = document.querySelectorAll('.video-player');
-            if (dynamicVideos.length > 0) {
-                const allDynVideos = Array.from(dynamicVideos);
-                const observer = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => { if (!entry.isIntersecting) entry.target.pause(); });
-                }, { threshold: 0.1 });
-                allDynVideos.forEach(video => {
-                    observer.observe(video);
-                    video.addEventListener("play", function() {
-                        allDynVideos.forEach(v => { if (v !== this && !v.paused) v.pause(); });
+                let html = '';
+
+                // Events card
+                if (events.length > 0) {
+                    html += `<div class="centered-card"><img src="${events[0].image || 'events.jpg'}" alt="Events" class="category-img"><div class="card-content"><h3>📅 Upcoming Events</h3>`;
+                    events.forEach(ev => {
+                        let dateHtml = ev.date ? `<p><small>${new Date(ev.date).toLocaleDateString()}</small></p>` : '';
+                        html += `<p><small><strong>${escapeHtml(ev.title)}</strong></small><br>${escapeHtml(ev.summary)}</p>${dateHtml}`;
                     });
-                });
+                    html += `</div></div>`;
+                } else {
+                    html += `<div class="centered-card"><img src="events.jpg" alt="Events" class="category-img"><div class="card-content"><h3>📅 Upcoming Events - Term 2, 2026</h3>
+                        <p><small><strong>Careers Day - 19 June, 2026</strong></small><br>There will be a Careers Day on 19 June, 2026. The charge is K10 per learner.</p>
+                        <p><small><strong>Education Tour - 5 August, 2026</strong></small><br> There will be an education tour on 5 August, 2026 at Palms Play Park. The charge is K190 per learner.</p></div></div>`;
+                }
+
+                // Announcements card
+                if (announcements.length > 0) {
+                    html += `<div class="centered-card"><img src="announcements.jpg" alt="Announcements" class="category-img"><div class="card-content"><h3>📢 Announcements</h3>`;
+                    announcements.forEach(ann => {
+                        html += `<p><small><strong>${escapeHtml(ann.title)}</strong></small><br>${escapeHtml(ann.summary)}</p>`;
+                    });
+                    html += `</div></div>`;
+                } else {
+                    html += `<div class="centered-card"><img src="announcements.jpg" alt="Announcements" class="category-img"><div class="card-content"><h3>📢 Announcements</h3>
+                        <p><small><strong>Online Results Portal is ready, 2026</strong></small><br>The online results portal is ready. All learners are free to check and download their results.</p>
+                        <p><small><strong>E-learning, 2025</strong></small><br>The school E-learning platform is now active. Watch out for notes, assignments, quizzes and video tutorials -  available for free.</p>
+                        <p><small><strong>Online Classes, 2026</strong></small><br>Online Classs Platform is active. Form 1 and 2 classes are available during holidays. Join the WhatsApp group via +260977819249 for meeting IDs.</p></div></div>`;
+                }
+
+                // News card
+                if (news.length > 0) {
+                    const firstNews = news[0];
+                    let videoHtml = '';
+                    if (firstNews.video_file) {
+                        videoHtml = `<div class="video-container"><video class="video-player" controls playsinline><source src="${firstNews.video_file}" type="video/mp4">Your browser does not support video.</video></div>`;
+                    }
+                    html += `<div class="centered-card"><img src="${firstNews.image || 'News.jpg'}" alt="News" class="category-img"><div class="card-content"><h3>📰 News</h3>
+                        <p><small><strong>${escapeHtml(firstNews.title)}</strong></small><br>${escapeHtml(firstNews.summary)}</p>
+                        ${videoHtml}
+                        ${firstNews.download_link ? `<a href="${firstNews.download_link}" download class="download-btn"><i class="fas fa-download"></i> Download PDF</a>` : ''}
+                    </div></div>`;
+                } else {
+                    html += `<div class="centered-card"><img src="News.jpg" alt="News" class="category-img"><div class="card-content"><h3>📰 News</h3>
+                        <p><small><strong>School Expansion: 2026</strong></small><br>Construction of a new block adjacent to Kemz A is currently underway.</p>
+                        <p><small><strong>2025 End of Year Newsletter</strong></small><br>Listen to the end-of-year newsletter below:</p>
+                        <div class="video-container"><video id="newsVideo" class="video-player" controls playsinline><source src="News.mp4" type="video/mp4">Your browser does not support video.</video></div>
+                        <a href="KemzNewsLetter2025" download class="download-btn"><i class="fas fa-download"></i> Download PDF</a>
+                    </div></div>`;
+                }
+
+                // Highlights card
+                if (highlights.length > 0) {
+                    const firstHighlight = highlights[0];
+                    let videoHtml = '';
+                    if (firstHighlight.video_file) {
+                        videoHtml = `<div class="video-container"><video class="video-player" controls playsinline><source src="${firstHighlight.video_file}" type="video/mp4">Your browser does not support video.</video></div>`;
+                    }
+                    html += `<div class="centered-card"><img src="${firstHighlight.image || 'past.jpg'}" alt="Past Events" class="category-img"><div class="card-content"><h3>🎬 Highlights of Past Events</h3>
+                        <p><small><strong>${escapeHtml(firstHighlight.title)}</strong></small><br>${escapeHtml(firstHighlight.summary)}</p>
+                        ${videoHtml}
+                    </div></div>`;
+                } else {
+                    html += `<div class="centered-card"><img src="past.jpg" alt="Past Events" class="category-img"><div class="card-content"><h3>🎬 Highlights of Past Events</h3>
+                        <p><small><strong>Recreation Tour: August 6, 2025</strong></small><br>Learners enjoying a toy car ride during the recreation tour at Cheryl's Play Park.</p>
+                        <div class="video-container"><video id="highlightsVideo" class="video-player" controls playsinline><source src="Car_ride.mp4" type="video/mp4">Your browser does not support video.</video></div>
+                    </div></div>`;
+                }
+
+                // Educational Videos section from CMS (filtered for updates)
+                if (updatesVideos.length > 0) {
+                    let videosHtml = `<div class="section-title"><h2>🎥 Educational Videos</h2></div><div class="videos-grid">`;
+                    updatesVideos.forEach(v => {
+                        const embedUrl = `https://www.youtube.com/embed/${v.youtube_id}`;
+                        videosHtml += `
+                            <div class="video-card">
+                                <div class="video-responsive"><iframe src="${embedUrl}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+                                <div class="video-info">
+                                    <strong>${escapeHtml(v.title)}</strong>
+                                    <p>${escapeHtml(v.description || '')}</p>
+                                    <a href="https://www.youtube.com/watch?v=${v.youtube_id}" target="_blank"><i class="fab fa-youtube"></i> Watch on YouTube</a>
+                                </div>
+                            </div>
+                        `;
+                    });
+                    videosHtml += `</div>`;
+                    html += videosHtml;
+                }
+
+                document.getElementById('updatesContainer').innerHTML = html;
+
+                // Attach video player logic to dynamically added videos
+                const dynamicVideos = document.querySelectorAll('.video-player');
+                if (dynamicVideos.length > 0) {
+                    const allDynVideos = Array.from(dynamicVideos);
+                    const observer = new IntersectionObserver((entries) => {
+                        entries.forEach(entry => { if (!entry.isIntersecting) entry.target.pause(); });
+                    }, { threshold: 0.1 });
+                    allDynVideos.forEach(video => {
+                        observer.observe(video);
+                        video.addEventListener("play", function() {
+                            allDynVideos.forEach(v => { if (v !== this && !v.paused) v.pause(); });
+                        });
+                    });
+                }
+            } catch (err) {
+                console.error(err);
+                document.getElementById('updatesContainer').innerHTML = '<div class="section"><p style="text-align:center; color:red;">Could not load updates. Please try again later.</p></div>';
             }
         }
 

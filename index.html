@@ -32,6 +32,13 @@
         .btn-secondary { border:2px solid white; color:white; }
         .btn-secondary:hover { background:white; color:#0a2342; }
         .announcement { background:linear-gradient(to right,#0a2342,#1a73e8); color:white; padding:15px; text-align:center; font-weight:500; }
+
+        /* ===== NEW VIDEO SECTION ===== */
+        .video-section { padding:40px 8% 20px; background:#f4f7fb; }
+        .video-section .video-container { max-width:900px; margin:0 auto; }
+        .video-responsive { position:relative; padding-bottom:56.25%; height:0; border-radius:20px; overflow:hidden; box-shadow:0 10px 30px rgba(0,0,0,0.12); background:#000; }
+        .video-responsive iframe { position:absolute; top:0; left:0; width:100%; height:100%; border:0; }
+
         .section { padding:90px 8%; }
         .section-title { text-align:center; margin-bottom:60px; }
         .section-title h2 { font-size:2.5rem; color:#0a2342; margin-bottom:15px; }
@@ -72,6 +79,7 @@
             .hero h1 { font-size:2.7rem; }
             .hero h3 { font-size:1.1rem; }
             .section-title h2 { font-size:2rem; }
+            .video-section { padding:20px 4%; }
         }
     </style>
 </head>
@@ -115,6 +123,52 @@
                 navLinks.classList.remove("active");
             }
         });
+
+        // ===== VIDEO AUTOPLAY/PAUSE ON SCROLL (for the homepage video) =====
+        // This will run after the content is loaded
+        function setupVideoObserver() {
+            const videoSection = document.getElementById('homepageVideoSection');
+            if (!videoSection) return;
+            
+            const iframe = videoSection.querySelector('iframe');
+            if (!iframe) return;
+
+            let isPlaying = false;
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    const video = entry.target;
+                    if (entry.isIntersecting) {
+                        // Video is in view – attempt to play (muted)
+                        try {
+                            // For YouTube, we need to send a postMessage to play
+                            const player = video.contentWindow;
+                            if (player) {
+                                player.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+                                isPlaying = true;
+                            }
+                        } catch (e) {
+                            console.log('Video autoplay error:', e);
+                        }
+                    } else {
+                        // Video is out of view – pause it
+                        if (isPlaying) {
+                            try {
+                                const player = video.contentWindow;
+                                if (player) {
+                                    player.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+                                    isPlaying = false;
+                                }
+                            } catch (e) {
+                                console.log('Video pause error:', e);
+                            }
+                        }
+                    }
+                });
+            }, { threshold: 0.3 }); // 30% visible triggers
+
+            observer.observe(iframe);
+        }
 
         // Default data (same as original hardcoded content)
         const defaultData = {
@@ -183,6 +237,22 @@
                 // Announcements
                 html += `<div class="announcement">${(d.announcements || defaultData.announcements).map(a => `<p>${escapeHtml(a.text)}</p>`).join('')}</div>`;
 
+                // ===== NEW VIDEO SECTION (above "Over 20 years...") =====
+                const videoId = d.video_id || 'N4pLoFCntu8'; // Use default if not set in CMS
+                html += `
+                    <section class="video-section" id="homepageVideoSection">
+                        <div class="video-container">
+                            <div class="video-responsive">
+                                <iframe id="homepageVideo" src="https://www.youtube.com/embed/${videoId}?enablejsapi=1&autoplay=0&mute=1&playsinline=1&rel=0&modestbranding=1" 
+                                    frameborder="0" 
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                    allowfullscreen>
+                                </iframe>
+                            </div>
+                        </div>
+                    </section>
+                `;
+
                 // About section
                 html += `<section class="section"><div class="section-title"><h2>${escapeHtml(d.about_title)}</h2><p>${escapeHtml(d.about_text)}</p><div class="gallery-slider"><br><img src="${d.about_image}" alt=""></div><br><h2>${escapeHtml(d.services_title)}</h2><p>Explore modern digital services offered by KEMZ Academic Centre.</p></div><div class="services-grid">`;
                 (d.services || defaultData.services).forEach(s => {
@@ -229,6 +299,10 @@
                         }
                     });
                 }
+
+                // Setup video autoplay/pause on scroll
+                setupVideoObserver();
+
             } catch (err) {
                 console.error(err);
                 document.getElementById('homepageContent').innerHTML = '<p style="text-align:center; padding:50px;">Could not load content. Using default.</p>';
