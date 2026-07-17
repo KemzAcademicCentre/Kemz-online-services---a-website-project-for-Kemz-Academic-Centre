@@ -6,9 +6,7 @@ media_folder: "images/uploads"
 public_folder: "/images/uploads"
 
 collections:
-  # ------------------------------
   # 1. RESULTS PORTAL SETTINGS (per‑year Google Apps Script URLs)
-  # ------------------------------
   - label: "Results Settings"
     name: "results_settings"
     files:
@@ -23,9 +21,7 @@ collections:
               - { label: "Year", name: "year", widget: "string", pattern: ["^\\d{4}$", "Must be a 4‑digit year"] }
               - { label: "Google Apps Script URL", name: "script_url", widget: "string", required: true }
 
-  # ------------------------------
   # 2. INQUIRY PAGE FORMS (Google Form embed URLs)
-  # ------------------------------
   - label: "Inquiry Forms"
     name: "forms_settings"
     files:
@@ -36,9 +32,7 @@ collections:
           - { label: "Query Form URL", name: "query_form_url", widget: "string", required: true, default: "https://docs.google.com/forms/d/e/1FAIpQLSdq7fu5E_yyTbh23ZcOK-r_oOfG604LNoCsJdx8OrgZBD0beg/viewform?embedded=true" }
           - { label: "Suggestions Form URL", name: "suggestions_form_url", widget: "string", required: true, default: "https://docs.google.com/forms/d/e/1FAIpQLSdFhEZlIVhKNBKn8h2erZZm_DuMA6TgilgpxhYH1VnrSVx9ow/viewform?embedded=true" }
 
-  # ------------------------------
   # 3. VIDEOS (YouTube unlisted)
-  # ------------------------------
   - label: "Videos"
     name: "videos"
     files:
@@ -55,9 +49,7 @@ collections:
               - { label: "YouTube Video ID (e.g., dQw4w9WgXcQ)", name: "youtube_id", widget: "string", required: true }
               - { label: "Thumbnail (optional)", name: "thumbnail", widget: "image", required: false }
 
-  # ------------------------------
-  # 4. STAFF (unchanged)
-  # ------------------------------
+  # 4. STAFF (single file list)
   - label: "Staff"
     name: "staff"
     files:
@@ -75,9 +67,7 @@ collections:
               - { label: "Photo", name: "image", widget: "image" }
               - { label: "Status", name: "status", widget: "select", options: ["serving", "former"], default: "serving" }
 
-  # ------------------------------
-  # 5. UPDATES (unchanged)
-  # ------------------------------
+  # 5. UPDATES (single file list)
   - label: "Updates"
     name: "updates"
     files:
@@ -95,10 +85,11 @@ collections:
               - { label: "Full Details", name: "body", widget: "markdown", required: false }
               - { label: "Image", name: "image", widget: "image", required: false }
               - { label: "Date", name: "date", widget: "datetime", required: false }
+              # Optional video fields for News/Highlights – comment out if not needed
+              # - { label: "Video File (optional)", name: "video_file", widget: "file", required: false }
+              # - { label: "Download Link (optional)", name: "download_link", widget: "string", required: false }
 
-  # ------------------------------
-  # 6. LEARNING MATERIALS (unchanged)
-  # ------------------------------
+  # 6. LEARNING MATERIALS (single file list)
   - label: "Learning Materials"
     name: "learning"
     files:
@@ -116,22 +107,7 @@ collections:
               - { label: "File", name: "file", widget: "file" }
               - { label: "Thumbnail", name: "thumbnail", widget: "image", required: false }
 
-  # ------------------------------
-  # 7. REGISTRATION INFO (unchanged)
-  # ------------------------------
-  - label: "Registration Info"
-    name: "registration"
-    folder: "_data/registration"
-    create: true
-    slug: "info"
-    fields:
-      - { label: "Page Heading", name: "heading", widget: "string", default: "Online Registration" }
-      - { label: "Intro Text", name: "intro", widget: "markdown" }
-      - { label: "Google Form Embed URL", name: "form_url", widget: "string" }
-
-  # ------------------------------
-  # 8. HOMEPAGE (unchanged)
-  # ------------------------------
+  # 7. HOMEPAGE CONTENT
   - label: "Homepage"
     name: "homepage"
     files:
@@ -157,14 +133,12 @@ collections:
           - { label: "Government Article Title", name: "gov_title", widget: "string", default: "GOVERNMENT REAFFIRMS COMMITMENT TO DIGITAL EDUCATION" }
           - { label: "Article Image", name: "gov_image", widget: "image", default: "web.jpg" }
           - { label: "Article Intro", name: "gov_intro", widget: "markdown", default: "On 28 March, 2026, Information and Media Permanent Secretary Thabo Kawana, represented by ZANIS Director Loyce Saili, officiated at the launch of the KEMZ Academic Centre School Website and Internet Café in Kanyama-Lusaka." }
-          - { label: "Article Full Text", name: "gov_full", widget: "markdown", default: "**Here are the highlights:**\n\n• The launch of the KEMZ Academic Centre School Website and Internet Café underscores Government’s commitment..." }
+          - { label: "Article Full Text", name: "gov_full", widget: "markdown", default: "**Here are the highlights:**\n\n• The launch of the KEMZ Academic Centre School Website and Internet Café underscores Government’s commitment to promoting access to information, innovation and technology driven learning as key pillars of national development." }
           - { label: "Leadership Name", name: "leader_name", widget: "string", default: "Mayungo Kennedy" }
           - { label: "Leadership Position", name: "leader_position", widget: "string", default: "School Director" }
           - { label: "Leadership Photo", name: "leader_image", widget: "image", default: "Kozo.jpg" }
 
-  # ------------------------------
-  # 9. ABOUT PAGE (unchanged)
-  # ------------------------------
+  # 8. ABOUT PAGE
   - label: "About Page"
     name: "about"
     files:
@@ -181,15 +155,13 @@ collections:
           - { label: "Mission", name: "mission", widget: "text", default: "To provide a holistic education that develops learners intellectually, socially, and emotionally, preparing them for success in higher education and beyond." }
           - { label: "Vision", name: "vision", widget: "text", default: "To be a leading educational institution in giving an equal opportunity to everyone to acquire quality education, for education is key sustenance to development as it is an equalizer for all." }
           - { label: "Values", name: "values", widget: "list", fields: [{ label: "Value", name: "value", widget: "string" }], default: ["Excellence in Academics","Integrity and Ethics","Respect for Diversity","Innovation and Creativity","Community Engagement"] }
-          - { label: "History Paragraphs", name: "history", widget: "list", fields: [{ label: "Paragraph", name: "paragraph", widget: "text" }], default: ["Kemz Academic Centre is a Private School whose founder is Mr Mayungo Kennedy...","The school was established in the year 2005...","A few years ago, another campus was established in Mumbwa...","Our growth is attributed to our commitment to academic excellence..."] }
+          - { label: "History Paragraphs", name: "history", widget: "list", fields: [{ label: "Paragraph", name: "paragraph", widget: "text" }], default: ["Kemz Academic Centre is a Private School whose founder is Mr Mayungo Kennedy, a teacher by profession who holds a bachelor's degree from the University of Africa.","The school was established in the year 2005. The school started as a Pre-School and Lower Primary School with just 15 learners. KEMZ Academic Centre has grown exponentially over the years with an expansion that now includes Upper Primary Level and Secondary Ordinary Level at Lusaka's main campus. Today, we serve over 1000 learners across all educational levels at the main campus.","A few years ago, another campus was established in Mumbwa. The campus runs from Pre-School to Grade 7 and has over 300 learners.","Our growth is attributed to our commitment to academic excellence and our dedicated staff."] }
           - { label: "Location Details", name: "location", widget: "object", fields: [{ label: "Lusaka Address", name: "lusaka", widget: "string", default: "Plot No 88/37 - Along Magwava Road, Makeni Villa, Lusaka District, Zambia." }, { label: "Mumbwa Address", name: "mumbwa", widget: "string", default: "Plot No ... - Along Old Mumbwa Road, Mumbwa District, Zambia." }] }
           - { label: "Contact Phones", name: "phones", widget: "object", fields: [{ label: "Director", name: "director", widget: "string", default: "+260 977916081" }, { label: "Lusaka Manager", name: "lusaka", widget: "string", default: "+260 977819249" }, { label: "Mumbwa Manager", name: "mumbwa", widget: "string", default: "+260 977505012" }, { label: "Accounts", name: "accounts", widget: "string", default: "+260 977432490" }] }
           - { label: "Contact Email", name: "email", widget: "string", default: "kemzacademiccentre@gmail.com" }
           - { label: "Office Hours", name: "hours", widget: "list", fields: [{ label: "Day", name: "day", widget: "string" }, { label: "Hours", name: "hours", widget: "string" }], default: [{"day":"Monday-Friday","hours":"7:30 AM - 5:00 PM"},{"day":"Saturday","hours":"8:00 AM - 12:00 PM"},{"day":"Sunday","hours":"Closed"}] }
 
-  # ------------------------------
-  # 10. FAQ (unchanged)
-  # ------------------------------
+  # 9. FAQ (Inquiries page)
   - label: "FAQ"
     name: "faq"
     files:
@@ -203,3 +175,34 @@ collections:
             fields:
               - { label: "Question", name: "question", widget: "string" }
               - { label: "Answer", name: "answer", widget: "markdown" }
+
+  # 10. QUIZZES (for E-Learning page)
+  - label: "Quizzes"
+    name: "quizzes"
+    files:
+      - name: "all"
+        label: "All Quizzes"
+        file: "_data/quizzes.json"
+        fields:
+          - label: "Quizzes List"
+            name: "quizzes"
+            widget: "list"
+            fields:
+              - { label: "ID (unique)", name: "id", widget: "string" }
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Questions", name: "questions", widget: "list", fields: [
+                  { label: "Question Text", name: "text", widget: "string" },
+                  { label: "Options (4)", name: "options", widget: "list", min: 4, max: 4, fields: [{ label: "Option", name: "option", widget: "string" }] },
+                  { label: "Correct Answer (a/b/c/d)", name: "correct", widget: "select", options: ["a", "b", "c", "d"] }
+                ] }
+
+  # 11. REGISTRATION INFO
+  - label: "Registration Info"
+    name: "registration"
+    folder: "_data/registration"
+    create: true
+    slug: "info"
+    fields:
+      - { label: "Page Heading", name: "heading", widget: "string", default: "Online Registration" }
+      - { label: "Intro Text", name: "intro", widget: "markdown" }
+      - { label: "Google Form Embed URL", name: "form_url", widget: "string" }
