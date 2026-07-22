@@ -55,6 +55,13 @@
       "position": "Class Teacher",
       "details": "Primary Diploma",
       "image": "/images/uploads/1f5caa24-a730-4d16-b1e9-56c43bdade43.jpeg"
+    },
+    {
+      "status": "serving",
+      "name": "Priscilla Zulu",
+      "position": "Class Teacher ",
+      "details": "ECE Diploma ",
+      "image": "/images/uploads/bc1e7c88-af57-4179-adb2-4e92b6819ff5.jpeg"
     }
   ]
 }
