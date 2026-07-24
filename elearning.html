@@ -201,8 +201,6 @@
                 if (videosRes.ok) videos = (await videosRes.json()).videos || [];
                 if (quizzesRes.ok) quizzes = (await quizzesRes.json()).quizzes || [];
 
-                // ===== FILTER VIDEOS FOR E-LEARNING =====
-                // Show videos with category "elearning" or "both"
                 const elearningVideos = videos.filter(v => v.category === 'elearning' || v.category === 'both');
 
                 const defaultQuizzes = [
@@ -213,7 +211,6 @@
                 ];
                 const finalQuizzes = (quizzes.length ? quizzes : defaultQuizzes);
 
-                // Build learning materials
                 const categories = ['ECE', 'Lower Primary', 'Upper Primary', 'Secondary'];
                 let materialsHtml = `<div class="section"><div class="section-title"><h2>📚 Learning Materials</h2></div><div class="category-grid">`;
                 for (let cat of categories) {
@@ -229,15 +226,22 @@
                 }
                 materialsHtml += `</div></div>`;
 
-                // Build videos (filtered for elearning)
+                // ===== FIXED VIDEOS SECTION (using homepage embed parameters) =====
                 let videosHtml = '';
                 if (elearningVideos.length > 0) {
                     videosHtml = `<div class="section"><div class="section-title"><h2>🎥 Educational Videos</h2></div><div class="videos-grid">`;
                     elearningVideos.forEach(v => {
-                        const embedUrl = `https://www.youtube.com/embed/${v.youtube_id}`;
+                        // Use the same embed parameters as the working homepage video
+                        const embedUrl = `https://www.youtube.com/embed/${v.youtube_id}?enablejsapi=1&autoplay=0&mute=1&playsinline=1&rel=0&modestbranding=1`;
                         videosHtml += `
                             <div class="video-card">
-                                <div class="video-responsive"><iframe src="${embedUrl}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+                                <div class="video-responsive">
+                                    <iframe src="${embedUrl}" 
+                                        frameborder="0" 
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                        allowfullscreen>
+                                    </iframe>
+                                </div>
                                 <div class="video-info">
                                     <strong>${escapeHtml(v.title)}</strong>
                                     <p>${escapeHtml(v.description || '')}</p>
@@ -251,14 +255,12 @@
                     videosHtml = `<div class="section"><div class="section-title"><h2>🎥 Educational Videos</h2></div><p style="text-align:center;">No videos added yet. Check back later.</p></div>`;
                 }
 
-                // Build quizzes
                 let quizzesHtml = `<div class="section"><div class="section-title"><h2>📝 Interactive Quizzes</h2></div>`;
                 finalQuizzes.forEach(quiz => {
                     quizzesHtml += `<div class="quiz-card" id="quiz-${quiz.id}"><div class="quiz-header"><h3><i class="fas fa-brain"></i> ${escapeHtml(quiz.title)}</h3></div><div class="quiz-body"><div class="quiz-container" data-quiz-id="${quiz.id}"></div></div></div>`;
                 });
                 quizzesHtml += `</div>`;
 
-                // Other static sections (unchanged)
                 const otherHtml = `
                     <div class="info-grid-2col">
                         <div class="info-card"><h3><i class="fas fa-chalkboard-teacher"></i> Virtual Classes</h3><ul><li><i class="fas fa-calendar-check"></i> <a href="#">View Timetable</a></li><li><i class="fas fa-video"></i> <a href="#">Join Live Class (Sample)</a></li><li><i class="fas fa-reply"></i> <a href="#">Class Recordings</a></li></ul></div>
@@ -279,13 +281,11 @@
                 const fullHtml = materialsHtml + videosHtml + quizzesHtml + otherHtml;
                 document.getElementById('elearningContent').innerHTML = fullHtml;
 
-                // Initialize quizzes
                 finalQuizzes.forEach(quiz => {
                     const container = document.querySelector(`.quiz-container[data-quiz-id="${quiz.id}"]`);
                     if (container) buildQuiz(container, quiz, quiz.id);
                 });
 
-                // Chat functionality
                 const sendBtn = document.getElementById('sendChatBtn');
                 const chatInput = document.getElementById('chatInput');
                 const chatMessages = document.getElementById('chatMessages');
